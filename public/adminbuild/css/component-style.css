@@ -1,0 +1,19 @@
+.alert-validate {
+    margin-top: 0.25rem;
+}
+
+.alert-validate ul {
+    list-style: inside;
+    padding: 0 0 0 1rem;
+    margin: 0;
+}
+
+.alert-validate ul li {
+    list-style-type: '* ';
+    color: var(--bs-danger);
+    font-style: italic;
+}
+
+.alert-validate ul li:not(:last-child) {
+    margin-bottom: 0.25rem;
+}

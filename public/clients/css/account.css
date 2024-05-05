@@ -1,0 +1,217 @@
+/* General */
+
+.general__title {
+    margin-bottom: 2.5rem;
+}
+
+.general__title>h2 {
+    font-family: var(--font-bold);
+    font-size: var(--font-sz-4xl);
+    color: var(--color-white);
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+/* Account Section */
+
+.account-section {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    background: linear-gradient(0deg, #C33764, #1D2671);
+}
+
+.account__return-home {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: var(--font-sz-4xl);
+    color: var(--color-white);
+}
+
+.account__return-home ion-icon svg>title {
+    display: none;
+}
+
+.account {
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+}
+
+.account:before {
+    --width: 1000px;
+    content: '';
+    position: absolute;
+    top: calc(50% - var(--width)/2);
+    left: calc(50% - var(--width)/2);
+    z-index: -1;
+    width: var(--width);
+    aspect-ratio: 1;
+    background: #ffffff20;
+}
+
+.account__inner {
+    border-radius: inherit;
+    padding: 1.5rem 2rem;
+}
+
+.account__info {
+    font-family: var(--font-medium);
+    font-size: var(--font-sz-s);
+    color: var(--color-white);
+}
+
+.account__transfer {
+    font-family: var(--font-bold);
+}
+
+.account__transfer,
+.account__transfer:hover {
+    text-decoration: underline;
+}
+
+.account__label {
+    position: absolute;
+    top: 50%;
+    left: 0.625rem;
+    z-index: 2;
+    font-family: var(--font-medium);
+    font-size: var(--font-sz-l);
+    color: var(--color-black);
+    margin-bottom: 0.25rem;
+    transform: translateY(-50%);
+    transition: all 0.15s ease-out;
+}
+
+.account__input {
+    flex: 1;
+    border-radius: 0.25rem;
+    padding: 0.625rem;
+}
+
+.account__input:focus-visible+.account__label,
+.account__input:not(:placeholder-shown)+.account__label,
+.account__input:hover+.account__label {
+    top: -0.625rem;
+    left: 0;
+    font-family: var(--font-bold);
+    font-size: var(--font-sz-m);
+    color: var(--color-white);
+}
+
+.account__input::-webkit-input-placeholder {
+    opacity: 0;
+    transition: all 0.15s ease-out;
+}
+
+.account__input:focus-visible::-webkit-input-placeholder,
+.account__input:hover::-webkit-input-placeholder {
+    opacity: 1;
+}
+
+.account__input-list {
+    width: 350px;
+}
+
+.account__input-item {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.account-validate {
+    display: block;
+    color: var(--color-white);
+    margin-top: 0.375rem;
+}
+
+.account__input-item:where(:not(.is-password, .has-valid, :last-child)) {
+    margin-bottom: 2rem;
+}
+
+.account__input-item:is(.is-password) {
+    border-radius: 0.25rem;
+    background: #fff;
+}
+
+.account__input-item:not(.is-password) {
+    flex-direction: column;
+}
+
+.account__input-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    cursor: pointer;
+}
+
+.account__button {
+    width: 100%;
+    font-family: var(--font-bold);
+    font-size: var(--font-sz-m);
+    color: var(--color-white);
+    text-transform: uppercase;
+    border-radius: 0.25rem;
+    background: #1a1a1a;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+}
+
+.account__button:hover {
+    text-shadow: 0px 0px 2px #fff;
+    box-shadow: 0px 0px 5px 1px #1a1a1a;
+}
+
+.account__button-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem 1rem;
+    margin-top: 1.5rem;
+}
+
+.client-info__title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.client-info__title h2 {
+    font-family: var(--font-bold);
+    font-size: var(--font-sz-4xl);
+    color: var(--color-black);
+    text-transform: uppercase;
+}
+
+.client-info form {
+    width: 500px;
+    margin: auto;
+}
+
+.client-info__list {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.client-info__label {
+    position: relative;
+    top: unset;
+    transform: unset;
+}
+
+.client-info .account__input-item:where(:not(.is-password, .has-valid, :last-child)) {
+    margin-bottom: 1rem;
+}
+
+.client-info .account__input-item:not(.is-password)>.account__input,
+.client-info .account__input-item:is(.is-password) {
+    border: 1px solid #ccc !important;
+}
+
+.client-info .account-validate {
+    color: var(--color-red);
+}
