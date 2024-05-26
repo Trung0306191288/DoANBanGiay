@@ -106,8 +106,8 @@ $(document).on('click', '.delete_main', function() {
             var cate = $(this).data('cate');
             if (type_man != '' && cate == 'man') {
                 window.location.href = '../../' + type + '/delete/' + id + '/' + type_man + '/' + cate;
-            } else if (type_blogs != '' && type_blogs != null) {
-                window.location.href = '../' + type + '/delete/' + id + '/' + type_blogs;
+            } else if (type_baiviets != '' && type_baiviets != null) {
+                window.location.href = '../' + type + '/delete/' + id + '/' + type_baiviets;
             } else {
                 window.location.href = type + '/xoa/' + id;
             }

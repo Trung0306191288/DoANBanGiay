@@ -79,7 +79,45 @@ function News() {
         //     el: '.swiper-pagination',
         // },
     });
+
+    var Swipes = new Swiper(".swiper.swiper-tieuchi", {
+        loop: false,
+        speed: 800,
+        slidesPerView: 4,
+        spaceBetween: 20,
+        autoplay: true,
+        navigation: {
+            nextEl: ".swiper-button-next.swiper-tieuchi-next",
+            prevEl: ".swiper-button-prev.swiper-tieuchi-prev",
+        },
+        scrollbar: {
+            hide: true,
+        },
+        // pagination: {
+        //     el: '.swiper-pagination',
+        // },
+    });
 }
+// Tieu-chi
+// function Tieuchi() {
+//     var Swipes = new Swiper(".swiper.swiper-tieuchi", {
+//         loop: false,
+//         speed: 800,
+//         slidesPerView: 4,
+//         spaceBetween: 20,
+//         autoplay: true,
+//         navigation: {
+//             nextEl: ".swiper-button-next.swiper-tieuchi-next",
+//             prevEl: ".swiper-button-prev.swiper-tieuchi-prev",
+//         },
+//         scrollbar: {
+//             hide: true,
+//         },
+//         // pagination: {
+//         //     el: '.swiper-pagination',
+//         // },
+//     });
+// }
 
 function eyesOnOff() {
     $(".account__input-icon").on("click", function() {
@@ -608,7 +646,13 @@ NN_FRAMEWORK.OwlPage = function () {
 		});
 	}
 };
-
-$(document).ready(function () {
-    NN_FRAMEWORK.OwlPage();
+$(function() {
+ slickpage();
+ News();
+ Tieuchi();
 });
+
+// $(document).ready(function () {
+//     NN_FRAMEWORK.OwlPage();
+//     NN_FRAMEWORK.slickpage();
+// });
