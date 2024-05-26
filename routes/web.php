@@ -10,9 +10,15 @@ use App\Http\Controllers\ThuongHieuController;
 use App\Http\Controllers\KichThuocController;
 use App\Http\Controllers\MauSacController;
 use App\Http\Controllers\LoaiHinhAnhController;
+use App\Http\Controllers\BaiVietController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MemberClientController;
+use App\Http\Controllers\CategoryMemberController;
+
 
 
 use App\Http\Controllers\Clients\TrangChuController;
+use App\Http\Controllers\Clients\TaiKhoanController;
 
 
 // Auth::routes();
@@ -23,6 +29,17 @@ Route::get('/', function () {
 
 Route::prefix('/')->group(function () {
     Route::get('/',[TrangChuController::class, 'index'])->name('clientIndex');
+
+    Route::controller(TaiKhoanController::class)->group(function () {
+        Route::get('dang-nhap', 'login')->name('clientLogin');
+        Route::post('dang-nhap', 'DangNhap')->name('handleClientLogin');
+        Route::get('dang-ky', 'register')->name('clientRegister');
+        Route::post('dang-ky', 'handleRegister')->name('handleClientRegister');
+        Route::get('dang-xuat', 'dangxuat')->name('handleClientLogout');
+
+        Route::get('thong-tin-ca-nhan', 'clientInfo')->name('clientInfo');
+        Route::post('cap-nhat-thong-tin', 'handleUpdate')->name('handleClientUpdate');
+    });
 });
 
 
@@ -38,6 +55,37 @@ Route::prefix('/admin')->group(function () {
         Route::get('/admin/logout', [DangNhapController::class, 'DangXuat'])->name('dangxuat');
         Route::get('/doi-mat-khau-admin', [DangNhapController::class, 'doi_mat_khau_admin'])->name('doi_mat_khau_admin');
         Route::post('/doi-mat-khau-admin', [DangNhapController::class, 'xu_ly_doi_mat_khau_admin'])->name('xu_ly_doi_mat_khau_admin');
+
+        Route::controller(MemberController::class)->group(function () {
+            Route::prefix('/member_admins')->group(function () {
+                Route::get('/', 'index')->name('member_admins');
+                Route::get('add', 'loadAddMember_admins')->name('loadaddmember_admins');
+                Route::post('add', 'handleAddMember_admins')->name('handleaddmember_admins');
+                Route::get('update/{id}', 'loadUpdateMember_admins')->name('loadupdatemember_admins');
+                Route::post('update/{id}', 'handleUpdateMember_admins')->name('handleupdatemember_admins');
+                Route::get('delete/{id}', 'deleteMember_admins')->name('deletemember_admins');
+            });
+        });
+
+        Route::controller(MemberClientController::class)->group(function () {
+            Route::prefix('/member_client')->group(function () {
+                Route::get('/', 'index')->name('member_client');
+                Route::get('update/{id}', 'loadUpdateMember_client')->name('loadupdatemember_client');
+                Route::post('update/{id}', 'handleUpdateMember_client')->name('handleupdatemember_client');
+                Route::get('delete/{id}', 'deleteMember_client')->name('deletemember_client');
+            });
+        });
+
+        Route::controller(CategoryMemberController::class)->group(function () {
+            Route::prefix('/cate_members')->group(function () {
+                Route::get('/', 'index')->name('cate_members');
+                Route::get('add', 'loadAddCate_Member')->name('loadaddcate_member');
+                Route::post('add', 'handleAddCate_Member')->name('handleaddcate_member');
+                Route::get('update/{id}', 'loadUpdateCate_Member')->name('loadupdatecate_member');
+                Route::post('update/{id}', 'handleUpdateCate_Member')->name('handleupdatecate_member');
+                Route::get('delete/{id}', 'deleteCate_Member')->name('deletecate_member');
+            });
+        });
 
         // Thêm xóa sửa danh mục cấp một
         Route::prefix('/danh-muc-cap-mot')->group(function () {
@@ -101,6 +149,18 @@ Route::prefix('/admin')->group(function () {
             Route::get('cap-nhat/{id}/{loai}/{cate}',[LoaiHinhAnhController::class, 'capnhatLoaiHinhAnh'])->name('loadCapNhatLoaiHinhAnh');
             Route::post('cap-nhat/{id}/{loai}/{cate}',[LoaiHinhAnhController::class, 'xulyCapNhatLoaiHinhAnh'])->name('xulyCapNhatLoaiHinhAnh');
             Route::get('xoa/{id}/{loai}/{cate}',[LoaiHinhAnhController::class, 'xoaLoaiHinhAnh'])->name('xoaLoaiHinhAnh');
+        });
+
+        Route::controller(BaiVietController::class)->group(function () {
+            Route::prefix('/baiviets')->group(function () {
+                Route::get('/{type}', 'index')->name('bai_viets');
+                Route::get('add/{type}', 'LoadAddBaiviets')->name('LoadAddBaiviets');
+                Route::post('add/{type}', 'handleAddBaiviets')->name('handleAddBaiviets');
+                Route::get('update/{id}/{type}', 'loadUpdateBaiviets')->name('loadUpdateBaiviets');
+                Route::post('update/{id}/{type}', 'handleUpdateBaiviets')->name('handleUpdateBaiviets');
+                Route::get('delete/{id}/{type}', 'deleteBaiviets')->name('deleteBaiviets');
+                Route::get('search/{type}', 'searchBaiviets')->name('searchBaiviets');
+            });
         });
     
     });
