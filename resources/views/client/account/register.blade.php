@@ -2,7 +2,7 @@
 @section('content')
     <div class="account-section">
         <section class="account">
-            <a class="account__return-home" href="{{ route('clientIndex') }}" title="Về trang chủ">
+            <a class="account__return-home" href="{{ route('TrangChu') }}" title="Về trang chủ">
                 <ion-icon name="arrow-back-outline"></ion-icon>
             </a>
             <div class="account__inner">

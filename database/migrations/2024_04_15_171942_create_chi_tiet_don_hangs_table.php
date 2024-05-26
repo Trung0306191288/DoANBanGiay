@@ -18,8 +18,10 @@ return new class extends Migration
             $table->foreignId('id_don_hang')->constrained('don_hangs')->nullable();
             $table->foreignId('id_san_pham')->constrained('san_phams')->nullable();
             $table->integer('tong_gia');
+            $table->string('dia_chi');
+            $table->string('ghi_chu');
             $table->integer('gia_ban');
-            $table->integer('gia_giam');
+            $table->integer('gia_moi');
             // $table->integer('ship_price')->nullable();
             $table->string('hinh_anh');
             $table->string('ten_kich_thuoc');

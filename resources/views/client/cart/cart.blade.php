@@ -1,10 +1,11 @@
 @extends('client.index')
 @section('content')
     <div class="wrap-main">
-        <section class="cart">
-            <div class="main__title text-left">
-                <h2>Giỏ hàng</h2>
-            </div>
+        <div class="title-main">
+            <span>Giỏ hàng của bạn</span>
+            <div class="animate-border"></div>
+        </div>
+        <div class="cart wrap-cart">
             <div class="cart__inner">
                 @if (session('cart'))
                     @php $total = 0 @endphp
@@ -17,8 +18,8 @@
                                         <div class="cart__item--left">
                                             <div class="cart__item-photo">
                                                 <div class="cart__item-photo-inner">
-                                                    <img onerror="{{ asset('adminate/images/noimg.jpg') }}"
-                                                        src="{{ asset('upload/products/' . $details['photo']) }}"
+                                                    <img onerror="{{ asset('adminbuild/images/noimage.png') }}"
+                                                        src="{{ asset('upload/sanpham/' . $details['photo']) }}"
                                                         alt="{{ $details['name'] }}">
                                                 </div>
                                             </div>
@@ -32,7 +33,7 @@
                                                         <span>{{ $details['colorName'] }}</span>
                                                     </div>
                                                     <div class="cart__item-attr-storage">
-                                                        <span>Dung lượng: </span>
+                                                        <span>Kích thước: </span>
                                                         <span>{{ $details['sizeName'] }}</span>
                                                     </div>
                                                     <div class="cart__item-price">
@@ -82,9 +83,10 @@
                                     oninvalid="this.setCustomValidity('Vui lòng chọn hình thức thanh toán')"
                                     oninput="setCustomValidity('')" title="Vui lòng chọn hình thức thanh toán" required>
                                     <option value="">Chọn hình thức thanh toán</option>
-                                    @foreach ($payments as $payment)
+                                    {{-- @foreach ($payments as $payment)
                                         <option value="{{ $payment->id }}">{{ $payment->name }}</option>
-                                    @endforeach
+                                    @endforeach --}}
+                                    <option value="thanh toan">thanh toan</option>
                                 </select>
                             </div>
                             <div class="cart__info-item-list">
@@ -124,11 +126,13 @@
                         </form>
                     </div>
                 @else
-                    <div class="alert alert-warning text-center w-100">
-                        <a href="{{ route('clientIndex') }}">Bạn chưa thêm sản phẩm nào!</a>
-                    </div>
+                    <a href="{{ route('TrangChu') }}" class="empty-cart text-decoration-none d-block">
+                        <div><ion-icon name="cart-outline"></ion-icon></div>
+                        <p>Không tồn tại sản phẩm nào trong giỏ hàng !</p>
+                        <span class="btn btn-warning">Về trang chủ</span>
+                    </a>
                 @endif
             </div>
-        </section>
+        </div>
     </div>
 @endsection

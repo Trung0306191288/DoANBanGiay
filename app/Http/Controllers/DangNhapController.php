@@ -32,7 +32,7 @@ class DangNhapController extends Controller
         return $this->loggedOut($data) ?: redirect('/');
     }
 
-    public function doi_mat_khau_admin()
+    public function doi_mat_khau_admin(Request $data)
     {
         $pageName = 'Đổi mật khẩu';
         return view('admin.member_admin.change_pass', compact('pageName'));

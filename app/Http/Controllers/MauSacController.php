@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class MauSacController extends Controller
 {
-    public function index()
+    public function DanhSach()
     {
         $pageName = 'Quản lý màu sắc';
         $colors = MauSac::get()->sortBy('id');

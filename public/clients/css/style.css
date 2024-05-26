@@ -23,7 +23,7 @@
 
 
 /* General */
-
+img { max-width: 100%; height: auto; vertical-align: top; } 
 .wrap-main,
 .wrap-content {max-width: 1200px;margin: auto;width: calc(100% - 30px);}
 
@@ -85,10 +85,23 @@
 }
 
 .main__title h2 {
-    font-family: var(--font-bold);
-    font-size: var(--font-sz-3xl);
-    color: var(--color-black);
-    text-transform: capitalize;
+    text-transform: uppercase;
+    font-size: 30px;
+    display: inline-block;
+    color: #000;
+    font-family: 'Montserrat-Bold';
+}
+
+.title-main {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.title-main span{
+    text-transform: uppercase;
+    font-size: 30px;
+    display: inline-block;
+    color: #000;
+    font-family: 'Montserrat-Bold';
 }
 
 .custom-swipper-button {
@@ -106,7 +119,7 @@
     --height: 32px;
     display: flex;
     justify-content: space-between;
-    width: 530px;
+    width: 450px;
     border: 2px solid #000;
     border-radius: 999px;
     padding: 3px 4px 3px 10px;
@@ -724,7 +737,10 @@
     transition: all 0.3s ease;
     cursor: pointer;
 }
-
+.color__item {
+    padding: 3px !important;
+    border-radius: 50% !important;
+}
 .product-detail__storage .storage__item:hover,
 .product-detail__storage .storage__item.active,
 .product-detail__color .color__item.active,
@@ -956,6 +972,98 @@
     transform: translateX(5px);
 }
 
+/* sản phẩm trang chủ */
+.wrap-product-new {position: relative;padding-top: 50px;}
+.wrap-product {position: relative;}
+.wrap-product:nth-child(2n) {padding: 50px 0;}
+.box-product {position: relative;display: block;text-align: center;background: #fff;} 
+.pic-product {margin-bottom: 0px;display: block;}   
+.pic-product img {height: 300px;} 
+.info-product {padding-top: 10px;text-align: left;} 
+.name-product { font-size: 14px; text-transform: uppercase; margin-bottom: 0rem;font-family:'Montserrat-Bold'; color: #333333; } 
+.name-product:hover { color: #a5afcd; } 
+.price-product { margin-bottom: 0px; } 
+.price-new {font-size: 16px;color: #bb0007 !important;font-family: 'Montserrat-Bold';} 
+.price-old {text-decoration: line-through;color: #666666;font-size: 13px;text-align: center;margin-left: 5px;} 
+.pic-product a {display: block;width: 100%;}
+.price-new span {color: #000;}
+
+.product { float: left; width: 32%; margin: 0 2% 2% 0; } 
+.product:nth-child(3n+1) { clear: both; } 
+.product:nth-child(3n) { margin-right: 0px; } 
+
+/* Sản phẩm chi tiết và trang trong */
+
+.product-paging { float: left; width: 23.5%; margin: 0 2% 2% 0; } 
+.product-paging:nth-child(4n+1) { clear: both; } 
+.product-paging:nth-child(4n) { margin-right: 0px; } 
+
+/* Animations */
+/* Text Hide */
+.text-split { overflow: hidden; text-overflow: ellipsis; white-space: normal; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3; } 
+.split1{-webkit-line-clamp: 1;}
+.split2{-webkit-line-clamp: 2;}
+.split4{-webkit-line-clamp: 4;}
+.split5{-webkit-line-clamp: 5;}
+ /*Line*/
+ .animate-border {
+    position: relative;
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(180deg, #000, #a5afcd);
+    overflow: hidden;
+    margin-top: 5px !important;
+    margin: auto;
+}
+
+.animate-border:after {
+    position: absolute;
+    content: "";
+    width: 30px;
+    height: 3px;
+    left: 15px;
+    bottom: 0;
+    border-left: 10px solid #fff;
+    border-right: 10px solid #fff;
+    -webkit-animation: animborder 2s linear infinite;
+    animation: animborder 2s linear infinite
+}
+
+@-webkit-keyframes animborder {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    100% {
+        -webkit-transform: translateX(113px);
+        transform: translateX(113px)
+    }
+}
+
+@keyframes animborder {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    100% {
+        -webkit-transform: translateX(113px);
+        transform: translateX(113px)
+    }
+}
+/* Transition All */
+.transition { -webkit-transition: 0.3s ease-out; -moz-transition: 0.3s ease-out; -o-transition: 0.3s ease-out; transition: 0.3s ease-out; } 
+/* Scale IMG */
+.scale-img { overflow: hidden; display: block; position: relative; /* z-index: 99; */ } 
+.scale-img img { -webkit-transition: 0.3s ease-out; -moz-transition: 0.3s ease-out; -o-transition: 0.3s ease-out; transition: 0.3s ease-out; -moz-transform: scale(1,1); -webkit-transform: scale(1,1); -o-transform: scale(1,1); -ms-transform: scale(1,1); transform: scale(1,1); } 
+.scale-img:hover > img { -webkit-transition: 0.3s ease-out; -moz-transition: 0.3s ease-out; -o-transition: 0.3s ease-out; transition: 0.3s ease-out; -moz-transform: scale(1.1,1.1); -webkit-transform: scale(1.1,1.1); -o-transform: scale(1.1,1.1); -ms-transform: scale(1.1,1.1); transform: scale(1.1,1.1); } 
+/* hover xam */
+.hover_xam { position: relative; overflow: hidden; display: block; } 
+.hover_xam:before { content: ""; background: rgba(255,255,255,.5); bottom: 0; left: 0; position: absolute; -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -ms-transform: rotate(90deg); -o-transform: rotate(90deg); transform: rotate(90deg); -khtml-opacity: 1; -o-opacity: 1; -ms-opacity: 1; -webkit-opacity: 1; -moz-opacity: 1; opacity: 1; width: 0; height: 0; z-index: 3; } 
+.hover_xam:after { content: ""; background: rgba(255,255,255,.5); top: 0; right: 0; position: absolute; -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -ms-transform: rotate(90deg); -o-transform: rotate(90deg); transform: rotate(90deg); -khtml-opacity: 1; -o-opacity: 1; -ms-opacity: 1; -webkit-opacity: 1; -moz-opacity: 1; opacity: 1; width: 0; height: 0; z-index: 2; } 
+.hover_xam:hover:before, .hover_xam:hover:after { -webkit-transform: rotateY(180deg); -moz-transform: rotateY(180deg); -ms-transform: rotateY(180deg); -o-transform: rotateY(180deg); transform: rotateY(180deg); -webkit-transition-duration: 1.3s; -moz-transition-duration: 1.3s; -ms-transition-duration: 1.3s; -o-transition-duration: 1.3s; transition-duration: 1.3s; -khtml-opacity: 0; -o-opacity: 0; -ms-opacity: 0; -webkit-opacity: 0; -moz-opacity: 0; opacity: 0; height: 100%; width: 100%; } 
 
 /* News */
 
@@ -1216,18 +1324,67 @@
 .box-brand:hover .name-brand a{color:#a5afcd;}
 .box-brand i{font-size:25px;text-transform:uppercase;color:#fff;}
 .box-brand:hover i{color:#a5afcd;}
-.img-brand img {
-    display: inline-block;
-    width: 85px;
-    height: 85px;
-}
-
-.info-brand ion-icon {
-    color: #fff;
-    font-size: 35px;
-}
+.img-brand img {display: inline-block;width: 85px;height: 85px;}
+.info-brand ion-icon {color: #fff;font-size: 35px;}
 .banner-img img {height: 585px;border-radius: 10px;}
+.wrap-banner-brand {padding-top: 50px;position: relative;padding-bottom: 50px;}
+.title-main-index {display: flex;justify-content: start;align-items: end;gap: 10px;position: relative;margin-bottom: 1.5rem;}
+.title-main-index::after{content:'';display:block;background: url('../images/line-pro.png')no-repeat;width: 100%;height: 1px;position: absolute;left: 0;right: 0;bottom: 0;}
+.title-main-index >div {text-align: left;}
+.title-main-index span {font-size: 30px;font-family:'Montserrat-Bold';text-transform: uppercase;color: #000;padding-bottom: 5px;}
+.title-main-index img {width: 45px;}
+.pic-album{float:left;width: 19.2%;margin: 0 1% 1% 0;}
+.pic-album:nth-child(5n+1){clear:both;}
+.pic-album:nth-child(5n){margin-right:0px;}
+.img-album img {height: 300px;display: block;}
+.max-box {text-align:center}
+.w-clear:after { display: block; content: ""; clear: both; } 
+.img-album {display: block;}
 
-.wrap-banner-brand {
-    padding: 35px 0;
+.quantity-pro-detail {
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    height: 45px;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 1px solid #dfdfdf;
+}
+
+.quantity-pro-detail span {
+    line-height: 25px;
+    padding: 0px;
+    width: 45px;
+    height: 100%;
+    color: #000;
+    cursor: pointer;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.quantity-pro-detail span.quantity-plus-pro-detail {
+    border-left: 0px;
+}
+
+.quantity-pro-detail span.quantity-minus-pro-detail {
+    border-right: 0px;
+}
+
+.quantity-pro-detail input {
+    height: 100%;
+    border: none;
+    width: calc(100% - 90px);
+    text-align: center;
+    font-size: 15px;
+}
+
+.header__info-icon svg {
+    font-size: 20px;
+    width: 36px;
+    height: 35px;
 }

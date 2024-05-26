@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class DanhMucCapMotController extends Controller
 {
-    public function index()
+    public function DanhSach()
     {
         $categories = DanhMucCapMot::get()->sortBy('id');
         $pageName = 'Quản lý danh mục cấp một';

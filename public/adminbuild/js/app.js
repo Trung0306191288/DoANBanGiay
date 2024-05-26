@@ -51,19 +51,19 @@ $(document).on('click', '.flex_avt img', function() {
 });
 
 $(document).on('change', '#cate_product_up', function() {
-    var id_cate = $(this).val();
+    var id_cap_mot = $(this).val();
     $.ajax({
         type: 'GET',
-        url: "../../ajax_loadcate",
+        url: "../loadcapmot",
         data: {
-            id_cate: id_cate
+            id_cap_mot: id_cap_mot
         },
     }).done(function(respose) {
         if (respose != null) {
             var res = '';
-            res = '<option selected value="">Chọn loại sản phẩm</option>'
+            res = '<option selected value="">Chọn danh mục cấp hai</option>'
             $.each(respose, function(key, value) {
-                res += '<option value="' + value.id + '">' + value.name + '</option>';
+                res += '<option value="' + value.id + '">' + value.ten + '</option>';
             });
             $('#cate_two_product').html(res);
         }
@@ -71,19 +71,19 @@ $(document).on('change', '#cate_product_up', function() {
 });
 
 $(document).on('change', '#cate_product_add', function() {
-    var id_cate = $(this).val();
+    var id_cap_mot = $(this).val();
     $.ajax({
         type: 'GET',
-        url: "../ajax_loadcate",
+        url: "../loadcapmot",
         data: {
-            id_cate: id_cate
+            id_cap_mot: id_cap_mot
         },
     }).done(function(respose) {
         if (respose != null) {
             var res = '';
-            res = '<option selected value="">Chọn loại sản phẩm</option>'
+            res = '<option selected value="">Chọn danh mục cấp hai</option>'
             $.each(respose, function(key, value) {
-                res += '<option value="' + value.id + '">' + value.name + '</option>';
+                res += '<option value="' + value.id + '">' + value.ten + '</option>';
             });
             $('#cate_two_product').html(res);
         }
@@ -92,7 +92,7 @@ $(document).on('change', '#cate_product_add', function() {
 
 $(document).on('click', '.delete_main', function() {
     Swal.fire({
-        title: 'Bạn có muốn xóa dữ liệu này không ?',
+        title: 'Bạn chắc chắn xóa mục này?',
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Xóa',
@@ -105,11 +105,11 @@ $(document).on('click', '.delete_main', function() {
             var type_blogs = $(this).data('type_blogs');
             var cate = $(this).data('cate');
             if (type_man != '' && cate == 'man') {
-                window.location.href = '../../' + type + '/delete/' + id + '/' + type_man + '/' + cate;
+                window.location.href = '../../' + type + '/xoa/' + id + '/' + type_man + '/' + cate;
             } else if (type_blogs != '' && type_blogs != null) {
-                window.location.href = '../' + type + '/delete/' + id + '/' + type_blogs;
+                window.location.href = '../' + type + '/xoa/' + id + '/' + type_blogs;
             } else {
-                window.location.href = type + '/delete/' + id;
+                window.location.href = type + '/xoa/' + id;
             }
             Swal.fire('Xóa thành công!', '', 'success')
         } else if (result.isDenied) {
@@ -143,6 +143,25 @@ $(document).on('change', '#status_product_ajax_1', function() {
     $.ajax({
         type: 'GET',
         url: "ajax_loadstatushot",
+        data: {
+            id_status: id_status,
+            id_prod: id_prod
+        },
+    }).done(function(respose) {
+        if (respose != null) {
+            Swal.fire('Cập nhật trạng thái thành công !', '', 'success')
+        }
+    });
+});
+
+
+$(document).on('change', '#status_product_ajax_2', function() {
+    var id_status = $(this).val();
+    var id_prod = $(this).data('id');
+
+    $.ajax({
+        type: 'GET',
+        url: "ajax_loadstatusnew",
         data: {
             id_status: id_status,
             id_prod: id_prod
@@ -260,164 +279,6 @@ $(document).on('click', '.btn_dlt_gallery', function() {
             setTimeout(function() {
                 location.reload();
             }, 300);
-        }
-    });
-});
-
-$(document).on('change', '#search_cate', function() {
-    var id_cate = $(this).val();
-
-    $.ajax({
-        type: 'GET',
-        url: "ajax_loadproduct",
-        data: {
-            id_cate: id_cate
-        },
-    }).done(function(respose) {
-        if (respose != '') {
-            var res = '';
-            $.each(respose, function(key, value) {
-                res +=
-                    '<tr>' +
-                    '<td class="text-center">' +
-                    '<input class="sty_checkbox form-check-input" type="checkbox">' +
-                    '</td>' +
-                    '<td class="text-center">' + (key + 1) + '</td>';
-                if (value.photo != null) {
-                    res += '<td class="text-center"><img class="img_main" src="../upload/products/' + value.photo + '" width="100" height="100" alt=""></td>';
-                } else {
-                    res += '<td class="text-center"><img class="img_main" src="../adminate/images/noimg.jpg" width="100" height="100" alt=""></td>';
-                }
-                res += '<td>' + value.name + '</td>' +
-                    '<td class="text-center">' +
-                    '<select class="form-select" aria-label="Default select example" name="status_product_ajax" id="status_product_ajax" data-id="' + value.id + '">';
-                if (value.status == 1) {
-                    res += '<option value="0">Chọn trạng thái</option>' +
-                        '<option selected value="1">Hiển thị</option>' +
-                        '<option value="2">Không hiển thị</option>';
-                } else if (value.status == 2) {
-                    res += '<option value="0">Chọn trạng thái</option>' +
-                        '<option value="1">Hiển thị</option>' +
-                        '<option selected value="2">Không hiển thị</option>';
-                } else {
-                    res += '<option selected value="0">Chọn trạng thái</option>' +
-                        '<option value="1">Hiển thị</option>' +
-                        '<option value="2">Không hiển thị</option>';
-                }
-                res += '</select>' +
-                    '</td>' +
-                    '<td class="text-center">' +
-                    '<select class="form-select" aria-label="Default select example" name="status_product_ajax_1" id="status_product_ajax_1" data-id="' + value.id + '">';
-                if (value.status_hot == 1) {
-                    res += '<option value="0">Chọn trạng thái</option>' +
-                        '<option selected value="1">Nổi bật</option>' +
-                        '<option value="2">Không nổi bật</option>';
-                } else if (value.status_hot == 2) {
-                    res += '<option value="0">Chọn trạng thái</option>' +
-                        '<option value="1">Nổi bật</option>' +
-                        '<option selected value="2">Không nổi bật</option>';
-                } else {
-                    res += '<option selected value="0">Chọn trạng thái</option>' +
-                        '<option value="1">Nổi bật</option>' +
-                        '<option value="2">Không nổi bật</option>';
-                }
-                res += '</select>' +
-                    '</td>' +
-                    '<td class="text-center">' +
-                    '<div class="flex_options">' +
-                    '<a href="products/update/' + value.id + '"><span><ion-icon name="create-outline"></ion-icon></span></a>' +
-                    '<a href="products/delete/' + value.id + '"><span><ion-icon name="trash-outline"></ion-icon></span></a>' +
-                    '<a href=""><span><ion-icon name="eye-outline"></ion-icon></span></a>' +
-                    '</div>' +
-                    '</td>' +
-                    '</tr>';
-            });
-            $('.alert_ajax').removeClass('act');
-            $('.load_search').html(res);
-            $('#search_brand').prop('disabled', true);
-            $('.reload_search').addClass('act');
-        } else {
-            $('.alert_ajax').addClass('act');
-            $('.load_search').html('<tr></tr>');
-        }
-    });
-});
-
-$(document).on('change', '#search_brand', function() {
-    var id_brand = $(this).val();
-
-    $.ajax({
-        type: 'GET',
-        url: "ajax_loadproduct_brand",
-        data: {
-            id_brand: id_brand
-        },
-    }).done(function(respose) {
-        if (respose != '') {
-            var res = ''
-            $.each(respose, function(key, value) {
-                res +=
-                    '<tr>' +
-                    '<td class="text-center">' +
-                    '<input class="sty_checkbox form-check-input" type="checkbox">' +
-                    '</td>' +
-                    '<td class="text-center">' + (key + 1) + '</td>';
-                if (value.photo != null) {
-                    res += '<td class="text-center"><img class="img_main" src="../upload/products/' + value.photo + '" width="100" height="100" alt=""></td>';
-                } else {
-                    res += '<td class="text-center"><img class="img_main" src="../adminate/images/noimg.jpg" width="100" height="100" alt=""></td>';
-                }
-                res += '<td>' + value.name + '</td>' +
-                    '<td class="text-center">' +
-                    '<select class="form-select" aria-label="Default select example" name="status_product_ajax" id="status_product_ajax" data-id="' + value.id + '">';
-                if (value.status == 1) {
-                    res += '<option value="0">Chọn trạng thái</option>' +
-                        '<option selected value="1">Hiển thị</option>' +
-                        '<option value="2">Không hiển thị</option>';
-                } else if (value.status == 2) {
-                    res += '<option value="0">Chọn trạng thái</option>' +
-                        '<option value="1">Hiển thị</option>' +
-                        '<option selected value="2">Không hiển thị</option>';
-                } else {
-                    res += '<option selected value="0">Chọn trạng thái</option>' +
-                        '<option value="1">Hiển thị</option>' +
-                        '<option value="2">Không hiển thị</option>';
-                }
-                res += '</select>' +
-                    '</td>' +
-                    '<td class="text-center">' +
-                    '<select class="form-select" aria-label="Default select example" name="status_product_ajax_1" id="status_product_ajax_1" data-id="' + value.id + '">';
-                if (value.status_hot == 1) {
-                    res += '<option value="0">Chọn trạng thái</option>' +
-                        '<option selected value="1">Nổi bật</option>' +
-                        '<option value="2">Không nổi bật</option>';
-                } else if (value.status_hot == 2) {
-                    res += '<option value="0">Chọn trạng thái</option>' +
-                        '<option value="1">Nổi bật</option>' +
-                        '<option selected value="2">Không nổi bật</option>';
-                } else {
-                    res += '<option selected value="0">Chọn trạng thái</option>' +
-                        '<option value="1">Nổi bật</option>' +
-                        '<option value="2">Không nổi bật</option>';
-                }
-                res += '</select>' +
-                    '</td>' +
-                    '<td class="text-center">' +
-                    '<div class="flex_options">' +
-                    '<a href="products/update/' + value.id + '"><span><ion-icon name="create-outline"></ion-icon></span></a>' +
-                    '<a href="products/delete/' + value.id + '"><span><ion-icon name="trash-outline"></ion-icon></span></a>' +
-                    '<a href=""><span><ion-icon name="eye-outline"></ion-icon></span></a>' +
-                    '</div>' +
-                    '</td>' +
-                    '</tr>';
-            });
-            $('.alert_ajax').removeClass('act');
-            $('.load_search').html(res);
-            $('#search_cate').prop('disabled', true);
-            $('.reload_search').addClass('act');
-        } else {
-            $('.alert_ajax').addClass('act');
-            $('.load_search').html('<tr></tr>');
         }
     });
 });

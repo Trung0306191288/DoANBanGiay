@@ -66,7 +66,7 @@
                                             <ion-icon name="create-outline"></ion-icon>
                                         </span>
                                     </a>
-                                    <a href="{{ route('xoaDanhMucCapMot', ['id' => $v['id']]) }}"><span><ion-icon name="trash-outline"></ion-icon></span></a>
+                                    <a class="delete_main" data-id="{{ $v['id'] }}" data-type="danh-muc-cap-mot"><span><ion-icon name="trash-outline"></ion-icon></span></a>
                                 </div>
                             </td>
                         <tr>

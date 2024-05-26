@@ -11,7 +11,7 @@ class KichThuocController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function DanhSach()
     {
         $pageName = 'Quản lý Kích thước';
         $sizes = KichThuoc::get()->sortBy('id');

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->longText('mo_ta')->nullable();
             $table->longText('noi_dung')->nullable();
             $table->double('gia_ban')->nullable();
-            $table->double('gia_giam')->nullable();
+            $table->double('gia_moi')->nullable();
             $table->double('gia_dau')->nullable();
             $table->double('gia_cuoi')->nullable();
             $table->string('ma_san_pham')->nullable();
@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('kho_hang')->nullable();
             $table->longText('tinh_trang')->nullable();
             $table->longText('noi_bat')->nullable();
+            $table->longText('hang_moi_ve')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -6,7 +6,7 @@ use App\Http\Controllers\Clients\TrangChuController;
         <div class="header__block-inner">
             <div class="logo-banner-head">
                 <div class="logo-head">
-                    <a href="{{ route('clientIndex') }}">
+                    <a href="{{ route('TrangChu') }}">
                         @if (TrangChuController::logo()!=false)                            
                         <img src="{{ asset('upload/loaihinhanh/' . TrangChuController::logo()->hinh_anh) }}" alt="Tiệm giày cũ Quận 12">
                         @else
@@ -15,7 +15,7 @@ use App\Http\Controllers\Clients\TrangChuController;
                     </a>
                 </div>
                 <div class="banner-head">
-                    <a  href="{{ route('clientIndex') }}">
+                    <a  href="{{ route('TrangChu') }}">
                         @if (TrangChuController::banner()!=false)                            
                         <img src="{{ asset('upload/loaihinhanh/' . TrangChuController::banner()->hinh_anh) }}" alt="Tiệm giày cũ Quận 12">
                         @else
@@ -26,19 +26,11 @@ use App\Http\Controllers\Clients\TrangChuController;
             </div>
             
             <div class="header__block--middle">
-                {{-- <form action="{{ route('search_index') }}" method="GET" enctype="multipart/form-data">
+                <form action="{{ route('search_index') }}" method="GET" enctype="multipart/form-data">
                     @csrf
                     <div class="search__block">
-                        <input type="text" class="search__input" name="key_search_index" placeholder="Bạn cần tìm gì?">
+                        <input type="text" class="search__input" name="key_search_index" placeholder="Nhập từ khóa của bạn...">
                         <input type="submit" class="btn_search_index">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </div>
-                </form> --}}
-                <form method="GET" enctype="multipart/form-data">
-                    @csrf
-                    <div class="search__block">
-                        <input type="text" class="search__input" name="key_search_index" placeholder="Bạn cần tìm gì?">
-                        <input type="submit" class="btn_search_index" value="Tìm kiếm">
                     </div>
                 </form>
             </div>
@@ -70,22 +62,13 @@ use App\Http\Controllers\Clients\TrangChuController;
                     </a>
                 </div>
                 <div class="header__info">
-                    {{-- <a class="header__info-inner" href="{{ route('cart') }}" title="Giỏ hàng của bạn">
+                    <a class="header__info-inner" href="{{ route('cart') }}" title="Giỏ hàng khách hàng">
                         <div class="header__info-icon">
                             <ion-icon name="cart-outline"></ion-icon>
                         </div>
                         <div class="header__info-content">
                             <div class="header__cart-title --color-red">Giỏ hàng</div>
-                            <div class="header__cart-title --color-black">Của bạn</div>
-                        </div>
-                    </a> --}}
-                    <a class="header__info-inner" title="Giỏ hàng của bạn">
-                        <div class="header__info-icon">
-                            <ion-icon name="cart-outline"></ion-icon>
-                        </div>
-                        <div class="header__info-content">
-                            <div class="header__cart-title --color-red">Giỏ hàng</div>
-                            <div class="header__cart-title --color-black">Của bạn</div>
+                            <div class="header__cart-title --color-black">Khách hàng</div>
                         </div>
                     </a>
                 </div>
