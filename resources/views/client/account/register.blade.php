@@ -31,12 +31,12 @@
                         </div>
                         <div class="account__input-item">
                             <div class="account__input-item has-valid">
-                                <input class="account__input hidden-spin" id="phone" name="phone" type="number"
-                                    value="{{ old('phone') }}" placeholder="0123456789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                <input class="account__input hidden-spin" id="dien_thoai" name="dien_thoai" type="number"
+                                    value="{{ old('dien_thoai') }}" placeholder="0123456789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                     minlength="10" maxlength="11"
                                     oninvalid="this.setCustomValidity('Vui lòng điền vào trường này')"
                                     oninput="setCustomValidity('')" required>
-                                <label class="account__label" for="phone">Số điện thoại</label>
+                                <label class="account__label" for="dien_thoai">Số điện thoại</label>
                             </div>
                             <span class="account-validate"></span>
                         </div>

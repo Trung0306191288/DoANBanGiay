@@ -18,7 +18,7 @@ class AuthChecker
     {
         if ($role == 'admin') {
             if(auth()->guard('user')->check()){
-                if (auth()->guard('user')->user()->id_phan_quyen == 1) {
+                if (auth()->guard('user')->user()->id_phan_quyen ==1) {
                     return $next($request);
                 } else {
                     return redirect('/admin/login');

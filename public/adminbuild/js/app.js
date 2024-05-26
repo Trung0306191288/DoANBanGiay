@@ -102,12 +102,12 @@ $(document).on('click', '.delete_main', function() {
             var id = $(this).data('id');
             var type = $(this).data('type');
             var type_man = $(this).data('type_man');
-            var type_blogs = $(this).data('type_blogs');
+            var type_baiviets = $(this).data('type_baiviets');
             var cate = $(this).data('cate');
             if (type_man != '' && cate == 'man') {
-                window.location.href = '../../' + type + '/xoa/' + id + '/' + type_man + '/' + cate;
+                window.location.href = '../../' + type + '/delete/' + id + '/' + type_man + '/' + cate;
             } else if (type_blogs != '' && type_blogs != null) {
-                window.location.href = '../' + type + '/xoa/' + id + '/' + type_blogs;
+                window.location.href = '../' + type + '/delete/' + id + '/' + type_blogs;
             } else {
                 window.location.href = type + '/xoa/' + id;
             }

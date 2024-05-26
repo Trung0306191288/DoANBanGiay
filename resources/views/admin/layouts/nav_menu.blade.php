@@ -52,16 +52,14 @@
             <ul class="ul_child ul_child_2">
                 @if(Auth::guard('user')->user()->vai_tro == 0)
                     <li>
-                        {{-- <a href="{{ route('member_admins') }}">Tài khoản Quản trị</a> --}}
-                        <a>Phân Quyền Thành viên</a>
+                        <a href="{{ route('member_admins') }}">Tài khoản Quản trị</a>
                     </li>
                 @endif
-                {{-- <li>
-                    <a href="{{ route('cate_members') }}">Danh mục Tài Khoản</a>
-                </li> --}}
                 <li>
-                    {{-- <a href="{{ route('member_client') }}">Tài khoản Thành viên</a> --}}
-                    <a>Thành Viên</a>
+                    <a href="{{ route('cate_members') }}">Danh mục Tài Khoản</a>
+                </li>
+                <li>
+                    <a href="{{ route('member_client') }}">Tài khoản Thành viên</a>
                 </li>
             </ul>
         </li>   
@@ -103,24 +101,19 @@
             </p>
             <ul class="ul_child ul_child_4">
                 <li>
-                    {{-- <a href="{{ route('blogs',['type' => 'blogs']) }}">Tin tức</a> --}}
-                    <a>Tin tức</a>
+                    <a href="{{ route('bai_viets',['type' => 'tin-tuc']) }}">Tin tức</a>
                 </li>
                 <li>
-                    {{-- <a href="{{ route('blogs',['type' => 'criterial']) }}">Tiêu chí</a> --}}
-                    <a>Tiêu chí</a>
+                    <a href="{{ route('bai_viets',['type' => 'tieu-chi']) }}">Tiêu chí</a>
                 </li>
                 <li>
-                    {{-- <a href="{{ route('blogs',['type' => 'criterial']) }}">Tiêu chí</a> --}}
-                    <a>Feedback</a>
+                    <a href="{{ route('bai_viets',['type' => 'danh-gia']) }}">Feedback</a>
                 </li> 
                 <li>
-                    {{-- <a href="{{ route('blogs',['type' => 'policy']) }}">Chính sách</a> --}}
-                    <a>Chính sách</a>
+                    <a href="{{ route('bai_viets',['type' => 'chinh-sach']) }}">Chính sách</a>
                 </li>
                 <li>
-                    {{-- <a href="{{ route('blogs',['type' => 'payments']) }}">Hình thức thanh toán</a> --}}
-                    <a>Hình thức thanh toán</a>
+                    <a href="{{ route('bai_viets',['type' => 'payments']) }}">Hình thức thanh toán</a>
                 </li>
             </ul>
         </li>
