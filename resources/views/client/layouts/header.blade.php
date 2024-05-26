@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\Clients\TrangChuController;
 ?>
+
 <div class="header__block">
     <div class="wrap-content">
         <div class="header__block-inner">
@@ -56,7 +57,7 @@ use App\Http\Controllers\Clients\TrangChuController;
                         </div>
                     </a>
                 </div>
-                <div class="header__info">
+                <!-- <div class="header__info">
                     <a class="header__info-inner">
                         <div class="header__info-icon">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +69,7 @@ use App\Http\Controllers\Clients\TrangChuController;
                             <div class="header__hotline-number --color-red">Uy tín bật nhất</div>
                         </div>
                     </a>
-                </div>
+                </div> -->
                 <div class="header__info">
                     {{-- <a class="header__info-inner" href="{{ route('cart') }}" title="Giỏ hàng của bạn">
                         <div class="header__info-icon">
@@ -89,14 +90,14 @@ use App\Http\Controllers\Clients\TrangChuController;
                         </div>
                     </a>
                 </div>
-                {{-- <div class="header__info">
+                <div class="header__info">
                     <div class="header__info-inner has-account">
                         <div class="header__info-icon">
                             <ion-icon name="person-outline"></ion-icon>
                         </div>
                         <div class="header__info-content">
                             @if (Auth::guard('client')->user())
-                            <a href="{{ route('clientInfo') }}">Xin chào {{ Auth::guard('client')->user()->fullname }}</a>
+                            <a href="{{ route('clientInfo') }}">Xin chào {{ Auth::guard('client')->user()->ho_ten }}</a>
                             <a class="header__account-logout --color-red d-block" href="{{ route('handleClientLogout') }}" title="Đăng xuất">Đăng xuất</a>
                             @else
                             <a class="header__account-sign-in --color-red d-block" href="{{ route('clientLogin') }}" title="Đăng nhập">Đăng nhập</a>
@@ -104,7 +105,7 @@ use App\Http\Controllers\Clients\TrangChuController;
                             @endif
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>

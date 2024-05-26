@@ -35,7 +35,7 @@ class DangNhapController extends Controller
     public function doi_mat_khau_admin()
     {
         $pageName = 'Đổi mật khẩu';
-        return view('admin.member_admin.change_pass', compact('pageName'));
+        return view('admin.member_admins.change_pass', compact('pageName'));
     }
 
     public function xu_ly_doi_mat_khau_admin(Request $data)

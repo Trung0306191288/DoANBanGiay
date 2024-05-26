@@ -19,7 +19,7 @@
     display: grid;
     place-items: center;
     height: 100vh;
-    background: linear-gradient(0deg, #C33764, #1D2671);
+    background: linear-gradient(0deg, #050002cf, #88898f6b);
 }
 
 .account__return-home {

@@ -8,13 +8,13 @@
 <!-- <script src="{{ asset('adminbuild/js/helpers.js') }}"></script> -->
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-{{-- <script>
+<script>
     ClassicEditor
         .create( document.querySelector( '.form_textarea' ) )
         .catch( error => {
             console.error( error );
         } );
-</script> --}}
+</script>
 <script src="{{ asset('adminbuild/js/particles.js') }}"></script>
 <script src="{{ asset('adminbuild/js/stats.js') }}"></script>
 <script>

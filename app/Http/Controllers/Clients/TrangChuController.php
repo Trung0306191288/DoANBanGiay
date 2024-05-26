@@ -9,6 +9,7 @@ use App\Models\DanhMucCapHai;
 use App\Models\Brand;
 use App\Models\LoaiHinhAnh;
 use App\Models\ThuongHieu;
+use App\Models\Baiviet;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -25,8 +26,37 @@ class TrangChuController extends Controller
             ->take(3);
 
         $banner = LoaiHinhAnh::firstWhere('loai', 'video-slide');
+        
 
-        return view('client.index.index', compact('pageName', 'slides', 'banners'));
+        return view('client.index.index', compact('pageName', 'slides', 'banners',));
+    }
+
+    public static function news()
+    {
+        $news = Baiviet::where('loai', 'tin-tuc')
+            ->where('tinh_trang', '1')
+            ->get()
+            ->take(20);
+
+        if (count($news)) {
+            return $news;
+        } else {
+            return false;
+        }
+    }
+
+    public static function tieuchi()
+    {
+        $news = Baiviet::where('loai', 'tieu-chi')
+            ->where('tinh_trang', '1')
+            ->get()
+            ->take(20);
+
+        if (count($news)) {
+            return $news;
+        } else {
+            return false;
+        }
     }
 
     public static function logo()

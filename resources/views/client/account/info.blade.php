@@ -16,16 +16,16 @@
                     </div>
                     <div class="account__input-item">
                         <div class="account__input-item">
-                            <label class="account__label client-info__label" for="fullname">Họ và tên</label>
-                            <input class="account__input" id="fullname" name="fullname" type="text"
-                                value="{{ $clientInfo->fullname }}" placeholder="Họ và tên">
+                            <label class="account__label client-info__label" for="ho_ten">Họ và tên</label>
+                            <input class="account__input" id="ho_ten" name="ho_ten" type="text"
+                                value="{{ $clientInfo->ho_ten }}" placeholder="Họ và tên">
                         </div>
                     </div>
                     <div class="account__input-item">
                         <div class="account__input-item has-valid">
-                            <label class="account__label client-info__label" for="phone">Số điện thoại</label>
-                            <input class="account__input hidden-spin" id="phone" name="phone" type="number"
-                                value="{{ $clientInfo->phone }}" placeholder="0123456789"
+                            <label class="account__label client-info__label" for="dien_thoai">Số điện thoại</label>
+                            <input class="account__input hidden-spin" id="dien_thoai" name="dien_thoai" type="number"
+                                value="{{ $clientInfo->dien_thoai }}" placeholder="0123456789"
                                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" minlength="10" maxlength="11"
                                 oninvalid="this.setCustomValidity('Vui lòng điền vào trường này')"
                                 oninput="setCustomValidity('')">
@@ -40,18 +40,18 @@
                             oninput="setCustomValidity('')">
                     </div>
                     <div class="account__input-item">
-                        <label class="account__label client-info__label" for="address">Địa chỉ</label>
-                        <input class="account__input" id="address" name="address" type="address"
-                            value="{{ $clientInfo->address }}" placeholder="example@gmail.com"
+                        <label class="account__label client-info__label" for="dia_chi">Địa chỉ</label>
+                        <input class="account__input" id="dia_chi" name="dia_chi" type="dia_chi"
+                            value="{{ $clientInfo->dia_chi }}" placeholder="example@gmail.com"
                             oninvalid="this.setCustomValidity('Vui lòng điền vào trường này')"
                             oninput="setCustomValidity('')">
                     </div>
                     <div class="account__input-item">
-                        <label class="account__label client-info__label" for="birthday">Ngày sinh</label>
-                        <input class="account__input" id="birthday" max="{{ $nowDate }}" name="birthday"
-                            type="date" value="{{ $clientInfo->birthday }}"
+                        <label class="account__label client-info__label" for="nam_sinh">Ngày sinh</label>
+                        <input class="account__input" id="nam_sinh" max="{{ $nowDate }}" name="nam_sinh"
+                            type="date" value="{{ $clientInfo->nam_sinh }}"
                             placeholder="____________&) 9   0        c00000000000000vb0000000dd/yyyy"
-                            value="{{ $clientInfo->birthday }}" placeholder="____________/dd/yyyy"
+                            value="{{ $clientInfo->nam_sinh }}" placeholder="____________/dd/yyyy"
                             oninvalid="this.setCustomValidity('Vui lòng điền vào trường này')"
                             oninput="setCustomValidity('')">
                     </div>
