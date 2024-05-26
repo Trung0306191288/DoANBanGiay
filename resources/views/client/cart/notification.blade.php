@@ -7,7 +7,7 @@
                     <h2 class="cart-info__title">Bạn cần đăng nhập để xem giỏ hàng</h2>
                 </div>
                 <div class="cart-info__button-list">
-                    <a href="{{ route('clientIndex') }}" class="cart-info__button-item cart-info__button-home">Về trang chủ</a>
+                    <a href="{{ route('TrangChu') }}" class="cart-info__button-item cart-info__button-home">Về trang chủ</a>
                     <a href="{{ route('clientLogin') }}" class="cart-info__button-item cart-info__button-login">Đăng nhập ngay</a>
                 </div>
             </div>

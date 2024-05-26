@@ -21,29 +21,28 @@
             </p>
             <ul class="ul_child ul_child_1">
                 <li>
-                    <a href="{{ route('LayDsDanhMucCapMot') }}">Quản lý Danh mục cấp một</a>
+                    <a href="{{ route('LayDsDanhMucCapMot') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Danh mục cấp một</a>
                 </li>
                 <li>
-                    <a href="{{ route('LayDsDanhMucCapHai') }}">Quản lý Danh mục cấp hai</a>
+                    <a href="{{ route('LayDsDanhMucCapHai') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Danh mục cấp hai</a>
                 </li>
                 <li>
-                    {{-- <a href="{{ route('products') }}">Sản phẩm</a> --}}
-                    <a>Sản phẩm</a>
+                    <a href="{{ route('LayDsThuongHieu') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Thương hiệu</a>
                 </li>
                 <li>
-                    <a href="{{ route('LayDsThuongHieu') }}">Quản lý thương hiệu</a>
+                    <a href="{{ route('LayDsKichThuoc') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Kích thước</a>
                 </li>
                 <li>
-                    <a href="{{ route('LayDsKichThuoc') }}">Quản lý kích thước</a>
+                    <a href="{{ route('LayDsMauSac') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Màu sắc</a>
                 </li>
                 <li>
-                    <a href="{{ route('LayDsMauSac') }}">Quản lý màu sắc</a>
+                    <a href="{{ route('LayDsSanPham') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Sản phẩm</a>
                 </li>
             </ul>
         </li>   
-        {{-- <li>
-            <a href="{{ route('orders') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Đơn hàng</span></a>
-        </li>  --}}
+        <li>
+            <a href="{{ route('LayDsDonHang') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Đơn hàng</span></a>
+        </li> 
         <li>
             <p data-vitri="2">
                 <a class="a_menu"><ion-icon name="people-outline"></ion-icon><span>Quản lý Tài khoản</span></a>
@@ -122,7 +121,6 @@
         {{-- <li>
             <a href="{{ route('statistical') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý thống kê</span></a>
         </li> --}}
-        <li><a href="{{ route('xu_ly_doi_mat_khau_admin') }}"><ion-icon name="key-outline"></ion-icon><span>Đổi mật khẩu</span></a></li>
         <li><a href="{{ route('dangxuat') }}"><ion-icon name="return-up-back-outline"></ion-icon><span>Đăng xuất</span></a></li>
     </ul>   
 </div> 

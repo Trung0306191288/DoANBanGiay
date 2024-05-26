@@ -18,16 +18,16 @@
                                 <div class="order-info__item">
                                     <p class="order-info__title">Mã đơn hàng:</p>
                                     <p class="order-info__content">
-                                        <span>{{ $orderInfo->code_order }}</span>
+                                        <span>{{ $orderInfo->ma_don_hang }}</span>
                                     </p>
                                 </div>
                                 <div class="order-info__item">
                                     <p class="order-info__title">Tên người nhận:</p>
-                                    <p class="order-info__content">{{ $orderInfo->name }}</p>
+                                    <p class="order-info__content">{{ $orderInfo->ho_ten }}</p>
                                 </div>
                                 <div class="order-info__item">
                                     <p class="order-info__title">Số điện thoại:</p>
-                                    <p class="order-info__content">{{ $orderInfo->phone }}</p>
+                                    <p class="order-info__content">{{ $orderInfo->dien_thoai }}</p>
                                 </div>
                                 <div class="order-info__item">
                                     <p class="order-info__title">Email:</p>
@@ -35,11 +35,11 @@
                                 </div>
                                 <div class="order-info__item">
                                     <p class="order-info__title">Địa chỉ giao hàng:</p>
-                                    <p class="order-info__content">{{ $orderInfo->address }}</p>
+                                    <p class="order-info__content">{{ $orderInfo->dia_chi }}</p>
                                 </div>
                                 <div class="order-info__item is-note">
                                     <p class="order-info__title">Ghi chú:</p>
-                                    <p class="order-info__content">{{ $orderInfo->note }}</p>
+                                    <p class="order-info__content">{{ $orderInfo->ghi_chu }}</p>
                                 </div>
                             </div>
                         </div>
@@ -49,12 +49,12 @@
                             <div class="order-info__list">
                                 <div class="order-info__item">
                                     <p class="order-info__title">Hình thức thanh toán:</p>
-                                    <p class="order-info__content"><span>{{ $payment->name }}</span></p>
+                                    {{-- <p class="order-info__content"><span>{{ $payment->name }}</span></p> --}}
                                 </div>
                                 <div class="order-info__item is-note">
                                     <p class="order-info__title">Cách thức thanh toán:</p>
                                     <div class="order-info__content ckeditor">
-                                        {!! $payment->content !!}
+                                        {{-- {!! $payment->content !!} --}}
                                     </div>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                     <div class="cart__total mb-4">
                         <div class="cart__total-cost">
                             <p>Tổng tiền: </p>
-                            <p>@convert($orderInfo->total_price)</p>
+                            <p>@convert($orderInfo->tong_gia)</p>
                         </div>
                     </div>
                     <div class="cart__list flex-list">
@@ -76,32 +76,32 @@
                                     <div class="cart__item--left">
                                         <div class="cart__item-photo">
                                             <div class="cart__item-photo-inner">
-                                                <img onerror="{{ asset('adminate/images/noimg.jpg') }}"
-                                                    src="{{ asset('upload/products/' . $details['photo']) }}"
-                                                    alt="{{ $details['name'] }}">
+                                                <img onerror="{{ asset('adminbuild/images/noimage.png') }}"
+                                                    src="{{ asset('upload/sanpham/' . $details['hinh_anh']) }}"
+                                                    alt="{{ $details['ten'] }}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="cart__item--right">
                                         <div class="cart__item-info">
-                                            <div class="cart__item-name">{{ $details['name'] }}</div>
+                                            <div class="cart__item-name">{{ $details['ten'] }}</div>
                                             <div class="cart__item-attr">
                                                 <div class="cart__item-attr-color">
                                                     <span>Màu:</span>
-                                                    <span>{{ $details['name_color'] }}</span>
+                                                    <span>{{ $details['ten_mau_sac'] }}</span>
                                                 </div>
                                                 <div class="cart__item-attr-storage">
-                                                    <span>Dung lượng:</span>
-                                                    <span>{{ $details['name_size'] }}</span>
+                                                    <span>Kích thước:</span>
+                                                    <span>{{ $details['ten_kich_thuoc'] }}</span>
                                                 </div>
                                                 <div class="cart__item-quantity">
                                                     <span>Số lượng:</span>
-                                                    <span>{{ $details['quantity'] }}</span>
+                                                    <span>{{ $details['so_luong'] }}</span>
                                                 </div>
                                                 <div class="cart__item-price">
                                                     <div class="cart__item-price-title">Giá:</div>
-                                                    <div class="cart__item-price-new">@convert($details['price_sale'])</div>
-                                                    <div class="cart__item-price-old">@convert($details['price_regular'])</div>
+                                                    <div class="cart__item-price-new">@convert($details['gia_moi'])</div>
+                                                    <div class="cart__item-price-old">@convert($details['gia_ban'])</div>
                                                 </div>
                                             </div>
                                         </div>                                      

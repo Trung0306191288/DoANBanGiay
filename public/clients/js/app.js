@@ -276,7 +276,7 @@ function AddCart() {
                     }
                 });
             } else {
-                AlertBoxHandMade('Bạn vui lòng chọn màu sắc và dung lượng cho sản phẩm!');
+                AlertBoxHandMade('Bạn vui lòng chọn màu sắc và kích thước cho sản phẩm!');
             }
         });
     }
@@ -380,14 +380,14 @@ function DeleteCartDetail() {
 
 function Ajax_cate_search() {
     $(document).on('change', '#cate_search_index', function() {
-        var id_cate = $(this).val();
+        var id_cap_mot = $(this).val();
         var page = $(this).data('page');
 
         $.ajax({
             type: 'GET',
             url: "../../../ajax_search_cate",
             data: {
-                id_cate: id_cate,
+                id_cap_mot: id_cap_mot,
                 page: page
             },
             success: function(data) {
@@ -402,14 +402,14 @@ function Ajax_cate_search() {
     });
 
     $(document).on('change', '#cate_two_search_index', function() {
-        var id_cate = $(this).val();
+        var id_cap_mot = $(this).val();
         var page = $(this).data('page');
 
         $.ajax({
             type: 'GET',
             url: "../../../ajax_search_cate_two",
             data: {
-                id_cate: id_cate,
+                id_cap_mot: id_cap_mot,
                 page: page
             },
             success: function(data) {
@@ -424,14 +424,14 @@ function Ajax_cate_search() {
     });
 
     $(document).on('change', '#brand_search_index', function() {
-        var id_brand = $(this).val();
+        var id_thuong_hieu = $(this).val();
         var page = $(this).data('page');
 
         $.ajax({
             type: 'GET',
             url: "../../../ajax_search_brand",
             data: {
-                id_brand: id_brand,
+                id_thuong_hieu: id_thuong_hieu,
                 page: page
             },
             success: function(data) {
@@ -500,6 +500,7 @@ $(function() {
     MenuScroll();
     SlideShow();
     News();
+    PronductNew();
     eyesOnOff();
     productGallery();
     getSizeId();

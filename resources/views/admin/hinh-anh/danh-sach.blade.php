@@ -39,7 +39,7 @@
                             <td class="text-center">
                                 <div class="flex_options">
                                     <a href="{{ route('loadCapNhatLoaiHinhAnh',['id' => $v['id'],'loai' => $loai_man, 'cate' => 'man']) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
-                                    <a href="{{ route('xoaLoaiHinhAnh',['id' => $v['id'],'loai' => $loai_man, 'cate' => 'man']) }}"><span><ion-icon name="trash-outline"></ion-icon></span></a>
+                                    <a class="delete_main" data-id="{{ $v['id'] }}" data-type_man="{{ $loai_man }}" data-cate="man" data-type="loai-hinh-anh"><span><ion-icon name="trash-outline"></ion-icon></span></a>
                                 </div>
                             </td>
                         </tr>    

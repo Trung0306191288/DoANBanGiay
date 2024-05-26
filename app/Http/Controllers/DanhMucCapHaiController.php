@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class DanhMucCapHaiController extends Controller
 {
-    public function index()
+    public function DanhSach()
     {
         $pageName = 'Quản lý Dang mục cấp hai';
         $category_two = DanhMucCapHai::get()->sortBy('id');

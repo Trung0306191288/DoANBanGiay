@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class LoaiHinhAnhController extends Controller
 {
-    public function index($loai,$cate) {
+    public function DanhSach($loai,$cate) {
         $pageName = 'Quản lý Loại Hình Ảnh';
         if($cate == 'man') {
             $photo = LoaiHinhAnh::where('loai',$loai)->get();

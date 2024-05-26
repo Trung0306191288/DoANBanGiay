@@ -36,15 +36,17 @@ use App\Http\Controllers\Clients\TrangChuController;
             <div class="wrap-content">
                 <div class="col-banner-brand">
                     <div>
-                        @foreach (TrangChuController::quangcao() as $v)
-                            <div class="banner-items">
-                                <a class="banner-photo" href="{{ $v['link'] }}" target="_blank">
-                                    <div class="banner-img">
-                                        <img src="{{ asset('upload/loaihinhanh/' . $v['hinh_anh']) }}" alt="{{ $v['ten'] }}">
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
+                        <div class="owl-banner owl-carousel owl-theme">
+                            @foreach (TrangChuController::quangcao() as $v)
+                                <div class="banner-items">
+                                    <a class="banner-photo" href="{{ $v['link'] }}" target="_blank">
+                                        <div class="banner-img">
+                                            <img src="{{ asset('upload/loaihinhanh/' . $v['hinh_anh']) }}" alt="{{ $v['ten'] }}">
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                     <div>
                         <div class="col-brand">
