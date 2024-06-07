@@ -49,12 +49,14 @@
                             <div class="order-info__list">
                                 <div class="order-info__item">
                                     <p class="order-info__title">Hình thức thanh toán:</p>
-                                    {{-- <p class="order-info__content"><span>{{ $payment->name }}</span></p> --}}
+                                    <p class="order-info__content">
+                                        <span>{{ $orderInfo->hinh_thuc_thanh_toan }}</span>
+                                    </p>
                                 </div>
                                 <div class="order-info__item is-note">
                                     <p class="order-info__title">Cách thức thanh toán:</p>
                                     <div class="order-info__content ckeditor">
-                                        {{-- {!! $payment->content !!} --}}
+                                        <span>{!! $payment->noi_dung !!}</span>  
                                     </div>
                                 </div>
                             </div>
@@ -63,53 +65,62 @@
                 </div>
                 <div class="cart-info__inner-bottom">
                     <div class="cart-info__inner-bottom-title">Chi tiết đơn hàng</div>
-                    <div class="cart__total mb-4">
-                        <div class="cart__total-cost">
-                            <p>Tổng tiền: </p>
-                            <p>@convert($orderInfo->tong_gia)</p>
+                    <div class="card-body add">
+                        <table class="table table_list_product align-middle">
+                            <thead>
+                                <tr class="sty_head_table">
+                                    <th style="width: 30px;" class="text-center" scope="col">STT</th>
+                                    <th style="width: 150px;" class="text-center" scope="col">HÌnh ảnh</th>
+                                    <th style="width: 250px;" scope="col">Tên sản phẩm</th>
+                                    <th style="width: 250px;" scope="col">Hình thức thanh toán</th>
+                                    <th style="width: 150px;" class="text-center" scope="col">Kích thước</th>
+                                    <th style="width: 150px;" class="text-center" scope="col">Màu sắc</th>
+                                    <th style="width: 100px;" class="text-center" scope="col">Số lượng</th>
+                                    <th style="width: 150px;" class="text-center" scope="col">Giá bán</th>
+                                    <th style="width: 150px;" class="text-center" scope="col">Tạm tính</th>
+                                </tr>
+                            </thead>
+                            <tbody class="sty_body_table">
+                                @foreach ($orderDetail as $k => $orderDetail)
+                                    <tr>
+                                        <th class="text-center">{{ $k + 1 }}</th>
+                                        <th class="text-center">
+                                            <img class="img_main"
+                                                onerror="{{ asset('adminbuild/images/noimage.png') }}"
+                                                src="{{ asset('upload/sanpham/' . $orderDetail->hinh_anh) }}"
+                                                width="100" height="100" alt="{{ $orderDetail->ten }}">
+                                        </th>
+                                        <th>{{$orderDetail->ten_san_pham }}</th>
+                                        <th> {{ $orderInfo->hinh_thuc_thanh_toan  }}
+                                        </th>
+                                        <th class="text-center">{{ $orderDetail->ten_kich_thuoc }}</th>
+                                        <th class="text-center">{{ $orderDetail->ten_mau_sac }}</th>
+                                        <th class="text-center">{{ $orderDetail->so_luong }}</th>
+                                        <th class="txt_green text-center">
+                                            <p class="m-0" style="color:#ec2d3f;">@convert($orderDetail->gia_moi)</p>
+                                            <p class="m-0" style="color:#ccc;text-decoration: line-through;">
+                                                @convert($orderDetail->gia_ban)
+                                            </p>
+                                        </th>
+                                        <th class="text-center">
+                                            <p class="m-0" style="color:#ec2d3f;">
+                                                @convert($orderDetail->gia_moi * $orderDetail->so_luong)
+                                            </p>
+                                            <p class="m-0" style="color:#ccc;text-decoration: line-through;">
+                                                @convert($orderDetail->gia_ban * $orderDetail->so_luong)
+                                            </p>
+                                        </th>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="box_total_order">
+                            <div class="item_Ship">
+                                <span style="font-weight:bold;">Tổng tiền của bạn:</span>
+                                <span style="color:#ec2d3f;font-weight:bold;">@convert($orderInfo->tong_gia)</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="cart__list flex-list">
-                        @foreach ($orderDetail as $details)
-                            <div class="cart__item">
-                                <div class="cart__item-inner">
-                                    <div class="cart__item--left">
-                                        <div class="cart__item-photo">
-                                            <div class="cart__item-photo-inner">
-                                                <img onerror="{{ asset('adminbuild/images/noimage.png') }}"
-                                                    src="{{ asset('upload/sanpham/' . $details['hinh_anh']) }}"
-                                                    alt="{{ $details['ten'] }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cart__item--right">
-                                        <div class="cart__item-info">
-                                            <div class="cart__item-name">{{ $details['ten'] }}</div>
-                                            <div class="cart__item-attr">
-                                                <div class="cart__item-attr-color">
-                                                    <span>Màu:</span>
-                                                    <span>{{ $details['ten_mau_sac'] }}</span>
-                                                </div>
-                                                <div class="cart__item-attr-storage">
-                                                    <span>Kích thước:</span>
-                                                    <span>{{ $details['ten_kich_thuoc'] }}</span>
-                                                </div>
-                                                <div class="cart__item-quantity">
-                                                    <span>Số lượng:</span>
-                                                    <span>{{ $details['so_luong'] }}</span>
-                                                </div>
-                                                <div class="cart__item-price">
-                                                    <div class="cart__item-price-title">Giá:</div>
-                                                    <div class="cart__item-price-new">@convert($details['gia_moi'])</div>
-                                                    <div class="cart__item-price-old">@convert($details['gia_ban'])</div>
-                                                </div>
-                                            </div>
-                                        </div>                                      
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>                    
                 </div>
             </div>
         </section>

@@ -1,7 +1,6 @@
 <?php
 use App\Http\Controllers\Clients\TrangChuController;
 ?>
-<?php /*
 <div id='ninja-slider'>
     <div class="slider-inner">
         <ul>
@@ -18,4 +17,3 @@ use App\Http\Controllers\Clients\TrangChuController;
         </ul>
     </div>
 </div>
-*/ ?>

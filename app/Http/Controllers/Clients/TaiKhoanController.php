@@ -23,7 +23,7 @@ class TaiKhoanController extends Controller
     // Attempt to authenticate the user
     if (Auth::guard('client')->attempt($request->only(['username', 'password']))) {
         // Authentication successful, redirect to clientIndex
-        return redirect()->route('clientIndex');
+        return redirect()->route('TrangChu');
     } else {
         // Authentication failed, redirect back with error message
         return redirect()
@@ -58,7 +58,7 @@ class TaiKhoanController extends Controller
     {
         if (Auth::guard('client')->check()) {
             Auth::guard('client')->logout();
-            return redirect()->route('clientIndex');
+            return redirect()->route('TrangChu');
         }
 
         $this->guard()->logout();

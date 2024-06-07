@@ -54,8 +54,10 @@
                                                         <ion-icon name="remove-outline"></ion-icon>
                                                     </span>
                                                     <input type="number" value="{{ $details['quantity'] }}"
+                                                        class="hidden-spin" data-max="{{ $details['inventory'] }}" />
+                                                        {{-- <input type="number" value="{{ $details['quantity'] }}"
                                                         class="hidden-spin" data-max="{{ $details['inventory'] }}"
-                                                        readonly />
+                                                        readonly /> --}}
                                                     <span
                                                         class="cart__item-quantity-plus --plus cart__item-quantity-button">
                                                         <ion-icon name="add-outline"></ion-icon>
@@ -83,23 +85,22 @@
                                     oninvalid="this.setCustomValidity('Vui lòng chọn hình thức thanh toán')"
                                     oninput="setCustomValidity('')" title="Vui lòng chọn hình thức thanh toán" required>
                                     <option value="">Chọn hình thức thanh toán</option>
-                                    {{-- @foreach ($payments as $payment)
-                                        <option value="{{ $payment->id }}">{{ $payment->name }}</option>
-                                    @endforeach --}}
-                                    <option value="thanh toan">thanh toan</option>
+                                    @foreach ($payments as $payment)
+                                        <option value="{{ $payment->id }}.{{ $payment->ten }}">{{ $payment->ten }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="cart__info-item-list">
                                 <div class="cart__info-item">
                                     <label for="name" class="cart__info-item-label">Tên người nhận</label>
                                     <input type="text" name="name" id="name"
-                                        value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->fullname : '' }}"
+                                        value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->ho_ten : '' }}"
                                         class="cart__info-item-input" required>
                                 </div>
                                 <div class="cart__info-item">
                                     <label for="phone" class="cart__info-item-label">Số điện thoại</label>
                                     <input type="number" name="phone" id="phone"
-                                        value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->phone : '' }}"
+                                        value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->dien_thoai : '' }}"
                                         class="cart__info-item-input hidden-spin" required>
                                 </div>
                             </div>
@@ -112,7 +113,7 @@
                             <div class="cart__info-item">
                                 <label for="address" class="cart__info-item-label">Địa chỉ</label>
                                 <input type="text" name="address" id="address"
-                                    value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->address : '' }}"
+                                    value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->dia_chi : '' }}"
                                     class="cart__info-item-input" required>
                             </div>
                             <div class="cart__info-item">

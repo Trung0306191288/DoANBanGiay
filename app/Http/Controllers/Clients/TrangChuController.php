@@ -274,4 +274,18 @@ class TrangChuController extends Controller
         }
     }
 
+    public static function policy()
+    {
+        $policies = Baiviet::where('loai', 'chinh-sach')
+            ->where('tinh_trang', '1')
+            ->get()
+            ->sortBy('id');
+
+        if (count($policies)) {
+            return $policies;
+        } else {
+            return false;
+        }
+    }
+
 }

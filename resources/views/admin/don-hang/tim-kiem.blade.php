@@ -21,7 +21,7 @@ use App\Http\Controllers\OrderController;
                 </div>
                 <div class="box_select">
                     <label for="select_status_order">Trạng thái thanh toán</label>
-                    <select class="form-select" aria-label="Default select example" name="select_status_payments"">
+                    <select class="form-select" aria-label="Default select example" name="select_status_payments">
                         <option value="">Chọn trạng thái</option>
                         <option value="Đã thanh toán">Đã thanh toán</option>
                         <option value="Chưa thanh toán">Chưa thanh toán</option>
@@ -74,13 +74,13 @@ use App\Http\Controllers\OrderController;
                         </td>
                         <td style="width: 30px;" class="text-center">{{ $k + 1 }}</td>
                         <td>
-                            <a href="{{ route('loaddonhang', ['id' => $v['id']]) }}">{{ $v->code_order }}</a>
+                            <a href="{{ route('loaddonhang', ['id' => $v['id']]) }}">{{ $v->ma_don_hang }}</a>
                         </td>
-                        <td>{{ $v->name }}</td>
-                        <td style="color:#ec2d3f;font-weight:bold;">@convert($v->total_price)</td>
-                        <td>{{ OrderController::orderPayments($v->payments)->name }}</td>
-                        <td class="text-center" style="width: 175px;">{{ $v->status_order }}</td>
-                        <td class="text-center" style="width: 175px;">{{ $v->status_payment }}</td>
+                        <td>{{ $v->ten }}</td>
+                        <td style="color:#ec2d3f;font-weight:bold;">@convert($v->tong_gia)</td>
+                        <td> {{ $v->hinh_thuc_thanh_toan  }}</td>
+                        <td class="text-center" style="width: 175px;">{{ $v->tinh_trang_don_hang }}</td>
+                        <td class="text-center" style="width: 175px;">{{ $v->tinh_trang_hinh_thuc }}</td>
                         <td class="text-center">
                             <div class="flex_options">
                                 <a href="{{ route('loaddonhang', ['id' => $v['id']]) }}"><span>

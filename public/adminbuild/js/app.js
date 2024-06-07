@@ -81,7 +81,7 @@ $(document).on('change', '#cate_product_add', function() {
     }).done(function(respose) {
         if (respose != null) {
             var res = '';
-            res = '<option selected value="">Chọn danh mục cấp hai</option>'
+            res = '<option selected value="">Chọn danh mục sản phẩm</option>'
             $.each(respose, function(key, value) {
                 res += '<option value="' + value.id + '">' + value.ten + '</option>';
             });
@@ -105,9 +105,9 @@ $(document).on('click', '.delete_main', function() {
             var type_baiviets = $(this).data('type_baiviets');
             var cate = $(this).data('cate');
             if (type_man != '' && cate == 'man') {
-                window.location.href = '../../' + type + '/delete/' + id + '/' + type_man + '/' + cate;
+                window.location.href = '../../' + type + '/xoa/' + id + '/' + type_man + '/' + cate;
             } else if (type_baiviets != '' && type_baiviets != null) {
-                window.location.href = '../' + type + '/delete/' + id + '/' + type_baiviets;
+                window.location.href = '../' + type + '/xoa/' + id + '/' + type_baiviets;
             } else {
                 window.location.href = type + '/xoa/' + id;
             }

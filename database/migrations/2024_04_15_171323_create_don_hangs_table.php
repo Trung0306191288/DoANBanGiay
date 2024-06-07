@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('don_hangs', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('id_member')->constrained('members')->nullable();
             $table->string('ma_don_hang');
             $table->string('ho_ten');
             $table->string('dien_thoai');

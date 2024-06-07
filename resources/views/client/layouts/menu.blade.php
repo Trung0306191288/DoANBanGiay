@@ -36,7 +36,7 @@ use App\Http\Controllers\Clients\TrangChuController;
                 @endforeach
             @endif
             <li><a class="transition" href="" title="">Thương hiệu</a></li>
-            <li><a class="transition" href="" title="">Tin tức</a></li>
+            <li><a class="transition" href="{{ route('newsListPage') }}" title="">Tin tức</a></li>
         </ul>
     </div>
 </div>

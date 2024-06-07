@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('ghi_chu');
             $table->integer('gia_ban');
             $table->integer('gia_moi');
-            // $table->integer('ship_price')->nullable();
             $table->string('hinh_anh');
+            $table->string('ten_san_pham');
             $table->string('ten_kich_thuoc');
             $table->string('ten_mau_sac');
             $table->integer('so_luong');
