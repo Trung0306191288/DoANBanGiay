@@ -63,8 +63,8 @@ class SanPhamController extends Controller
         $add->ma_san_pham = $data->code_product;
         $add->gia_ban = $data->price_regular_product;
         $add->gia_moi = $data->price_sale_product;
-        $add->gia_dau = $data->price_from_product;
-        $add->gia_cuoi = $data->price_to_product;
+        // $add->gia_dau = $data->price_from_product;
+        // $add->gia_cuoi = $data->price_to_product;
         // $add->inventory = $data->inventory_product;
         if ($data->status_product != 0) {
             $add->tinh_trang = $data->status_product;
@@ -274,8 +274,8 @@ class SanPhamController extends Controller
         $add->ma_san_pham = $data->code_product;
         $add->gia_ban = $data->price_regular_product;
         $add->gia_moi = $data->price_sale_product;
-        $add->gia_dau = $data->price_from_product;
-        $add->gia_cuoi = $data->price_to_product;
+        // $add->gia_dau = $data->price_from_product;
+        // $add->gia_cuoi = $data->price_to_product;
         // $add->inventory = $data->inventory_product;
         if ($data->status_product != 0) {
             $add->tinh_trang = $data->status_product;

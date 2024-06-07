@@ -19,20 +19,46 @@ use App\Http\Controllers\BaiVietController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MemberClientController;
 use App\Http\Controllers\CategoryMemberController;
-
-
-
 // Client
 use App\Http\Controllers\Clients\TrangChuController;
 use App\Http\Controllers\Clients\TaiKhoanController;
-
-
+use App\Http\Controllers\Clients\GioHangController;
+use App\Http\Controllers\Clients\ChiTietSanPhamController;
+use App\Http\Controllers\Clients\ChiTietBaiVietController;
 // Auth::routes();
 
 
 // Client
 Route::prefix('/')->group(function () {
-    Route::get('/',[TrangChuController::class, 'index'])->name('clientIndex');
+    Route::get('/',[TrangChuController::class, 'index'])->name('TrangChu');
+    Route::get('danh-muc/{name_list}/{id_list}', [TrangChuController::class,'categoryListPage'])->name('categoriesList');
+    Route::get('danh-muc/{name_list}/{id_list}/{name_cat}/{id_cat}',[TrangChuController::class, 'categoryCatPage'])->name('categoriesCat');
+    Route::get('tim-kiem',[TrangChuController::class, 'timkiemTheoSanPham'])->name('timkiem');
+
+    Route::controller(ChiTietSanPhamController::class)->group(function () {
+        Route::get('san-pham/{id}', 'index')->name('productDetailPage');
+        Route::get('load_price', 'loadPrice')->name('ajaxLoadPrice');
+    });
+
+    Route::controller(ChiTietBaiVietController::class)->group(function () {
+        Route::get('tin-tuc', 'index')->name('newsListPage');
+        Route::get('tin-tuc/{id}', 'detail')->name('newsDetailPage');
+    });
+
+    Route::controller(GioHangController::class)->group(function () {
+        Route::get('thong-bao', function () {
+            return view('client.cart.notification', ['pageName' => 'Thông báo']);
+        })->name('notification');
+        Route::get('add-to-cart/{id}', 'addToCart')->name('add.to.cart');
+        Route::patch('update-cart', 'update')->name('update.cart');
+        Route::delete('remove-from-cart', 'remove')->name('remove.from.cart');
+
+        Route::group(['middleware' => ['guest']], function () {
+            Route::get('gio-hang', 'cart')->name('cart');
+            Route::post('thanh-toan/{code}', 'payment')->name('payment');
+            Route::get('thong-tin-don-hang/{id}', 'orderInfo')->name('orderInfo');
+        });
+    });
 
     Route::controller(TaiKhoanController::class)->group(function () {
         Route::get('dang-nhap', 'login')->name('clientLogin');
@@ -59,6 +85,11 @@ Route::prefix('/admin')->group(function () {
         Route::get('/admin/logout', [DangNhapController::class, 'DangXuat'])->name('dangxuat');
         Route::get('/doi-mat-khau-admin', [DangNhapController::class, 'doi_mat_khau_admin'])->name('doi_mat_khau_admin');
         Route::post('/doi-mat-khau-admin', [DangNhapController::class, 'xu_ly_doi_mat_khau_admin'])->name('xu_ly_doi_mat_khau_admin');
+
+        Route::get('loadcapmot', [FunctionsController::class, 'LoadCapMot'])->name('loadcapmot');
+        Route::get('ajax_loadproduct', [FunctionsController::class, 'ajax_loadProduct'])->name('ajax_loadproduct');
+        Route::get('ajax_deletegallery', [FunctionsController::class, 'ajax_deleteGallery'])->name('ajax _deletegallery');
+        
 
         Route::controller(MemberController::class)->group(function () {
             Route::prefix('/member_admins')->group(function () {
@@ -182,7 +213,7 @@ Route::prefix('/admin')->group(function () {
                 Route::post('add/{type}', 'handleAddBaiviets')->name('handleAddBaiviets');
                 Route::get('update/{id}/{type}', 'loadUpdateBaiviets')->name('loadUpdateBaiviets');
                 Route::post('update/{id}/{type}', 'handleUpdateBaiviets')->name('handleUpdateBaiviets');
-                Route::get('delete/{id}/{type}', 'deleteBaiviets')->name('deleteBaiviets');
+                Route::get('xoa/{id}/{type}', 'deleteBaiviets')->name('deleteBaiviets');
                 Route::get('search/{type}', 'searchBaiviets')->name('searchBaiviets');
             });
         });

@@ -27,7 +27,7 @@ use App\Http\Controllers\Clients\TrangChuController;
             </div>
             
             <div class="header__block--middle">
-                <form action="{{ route('search_index') }}" method="GET" enctype="multipart/form-data">
+                <form action="{{ route('timkiem') }}" method="GET" enctype="multipart/form-data">
                     @csrf
                     <div class="search__block">
                         <input type="text" class="search__input" name="key_search_index" placeholder="Nhập từ khóa của bạn...">
@@ -49,19 +49,6 @@ use App\Http\Controllers\Clients\TrangChuController;
                         </div>
                     </a>
                 </div>
-                <!-- <div class="header__info">
-                    <a class="header__info-inner">
-                        <div class="header__info-icon">
-                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M19 22.52L26 21.174V2H2V25.79L9.095 24.425C9.03237 24.2921 8.99993 24.1469 9 24V16C9 15.7348 9.10536 15.4804 9.29289 15.2929C9.48043 15.1054 9.73478 15 10 15H18C18.2652 15 18.5196 15.1054 18.7071 15.2929C18.8946 15.4804 19 15.7348 19 16V22.52ZM17 22.905V17H11V24C11 24.02 11 24.04 10.998 24.059L17 22.905ZM1 0H27C27.2652 0 27.5196 0.105357 27.7071 0.292893C27.8946 0.48043 28 0.734784 28 1V22C28 22.2324 27.919 22.4576 27.771 22.6368C27.623 22.816 27.4172 22.9381 27.189 22.982L1.189 27.982C1.04431 28.0098 0.89526 28.0054 0.752502 27.9689C0.609744 27.9324 0.476808 27.8649 0.363202 27.7711C0.249597 27.6772 0.158129 27.5595 0.0953412 27.4262C0.0325533 27.2929 -3.37575e-06 27.1473 2.62534e-10 27V1C2.62534e-10 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0ZM6 7.998V4H22V7.998H6Z" fill="black"></path>
-                            </svg>
-                        </div>
-                        <div class="header__info-content">
-                            <div class="header__hotline-title --color-black">Cửa hàng giày cũ</div>
-                            <div class="header__hotline-number --color-red">Uy tín bật nhất</div>
-                        </div>
-                    </a>
-                </div> -->
                 <div class="header__info">
                     <a class="header__info-inner" href="{{ route('cart') }}" title="Giỏ hàng khách hàng">
                         <div class="header__info-icon">

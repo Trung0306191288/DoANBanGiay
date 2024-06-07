@@ -1,8 +1,9 @@
 @extends('client.index')
 @section('content')
     <div class="wrap-main">
-        <div class="main__title">
-            <h2><?= $pageName ?></h2>
+        <div class="title-main">
+            <span><?= $pageName ?></span>
+            <div class="animate-border"></div>
         </div>
         <section class="news">
             <div class="wrap-content">

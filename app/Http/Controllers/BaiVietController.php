@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Baiviet;
-use App\Http\Requests\StoreBaivietRequest;
-use App\Http\Requests\UpdateBaivietRequest;
 use Illuminate\Http\Request;
 
 class BaiVietController extends Controller
@@ -13,7 +11,7 @@ class BaiVietController extends Controller
     {
         if($type == 'chinh-sach') {
             $load_name = 'Chính sách';
-        } else if($type == 'hinh-thuc-thanh-toan') {
+        } else if($type == 'payments') {
             $load_name = 'Hình thức thanh toán';
         } else if($type == 'tieu-chi') {
             $load_name = 'Tiêu chí';
@@ -35,7 +33,7 @@ class BaiVietController extends Controller
     {
         if($type == 'chinh-sach') {
             $load_name = 'Chính sách';
-        } else if($type == 'hinh-thuc-thanh-toan') {
+        } else if($type == 'payments') {
             $load_name = 'Hình thức thanh toán';
         } else if($type == 'tieu-chi') {
             $load_name = 'Tiêu chí';
@@ -85,7 +83,7 @@ class BaiVietController extends Controller
     public function loadUpdateBaiviets($id,$type) {
         if($type == 'chinh-sach') {
             $load_name = 'Chính sách';
-        } else if($type == 'hinh-thuc-thanh-toan') {
+        } else if($type == 'payments') {
             $load_name = 'Hình thức thanh toán';
         } else if($type == 'tieu-chi') {
             $load_name = 'Tiêu chí';

@@ -1,11 +1,20 @@
 <?php
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DonHangController;
 ?>
 @extends('admin.index')
 @section('body')
     <div class="box_btn_search">
         <div class="flex_filter">
-            <form class="flex_form_search" action="{{ route('timkiemdonhang') }}" method="GET" enctype="multipart/form-data">
+            <form  method="GET">
+                <label for="min_price">Giá thấp nhất:</label>
+                <input type="number" name="min_price" id="min_price" value="{{ request('min_price') }}">
+            
+                <label for="max_price">Giá cao nhất:</label>
+                <input type="number" name="max_price" id="max_price" value="{{ request('max_price') }}">
+            
+                <button type="submit">Lọc</button>
+            </form>
+            <form class="flex_form_search edit" action="{{ route('timkiemdonhang') }}" method="GET" enctype="multipart/form-data">
                 @csrf
                 <div class="box_select">
                     <label for="select_status_order">Trạng thái đơn hàng</label>
@@ -21,13 +30,35 @@ use App\Http\Controllers\OrderController;
                 </div>
                 <div class="box_select">
                     <label for="select_status_order">Trạng thái thanh toán</label>
-                    <select class="form-select" aria-label="Default select example" name="select_status_payments"">
+                    <select class="form-select" aria-label="Default select example" name="select_status_payments">
                         <option value="">Chọn trạng thái</option>
                         <option value="Đã thanh toán">Đã thanh toán</option>
                         <option value="Chưa thanh toán">Chưa thanh toán</option>
                     </select>
                 </div>
-                <div class="box_range">
+                <div class="wrapper">
+                    <div class="flex2">
+                        <p class="begin">0</p>
+                        <div class="container1">
+                            <div class="slider-track"></div>
+                            <input type="range" min="0" max="15000000" value="" name="price_search" id="slider-1"
+                                oninput="slideOne()">
+                            <input type="hidden" id="giadau" name="giadau" value="">
+                            <input type="range" min="0" max="15000000"
+                                value="" id="slider-2" oninput="slideTwo()">
+                            <input type="hidden" id="giacuoi" name="giacuoi" name="price_search" value="">
+                        </div>
+                        <p class="end">15000000</p>
+                    </div>
+                    <div class="values">
+                        <span id="range1">
+                        </span>
+                        <span> &dash; </span>
+                        <span id="range2">
+                        </span>
+                    </div>
+                </div>
+                {{-- <div class="box_range">
                     <label for="select_status_order">Giá trị đơn hàng</label>
                     <div class="btn_change_range">
                         <input type="range" class="form-range range_test" min="1" max="5" name="price_search">
@@ -38,16 +69,16 @@ use App\Http\Controllers\OrderController;
                         <span class="range_number range_number_5">5</span>
                         <span class="hidden_range active_hidden"></span>
                     </div>
-                </div>  
+                </div>   --}}
                 <input type="submit" class="btn btn-primary btn-sm" value="Tìm kiếm">
             </form>
-            <div class="note_filter">
+            {{-- <div class="note_filter">
                 <p><span>Bật 1:</span> nhỏ hơn 1tr</p>
                 <p><span>Bật 2:</span> nhỏ hơn 10tr</p>
                 <p><span>Bật 3:</span> nhỏ hơn 50tr</p>
                 <p><span>Bật 4:</span> nhỏ hơn 100tr</p>
                 <p><span>Bật 5:</span> nhỏ hơn 200tr</p>
-            </div>
+            </div> --}}
         </div>
         <div class="alert_ajax"><span>Không có đơn hàng bạn đang cần tìm</span><span class="btn_reload_alert"><ion-icon name="close-outline"></ion-icon></span></div>
     </div>
@@ -78,7 +109,7 @@ use App\Http\Controllers\OrderController;
                         </td>
                         <td>{{ $v->ho_ten }}</td>
                         <td style="color:#ec2d3f;font-weight:bold;">@convert($v->tong_gia)</td>
-                        {{-- <td>{{ OrderController::orderPayments($v->payments)->name }}</td> --}}
+                        <td>{{ $v->hinh_thuc_thanh_toan  }}</td>
                         <td class="text-center" style="width: 175px;">{{ $v->tinh_trang_don_hang }}</td>
                         <td class="text-center" style="width: 175px;">{{ $v->tinh_trang_hinh_thuc }}</td>
                         <td class="text-center">

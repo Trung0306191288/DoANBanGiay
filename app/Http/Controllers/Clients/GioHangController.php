@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Clients;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;    
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -10,7 +10,7 @@ use App\Models\SanPham;
 use App\Models\KichThuoc;
 use App\Models\MauSac;
 use App\Models\GiaTheoKichThuoc;
-use App\Models\BaiViet;
+use App\Models\Baiviet;
 use App\Models\DonHang;
 use App\Models\ChiTietDonHang;
 
@@ -20,11 +20,10 @@ class GioHangController extends Controller
     {
         $pageName = "Giỏ hàng";
         $code = Str::random(8);
-        // $payments = BaiViet::where('type', 'payments')
-        //     ->where('tinh_trang', '1')
-        //     ->get();
-        // return view('client.cart.cart', compact('pageName', 'code', 'payments'));
-        return view('client.cart.cart', compact('pageName', 'code'));
+        $payments = Baiviet::where('loai', 'payments')
+            ->where('tinh_trang', '1')
+            ->get();
+        return view('client.cart.cart', compact('pageName', 'code', 'payments'));
     }
 
     public function addToCart(Request $request)
@@ -114,10 +113,10 @@ class GioHangController extends Controller
             $orderDetail->dia_chi = '';
             $orderDetail->ghi_chu = '';
             $orderDetail->tong_gia = 0;
-            // $orderDetail->ship_price = 0;
             $orderDetail->gia_ban = $details['price_old'];
             $orderDetail->gia_moi = $details['price_new'];
             $orderDetail->hinh_anh = $details['photo'];
+            $orderDetail->ten_san_pham = $details['name'];
             $orderDetail->ten_kich_thuoc = $details['sizeName'];
             $orderDetail->ten_mau_sac = $details['colorName'];
             $orderDetail->so_luong = $details['quantity'];
@@ -125,7 +124,7 @@ class GioHangController extends Controller
         }
 
         session()->forget('cart');
-
+   
         return redirect()->route('orderInfo', $orderInfo->id);
     }
 
@@ -136,13 +135,11 @@ class GioHangController extends Controller
             ->first();
         $orderDetail = ChiTietDonHang::where('id_don_hang', $id)
             ->get();
-        // $payment = BaiViet::where('type', 'payments')
-        //     ->where('id', $orderInfo->payments)
-        //     ->first();
+        $payment = Baiviet::where('loai', 'payments')
+            ->where('id', $orderInfo->hinh_thuc_thanh_toan)
+            ->first();
 
 
-        // return view('client.cart.index', compact('pageName', 'orderInfo', 'orderDetail', 'payment'));
-        return view('client.cart.index', compact('pageName', 'orderInfo', 'orderDetail'));
-
+        return view('client.cart.index', compact('pageName', 'orderInfo', 'orderDetail', 'payment'));
     }
 }

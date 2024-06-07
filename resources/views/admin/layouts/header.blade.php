@@ -10,7 +10,7 @@
             </div>
             <p class="numb_noti">0</p>
             <ul class="ul_noti">
-                {{-- <li><a href="{{ route('orders') }}">Thông báo đơn hàng</a></li> --}}
+                <li><a href="{{ route('LayDsDonHang') }}">Thông báo đơn hàng</a></li>
             </ul>
         </div>
         <div class="container_avt">

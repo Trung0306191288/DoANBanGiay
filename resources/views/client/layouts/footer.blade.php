@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\Clients\IndexController;
+use App\Http\Controllers\Clients\TrangChuController;
 ?>
 <section class="footer--top mt-5">
     <div class="footer-article">
@@ -23,22 +23,22 @@ use App\Http\Controllers\Clients\IndexController;
             </div>
             <div class="footer-article--2">
                 <h2 class="footer__title">Chính sách của chúng tôi</h2>
-                {{-- @if (IndexController::policy() != false)
+                @if (TrangChuController::policy() != false)
                     <ul class="footer-article__ul">
-                        @foreach (IndexController::policy() as $policy)
+                        @foreach (TrangChuController::policy() as $policy)
                             <li>
                                 <a href="{{ $policy->link }}">{{ $policy->name }}</a>
                             </li>
                         @endforeach
                     </ul>
-                @endif --}}
+                @endif
             </div>
             <div class="footer-article--3">
                 <div class="footer__social">
                     <h2 class="footer__title">Kết nối với chúng tôi</h2>
-                    {{-- @if (IndexController::social() != false)
+                    @if (TrangChuController::social() != false)
                         <ul>
-                            @foreach (IndexController::social() as $social)
+                            @foreach (TrangChuController::social() as $social)
                                 <li>
                                     <a class="hvr-float-shadow" href="{{ $social->link }}" target="_blank">
                                         <figure>
@@ -50,15 +50,15 @@ use App\Http\Controllers\Clients\IndexController;
                                 </li>
                             @endforeach
                         </ul>
-                    @endif --}}
+                    @endif
                 </div>
             </div>
             <div class="footer-article--4">
                 <h2 class="footer__title">Hình thức thanh toán</h2>
-                {{-- <div class="payment__method-photo">
+                <div class="payment__method-photo">
                     <img src="{{ asset('clients/images/payments.png') }}"
                     alt="Hình thức thanh toán">
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>

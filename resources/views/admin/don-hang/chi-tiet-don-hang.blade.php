@@ -48,9 +48,10 @@ use App\Http\Controllers\DonHangController;
                                     </div>
                                     <div class="item_info">
                                         <div class="title_info">Hình thức thanh toán</div>
-                                        {{-- <div class="content_info">
-                                            {{ OrderController::orderPayments($orderInfo->payments)->name }}
-                                        </div> --}}
+                                        <div class="content_info">
+                                            {{-- {{ DonHangController::orderPayments($orderInfo->payments)->ten }} --}}
+                                            {{ $orderInfo->hinh_thuc_thanh_toan  }}
+                                        </div>
                                     </div>
                                     <div class="item_info">
                                         <div class="title_info">Trạng thái đơn hàng</div>
@@ -110,11 +111,12 @@ use App\Http\Controllers\DonHangController;
                                             <th style="width: 30px;" class="text-center" scope="col">STT</th>
                                             <th style="width: 150px;" class="text-center" scope="col">HÌnh ảnh</th>
                                             <th style="width: 250px;" scope="col">Tên sản phẩm</th>
+                                            <th style="width: 250px;" scope="col">Hình thức thanh toán</th>
                                             <th style="width: 150px;" class="text-center" scope="col">Kích thước</th>
                                             <th style="width: 150px;" class="text-center" scope="col">Màu sắc</th>
                                             <th style="width: 100px;" class="text-center" scope="col">Số lượng</th>
-                                            <th style="width: 200px;" class="text-center" scope="col">Giá bán</th>
-                                            <th style="width: 200px;" class="text-center" scope="col">Tạm tính</th>
+                                            <th style="width: 150px;" class="text-center" scope="col">Giá bán</th>
+                                            <th style="width: 150px;" class="text-center" scope="col">Tạm tính</th>
                                         </tr>
                                     </thead>
                                     <tbody class="sty_body_table">
@@ -125,9 +127,10 @@ use App\Http\Controllers\DonHangController;
                                                     <img class="img_main"
                                                         onerror="{{ asset('adminbuild/images/noimage.png') }}"
                                                         src="{{ asset('upload/sanpham/' . $orderDetail->hinh_anh) }}"
-                                                        width="100" height="100" alt="{{ $orderDetail->ten }}">
+                                                        width="100" height="100" alt="{{ $orderDetail->ten_san_pham }}">
                                                 </th>
-                                                <th> {{ DonHangController::productDetails($orderDetail->id_san_pham)->ten }}
+                                                <th>{{ $orderDetail->ten_san_pham }}</th>
+                                                <th>{{ $orderInfo->hinh_thuc_thanh_toan  }}
                                                 </th>
                                                 <th class="text-center">{{ $orderDetail->ten_kich_thuoc }}</th>
                                                 <th class="text-center">{{ $orderDetail->ten_mau_sac }}</th>

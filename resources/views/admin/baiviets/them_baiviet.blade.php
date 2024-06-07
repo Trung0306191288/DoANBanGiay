@@ -17,7 +17,7 @@
                     <div class="card-header">Thông tin chung</div>
                     <div class="card-body">
                         <div class="box_input">
-                            <label for="title">Tên tin tức</label>
+                            <label for="title">Tên bài viết</label>
                             <input type="text" class="form-control" name="name_baiviet" id="name_baiviet" placeholder="Tên bài viết" value="{{ ($update != NULL) ? $update['ten'] : '' }}">
                             @error('name_baiviet')
                                 <span>{{ $message }}</span>

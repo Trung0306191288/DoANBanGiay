@@ -20,7 +20,7 @@
                                             @foreach ($productPhotoChild as $photoChild)
                                                 <div class="product-detail__photo-parent-item swiper-slide">
                                                     <figure class="product-detail_photo-inner">
-                                                        <img src="{{ asset('upload/sanpham/hinhanhcon/' . $photoChild['hinh_anh']) }}"
+                                                        <img src="{{ asset('upload/sanpham/gallery/' . $photoChild['hinh_anh']) }}"
                                                             alt="{{ $productDetail['ten'] }}">
                                                         <figcaption class="figcaption-hidden">{{ $productDetail['ten'] }}
                                                     </figure>
@@ -44,7 +44,7 @@
                                             @foreach ($productPhotoChild as $photoChild)
                                                 <div class="product-detail__photo-child-item swiper-slide">
                                                     <figure class="product-detail_photo-inner">
-                                                        <img src="{{ asset('upload/sanpham/hinhanhcon/' . $photoChild['hinh_anh']) }}"
+                                                        <img src="{{ asset('upload/sanpham/gallery/' . $photoChild['hinh_anh']) }}"
                                                             alt="{{ $productDetail['hinh_anh'] }}">
                                                         <figcaption class="figcaption-hidden">{{ $productDetail['hinh_anh'] }}
                                                     </figure>
@@ -58,6 +58,12 @@
                                 <div class="product-detail__info">
                                     <form action="" method="post">
                                         <h2 class="product-detail__name mb-2">{{ $productDetail['ten'] }}</h2>
+                                        @empty(!$productBrand)
+                                            <div class="product-detail__attr mb-3">
+                                                <p class="product-detail__label">Thương hiệu: </p>
+                                                <div class="product-detail__attr-name">{{ $productBrand['ten'] }}</div>
+                                            </div>
+                                        @endempty
                                         <div class="product-detail__attr mb-3">
                                             <p class="product-detail__label">Mã sản phẩm: </p>
                                             <div class="product-detail__attr-name">{{ $productDetail['ma_san_pham'] }}</div>
@@ -65,22 +71,6 @@
                                         <div class="product-detail__content">
                                             {!! $productDetail['mo_ta'] !!}
                                         </div>
-                                        @empty(!$productBrand)
-                                            <div class="product-detail__attr mb-3">
-                                                <p class="product-detail__label">Thương hiệu: </p>
-                                                <div class="product-detail__attr-name">{{ $productBrand['ten'] }}</div>
-                                            </div>
-                                        @endempty
-                                        {{-- <div class="product-detail__price mb-3">
-                                            <p class="product-detail__label">Giá bán</p>
-                                            <div class="product-detail__price-item">
-                                                <span class="product-detail__price-new">
-                                                    <span>Từ</span> @convert($productDetail['gia_ban'])
-                                                    <span>đến</span> @convert($productDetail['gia_moi'])
-                                                </span>
-                                                <span class="product-detail__price-old"></span>
-                                            </div>
-                                        </div> --}}
                                         <div class="product-detail__price mb-3">
                                             @if($productDetail['gia_moi'])
                                                 <p class="product-detail__label">Giá bán</p>
@@ -114,8 +104,8 @@
                                                 <div class="storage__list">
                                                     @foreach ($sizeName as $sizes)
                                                         @foreach ($sizes as $size)
-                                                            <div class="storage__item" data-id="{{ $size->id }}">
-                                                                <div class="storage__name">{{ $size->ten }}</div>
+                                                            <div class="size__item" data-id="{{ $size->id }}">
+                                                                <div class="size__name">{{ $size->ten }}</div>
                                                             </div>
                                                         @endforeach
                                                     @endforeach
@@ -129,8 +119,7 @@
                                                     @foreach ($clrName as $clrs)
                                                         @foreach ($clrs as $k => $clr)
                                                             <div class="color__item" data-id="{{ $clr->id }}">
-                                                                <div class="color__name" style="background: {{ $clr->code_mau }};  width: 35px;height: 35px;border-radius:50%;"></div>
-                                                               <?php /* <div class="color__name" style="background: {{ $clr->code_mau }};  width: 35px;height: 35px;border-radius:50%;">{{ $clr->ten }}</div> */?>
+                                                                <div class="color__name" style="background: {{ $clr->code_mau }};  width: 35px;height: 35px;border-radius:5px;"></div>
                                                             </div>
                                                         @endforeach
                                                     @endforeach
@@ -161,9 +150,21 @@
                             </div>
                         </div>
                         <div class="product-detail--left-bottom mt-5">
-                            <div class="product-detail__content">
-                                {!! $productDetail['noi_dung'] !!}
+                            <div class="tabs-pro-detail">
+                                <ul class="nav nav-tabs" id="tabsProDetail" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="info-pro-detail-tab" data-bs-toggle="tab" href="#info-pro-detail" role="tab">Thông tin sản phẩm</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content pt-4 pb-4" id="tabsProDetailContent">
+                                    <div class="tab-pane fade show active" id="info-pro-detail" role="tabpanel">
+                                        <div class="product-detail__content">
+                                            {!! $productDetail['noi_dung'] !!}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
