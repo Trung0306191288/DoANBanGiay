@@ -12,18 +12,18 @@ class DanhMucCapHaiController extends Controller
 {
     public function DanhSach()
     {
-        $pageName = 'Quản lý Dang mục cấp hai';
+        $TieuDe = 'Quản lý Dang mục cấp hai';
         $category_two = DanhMucCapHai::get()->sortBy('id');
-        return view('admin.danh-muc-cap-hai.danh-sach', compact('category_two','pageName'));
+        return view('admin.danh-muc-cap-hai.danh-sach', compact('category_two','TieuDe'));
     }
 
     public function themDanhMucCapHai()
     {
-        $pageName = 'Thêm danh mục cấp hai';
+        $TieuDe = 'Thêm danh mục cấp hai';
         $cap_mot = DanhMucCapMot::get()->sortBy('id');
         $update = NULL;
 
-        return view('admin.danh-muc-cap-hai.them', compact('pageName', 'update','cap_mot'));
+        return view('admin.danh-muc-cap-hai.them', compact('TieuDe', 'update','cap_mot'));
     }
 
     public function xulyThemDanhMucCapHai(DanhMucCapHaiRequest $data) {
@@ -53,12 +53,12 @@ class DanhMucCapHaiController extends Controller
     public function capnhatDanhMucCapHai($id) {
         $update = DanhMucCapHai::find($id);
         $cap_mot = DanhMucCapMot::get()->sortBy('id');
-        $pageName = 'Chỉnh sửa danh mục cấp hai';
+        $TieuDe = 'Chỉnh sửa danh mục cấp hai';
 
         if ($update == null) {
             return view('san_phams');
         } else {
-            return view('admin.danh-muc-cap-hai.them', compact('pageName','update','cap_mot'));
+            return view('admin.danh-muc-cap-hai.them', compact('TieuDe','update','cap_mot'));
         }
     }
 
@@ -126,8 +126,8 @@ class DanhMucCapHaiController extends Controller
 
     public function timkiemDanhMucCapHai(Request $data)
     {
-        $pageName = 'Tìm kiếm danh mục cấp hai';
+        $TieuDe = 'Tìm kiếm danh mục cấp hai';
         $search = DanhMucCapHai::where('ten', 'LIKE', '%'.$data->name_search.'%')->get();
-        return view('admin.danh-muc-cap-hai.tim-kiem', compact('search','pageName'));
+        return view('admin.danh-muc-cap-hai.tim-kiem', compact('search','TieuDe'));
     }
 }

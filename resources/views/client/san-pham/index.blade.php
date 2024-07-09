@@ -1,8 +1,12 @@
+<?php
+use App\Http\Controllers\Clients\TrangChuController;
+$settings = TrangChuController::setting();
+?>
 @extends('client.index')
 @section('content')
     <div class="wrap-main">
         <div class="title-main">
-            <span><?= $pageName ?></span>
+            <span><?= $TieuDe ?></span>
             <div class="animate-border"></div>
         </div>
         <section class="product-page">
@@ -10,88 +14,252 @@
                 @if($cap_2 == 1) 
                     <div class="flex_product">
                         <div class="left_product">
-                            <div class="box_select">
-                                <label for="cate_search_index">Danh mục cấp một</label>
-                                <select class="form-select" id="cate_search_index" data-page="{{ $pageName }}">
-                                    <option value="0">Chọn danh mục</option>
-                                    @foreach ($cate as $v)
-                                        <option value="{{ $v['id'] }}">{{ $v['ten'] }}</option>   
-                                    @endforeach
-                                </select>    
-                            </div>
-                            <div class="box_select">
-                                <label for="cate_search_index">Danh mục cấp hai</label>
-                                <select class="form-select" id="cate_two_search_index" data-page="{{ $pageName }}">
-                                    <option value="0">Chọn danh mục</option>
-                                    @foreach ($cate_two as $v)
-                                        <option value="{{ $v['id'] }}">{{ $v['ten'] }}</option>   
-                                    @endforeach
-                                </select>    
-                            </div>
-                            <div class="box_select">
-                                <label for="brand_search_index">Danh mục thương hiệu</label>
-                                <select class="form-select" id="brand_search_index">
-                                    <option value="0">Chọn danh mục</option>
-                                    @foreach ($brand as $v)
-                                        <option value="{{ $v['id'] }}">{{ $v['ten'] }}</option>   
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="box_select">
-                                <label for="price_search_index">Giá trị sản phẩm</label>
-                                <select class="form-select" id="price_search_index">
-                                    <option value="0">Chọn giá trị</option>
-                                    <option value="1">0đ - @convert('1000000')</option>
-                                    <option value="2">@convert('1000000') - @convert('10000000')</option>
-                                    <option value="3">@convert('10000000') - @convert('15000000')</option>
-                                    <option value="4">@convert('15000000') - @convert('20000000')</option>
-                                    <option value="5">@convert('20000000') - @convert('25000000')</option>
-                                    <option value="6">trên @convert('25000000')</option>
-                                </select>
+                            <?php
+                                $color1 = array_map('intval', explode(",", htmlspecialchars($_GET['mausac'] ?? '')));
+                                $size1 = array_map('intval', explode(",", htmlspecialchars($_GET['kichthuoc'] ?? '')));
+                                $brand1 = array_map('intval', explode(",", htmlspecialchars($_GET['thuonghieu'] ?? '')));
+                                $range1 = htmlspecialchars($_GET['KhoangGia'] ?? '');
+                                $arayrange1 = array_map('intval', explode("-", $range1));
+                            ?>
+                            <div class="timkiemnhan">
+                                <div class="bg_timkiem">
+                                    <div class="title-filter"><span><img src="{{ asset('clients/images/icon-filter.png') }}" alt="" /> Bộ Lọc Sản Phẩm</span></div>
+                                    <div class="filter-options flex">
+                                        <div class="collapsible">
+                                            <p>Thương hiệu</p>
+                                            <div class="noidung noidung_size filter-options-content" data-type="thuonghieu">
+                                                <div class="flex">
+                                                    @foreach ($brand_pro as $v)
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" class="kich_thuoc" value="{{ $v->id }}" {{ in_array($v->id, $brand1) ? "checked" : "" }}>
+                                                            {{ $v->{'ten'} }}
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapsible">
+                                            <p>Kích thước</p>
+                                            <div class="noidung noidung_size filter-options-content" data-type="kichthuoc">
+                                                <div class="flex">
+                                                    @foreach ($size_pro as $v)
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" class="kich_thuoc" value="{{ $v->id }}" {{ in_array($v->id, $size1) ? "checked" : "" }}>
+                                                            {{ $v->{'ten'} }}
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapsible">
+                                            <p>Màu sắc</p>
+                                            <div class="noidung noidung_color filter-options-content" data-type="mausac">
+                                                <div class="flex">
+                                                    @foreach ($color_pro as $v)
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" class="mau_sac" value="{{ $v->id }}" {{ in_array($v->id, $color1) ? "checked" : "" }}>
+                                                            {{ $v->{'ten'} }}
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="kung_range">
+                                        <p class="edit">Khoảng giá</p>
+                                        <div class="wrapper">
+                                            <div class="flex2">
+                                                <p class="begin">@convert(0)</p>
+                                                <div class="container1">
+                                                    <div class="slider-track"></div>
+                                                    <input type="range" min="0" max="{{ $settings[0]->khoang_gia }}" value="{{ $arayrange1[0] ?? 0 }}" id="slider-1" oninput="slideOne()">
+                                                    <input type="hidden" id="giadau" name="giadau" value="{{ $arayrange1[0] ?? 0 }}">
+                                                    <input type="range" min="0" max="{{ $settings[0]->khoang_gia }}" value="{{ $arayrange1[1] ?? $settings[0]->khoang_gia }}" id="slider-2" oninput="slideTwo()">
+                                                    <input type="hidden" id="giacuoi" name="giacuoi" value="{{ $arayrange1[1] ?? $settings[0]->khoang_gia }}">
+                                                </div>
+                                                <p class="end">@convert($settings[0]->khoang_gia)</p>
+                                            </div>
+                                            <div class="values">
+                                                <span id="range1">{{ $arayrange1[0] ?? 0 }}</span>
+                                                <span> &dash; </span>
+                                                <span id="range2">{{ $arayrange1[1] ?? $settings[0]->khoang_gia }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
                         </div>
                         <div class="right_product">
-                    @endif
-                        @if ($products != false)
-                            <div class="product-main w-clear">
-                                @foreach ($products as $k => $v)
-                                    <div class="product">
-                                        <div class="box-product">
-                                            <div class="pic-product">
-                                                <a class="img-product scale-img hover_xam" href="{{ route('productDetailPage',['id'=>$v->id]) }}" title="{{ $v['ten'] }}">
-                                                    <img src="{{ asset('upload/sanpham/' . $v['hinh_anh']) }}" alt="{{ $v['ten'] }}">
-                                                </a>
-                                            </div>
-                                            <div class="info-product">
-                                                <h3 class="mb-0"><a class="text-decoration-none text-split split2 name-product" href="{{ route('productDetailPage',['id'=>$v->id]) }}" title="{{ $v['ten'] }}">{{ $v['ten'] }}</a></h3>
-                                                <p class="price-product">
-                                                    @if ($v['gia_moi'])
-                                                        <span class="price-new"><span>Giá: </span>@convert($v->gia_moi)</span>
-                                                        <span class="price-old"><span>Giá: </span>@convert($v->gia_ban)</span>
-                                                    @else 
-                                                        <span class="price-new">
-                                                            @if($v['gia_ban'])
-                                                                <span>Giá:</span> @convert($v->gia_ban)
-                                                            @else
-                                                                <span>Giá:</span> Liên hệ
-                                                            @endif
-                                                        </span>
-                                                    @endif
-                                                </p>
-                                            </div> 
-                                        </div>    
-                                    </div>
-                                @endforeach
-                            </div>
-                        @else
-                            <div class="alert alert-warning w-100" role="alert">
-                                <strong>Không tìm thấy kết quả</strong>
-                            </div>
-                        @endif
-                    @if($cap_2 == 1) 
+                            @if (count($products))
+                                <div class="product-main w-clear">
+                                    @foreach ($products as $k => $v)
+                                        <div class="product">
+                                            <div class="box-product">
+                                                <div class="pic-product">
+                                                    <a class="img-product scale-img hover_xam" href="{{ route('productDetailPage',['id'=>$v->id]) }}" title="{{ $v['ten'] }}">
+                                                        <img src="{{ asset('upload/sanpham/' . $v['hinh_anh']) }}" alt="{{ $v['ten'] }}">
+                                                    </a>
+                                                </div>
+                                                <div class="info-product">
+                                                    <h3 class="mb-0"><a class="text-decoration-none text-split split2 name-product" href="{{ route('productDetailPage',['id'=>$v->id]) }}" title="{{ $v['ten'] }}">{{ $v['ten'] }}</a></h3>
+                                                    <p class="price-product">
+                                                        @if ($v['gia_moi'])
+                                                            <span class="price-new"><span>Giá: </span>@convert($v->gia_moi)</span>
+                                                            <span class="price-old"><span>Giá: </span>@convert($v->gia_ban)</span>
+                                                        @else 
+                                                            <span class="price-new">
+                                                                @if($v['gia_ban'])
+                                                                    <span>Giá:</span> @convert($v->gia_ban)
+                                                                @else
+                                                                    <span>Giá:</span> Liên hệ
+                                                                @endif
+                                                            </span>
+                                                        @endif
+                                                    </p>
+                                                </div> 
+                                            </div>    
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="alert alert-warning w-100" role="alert">
+                                    <strong>Không tìm thấy kết quả</strong>
+                                </div>
+                            @endif
+                        </div>
                     </div>
-                    @endif
-                </div>
+                @elseif($cap_2 == 2) 
+                    <div class="flex_product">
+                        <div class="left_product">
+                            <?php
+                                $color1 = array_map('intval', explode(",", htmlspecialchars($_GET['mausac'] ?? '')));
+                                $size1 = array_map('intval', explode(",", htmlspecialchars($_GET['kichthuoc'] ?? '')));
+                                $brand1 = array_map('intval', explode(",", htmlspecialchars($_GET['thuonghieu'] ?? '')));
+                                $range1 = htmlspecialchars($_GET['KhoangGia'] ?? '');
+                                $arayrange1 = array_map('intval', explode("-", $range1));
+                            ?>
+                            <div class="timkiemnhan">
+                                <div class="bg_timkiem">
+                                    <div class="title-filter"><span><img src="{{ asset('clients/images/icon-filter.png') }}" alt="" /> Bộ Lọc Sản Phẩm</span></div>
+                                    <div class="filter-options flex">
+                                        <div class="collapsible">
+                                            <p>Thương hiệu</p>
+                                            <div class="noidung noidung_size filter-options-content" data-type="thuonghieu">
+                                                <div class="flex">
+                                                    @foreach ($brand_pro as $v)
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" class="kich_thuoc" value="{{ $v->id }}" {{ in_array($v->id, $brand1) ? "checked" : "" }}>
+                                                            {{ $v->{'ten'} }}
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapsible">
+                                            <p>Kích thước</p>
+                                            <div class="noidung noidung_size filter-options-content" data-type="kichthuoc">
+                                                <div class="flex">
+                                                    @foreach ($size_pro as $v)
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" class="kich_thuoc" value="{{ $v->id }}" {{ in_array($v->id, $size1) ? "checked" : "" }}>
+                                                            {{ $v->{'ten'} }}
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapsible">
+                                            <p>Màu sắc</p>
+                                            <div class="noidung noidung_color filter-options-content" data-type="mausac">
+                                                <div class="flex">
+                                                    @foreach ($color_pro as $v)
+                                                    <li>
+                                                        <label>
+                                                            <input type="checkbox" class="mau_sac" value="{{ $v->id }}" {{ in_array($v->id, $color1) ? "checked" : "" }}>
+                                                            {{ $v->{'ten'} }}
+                                                        </label>
+                                                    </li>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="kung_range">
+                                        <p class="edit">Khoảng giá</p>
+                                        <div class="wrapper">
+                                            <div class="flex2">
+                                                <p class="begin">@convert(0)</p>
+                                                <div class="container1">
+                                                    <div class="slider-track"></div>
+                                                    <input type="range" min="0" max="{{ $settings[0]->khoang_gia }}" value="{{ $arayrange1[0] ?? 0 }}" id="slider-1" oninput="slideOne()">
+                                                    <input type="hidden" id="giadau" name="giadau" value="{{ $arayrange1[0] ?? 0 }}">
+                                                    <input type="range" min="0" max="{{ $settings[0]->khoang_gia }}" value="{{ $arayrange1[1] ?? $settings[0]->khoang_gia }}" id="slider-2" oninput="slideTwo()">
+                                                    <input type="hidden" id="giacuoi" name="giacuoi" value="{{ $arayrange1[1] ?? $settings[0]->khoang_gia }}">
+                                                </div>
+                                                <p class="end">@convert($settings[0]->khoang_gia)</p>
+                                            </div>
+                                            <div class="values">
+                                                <span id="range1">{{ $arayrange1[0] ?? 0 }}</span>
+                                                <span> &dash; </span>
+                                                <span id="range2">{{ $arayrange1[1] ?? $settings[0]->khoang_gia }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right_product">
+                            @if (count($products))
+                                <div class="product-main w-clear">
+                                    @foreach ($products as $k => $v)
+                                        <div class="product">
+                                            <div class="box-product">
+                                                <div class="pic-product">
+                                                    <a class="img-product scale-img hover_xam" href="{{ route('productDetailPage',['id'=>$v->id]) }}" title="{{ $v['ten'] }}">
+                                                        <img src="{{ asset('upload/sanpham/' . $v['hinh_anh']) }}" alt="{{ $v['ten'] }}">
+                                                    </a>
+                                                </div>
+                                                <div class="info-product">
+                                                    <h3 class="mb-0"><a class="text-decoration-none text-split split2 name-product" href="{{ route('productDetailPage',['id'=>$v->id]) }}" title="{{ $v['ten'] }}">{{ $v['ten'] }}</a></h3>
+                                                    <p class="price-product">
+                                                        @if ($v['gia_moi'])
+                                                            <span class="price-new"><span>Giá: </span>@convert($v->gia_moi)</span>
+                                                            <span class="price-old"><span>Giá: </span>@convert($v->gia_ban)</span>
+                                                        @else 
+                                                            <span class="price-new">
+                                                                @if($v['gia_ban'])
+                                                                    <span>Giá:</span> @convert($v->gia_ban)
+                                                                @else
+                                                                    <span>Giá:</span> Liên hệ
+                                                                @endif
+                                                            </span>
+                                                        @endif
+                                                    </p>
+                                                </div> 
+                                            </div>    
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="alert alert-warning w-100" role="alert">
+                                    <strong>Không tìm thấy kết quả</strong>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endif
             </div>
         </section>
     </div>

@@ -11,17 +11,17 @@ class DanhMucCapMotController extends Controller
     public function DanhSach()
     {
         $categories = DanhMucCapMot::get()->sortBy('id');
-        $pageName = 'Quản lý danh mục cấp một';
+        $TieuDe = 'Quản lý danh mục cấp một';
 
-        return view('admin.danh-muc-cap-mot.danh-sach', compact('categories', 'pageName'));
+        return view('admin.danh-muc-cap-mot.danh-sach', compact('categories', 'TieuDe'));
     }
 
     public function themDanhMucCapMot()
     {
-        $pageName = 'Thêm danh mục cấp một';
+        $TieuDe = 'Thêm danh mục cấp một';
         $update = NULL;
 
-        return view('admin.danh-muc-cap-mot.them', compact('pageName', 'update'));
+        return view('admin.danh-muc-cap-mot.them', compact('TieuDe', 'update'));
     }
 
     public function xulyThemDanhMucCapMot(DanhMucCapMotRequest $data)
@@ -44,9 +44,9 @@ class DanhMucCapMotController extends Controller
     public function capnhatDanhMucCapMot($id)
     {
         $update = DanhMucCapMot::find($id);
-        $pageName = 'Cập nhật danh mục cấp một';
+        $TieuDe = 'Cập nhật danh mục cấp một';
 
-        return view('admin.danh-muc-cap-mot.them', compact('update', 'pageName'));
+        return view('admin.danh-muc-cap-mot.them', compact('update', 'TieuDe'));
     }
 
     public function xulyCapNhatDanhMucCapMot(DanhMucCapMotRequest $data, $id)
@@ -90,8 +90,8 @@ class DanhMucCapMotController extends Controller
 
     public function timkiemDanhMucCapMot(Request $data)
     {
-        $pageName = 'Tìm kiếm danh mục cấp một';
+        $TieuDe = 'Tìm kiếm danh mục cấp một';
         $search = DanhMucCapMot::where('ten', 'LIKE', '%'.$data->name_search.'%')->get();
-        return view('admin.danh-muc-cap-mot.tim-kiem', compact('search','pageName'));
+        return view('admin.danh-muc-cap-mot.tim-kiem', compact('search','TieuDe'));
     }
 }

@@ -23,10 +23,10 @@ class BaiVietController extends Controller
             $load_name = 'Bài viết';
         }
 
-        $pageName = 'Quản lý '.$load_name;
+        $TieuDe = 'Quản lý '.$load_name;
         $type_page = $type;
         $baiviets = Baiviet::where('loai',$type)->get()->sortBy('id');
-        return view('admin.baiviets.danh-sach_baiviet', compact('baiviets','pageName','type_page'));
+        return view('admin.baiviets.danh-sach_baiviet', compact('baiviets','TieuDe','type_page'));
     }
 
     public function LoadAddBaiviets($type)
@@ -45,10 +45,10 @@ class BaiVietController extends Controller
             $load_name = 'Bài viết';
         }
 
-        $pageName = 'Thêm '.$load_name;
+        $TieuDe = 'Thêm '.$load_name;
         $type_page = $type;
         $update = NULL;
-        return view('admin.baiviets.them_baiviet', compact('update','pageName','type_page'));
+        return view('admin.baiviets.them_baiviet', compact('update','TieuDe','type_page'));
     }
 
     public function handleAddBaiviets(Request $data,$type)
@@ -94,13 +94,13 @@ class BaiVietController extends Controller
         } else {
             $load_name = 'Bài viết';
         }
-        $pageName = 'Chỉnh sửa '.$load_name;
+        $TieuDe = 'Chỉnh sửa '.$load_name;
         $type_page = $type;
         $update = Baiviet::find($id);
         if ($update == null) {
             return view('baiviets');
         } else {
-            return view('admin.baiviets.them_baiviet', compact('update','pageName','type_page'));
+            return view('admin.baiviets.them_baiviet', compact('update','TieuDe','type_page'));
         }
     }
 
@@ -160,12 +160,12 @@ class BaiVietController extends Controller
     }
     public function searchBaiviets(Request $data, $type)
     {
-        $pageName = 'Tìm kiếm bài viết';
+        $TieuDe = 'Tìm kiếm bài viết';
         $type_page = $type;
         $search = Baiviet::where([
             ['ten', 'LIKE', '%'.$data->name_search.'%'],
             ['loai',$type]
         ])->get();
-        return view('admin.baiviets.tim-kiem_baiviet', compact('search','pageName','type_page'));
+        return view('admin.baiviets.tim-kiem_baiviet', compact('search','TieuDe','type_page'));
     }
 }

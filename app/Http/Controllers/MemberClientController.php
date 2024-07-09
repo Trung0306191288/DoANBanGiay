@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ThanhVien;
 use App\Models\PhanQuyen;
+use Illuminate\Support\Facades\Hash;
 
 class MemberClientController extends Controller
 {
@@ -14,17 +15,17 @@ class MemberClientController extends Controller
             ['vai_tro','!=','0'],
             ['vai_tro','!=','1']
         ])->get();
-        $pageName = 'Quản lý tài khoản người dùng';
-        return view('admin.member_client.index', compact('member_client', 'pageName'));
+        $TieuDe = 'Quản lý tài khoản người dùng';
+        return view('admin.member_client.index', compact('member_client', 'TieuDe'));
     }
 
     public function loadUpdateMember_client($id){
         $update = ThanhVien::find($id);
         $cate_mem = PhanQuyen::where('tinh_trang_vai_tro', '!=', '1')->get();
         $cate_mem_up = PhanQuyen::where('id',$update['id_phan_quyen'])->firstOrFail();
-        $pageName = 'Chỉnh sửa tài khoản người dùng';
+        $TieuDe = 'Chỉnh sửa tài khoản người dùng';
 
-        return view('admin.member_client.detail', compact('update', 'pageName','cate_mem','cate_mem_up'));
+        return view('admin.member_client.detail', compact('update', 'TieuDe','cate_mem','cate_mem_up'));
     }
 
     public function handleUpdateMember_client(Request $data, $id){
@@ -121,12 +122,12 @@ class MemberClientController extends Controller
     {
         $dlt = ThanhVien::find($id);
         if ($dlt == null || $dlt->deleted_at != NULL) {
-            $pageName = 'Quản lý tài khoản người dùng';
+            $TieuDe = 'Quản lý tài khoản người dùng';
             $member_client = ThanhVien::where([
                 ['vai_tro','!=','0'],
                 ['vai_tro','!=','1']
             ])->get();
-            return view('admin.member_client.index',compact('member_client','pageName'));
+            return view('admin.member_client.index',compact('member_client','TieuDe'));
         } else {
             if($dlt['hinh_anh'] != NULL) {
                 $removeFile = public_path('upload/member_client/'.$dlt['hinh_anh']);

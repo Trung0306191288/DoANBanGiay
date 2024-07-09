@@ -8,7 +8,12 @@ use App\Models\DanhMucCapMot;
 use App\Models\DanhMucCapHai;
 use App\Models\LoaiHinhAnh;
 use App\Models\ThuongHieu;
+use App\Models\KichThuoc;
+use App\Models\MauSac;
 use App\Models\Baiviet;
+use App\Models\CauHinhChung;
+use App\Models\ChiTietDonHang;
+use App\Models\DonHang;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -16,18 +21,18 @@ class TrangChuController extends Controller
 {
     public function index()
     {
-        $pageName = 'Trang chủ';
+        $TieuDe = 'Trang chủ';
         $slides = LoaiHinhAnh::where('loai', 'slider')
             ->get()
             ->take(10);
         $banners = LoaiHinhAnh::where('loai', 'quangcao')
             ->get()
-            ->take(3);
+            ->take(5);
 
         $banner = LoaiHinhAnh::firstWhere('loai', 'video-slide');
         
 
-        return view('client.index.index', compact('pageName', 'slides', 'banners',));
+        return view('client.index.index', compact('TieuDe', 'slides', 'banners',));
     }
 
     public static function news()
@@ -80,6 +85,19 @@ class TrangChuController extends Controller
         }
     }
 
+
+    public static function setting()
+    {
+        $setting = CauHinhChung::select('hotline', 'dien_thoai', 'email', 'dia_chi','zalo','copyright','fanpage','link_map','khoang_gia','khoang_gia_admin')->get();
+    
+        if ($setting->isNotEmpty()) {
+            return $setting;
+        } else {
+            return false;
+        }
+    }
+    
+
     public static function video()
     {
         $video = LoaiHinhAnh::firstWhere('loai', 'video-slide');
@@ -108,6 +126,7 @@ class TrangChuController extends Controller
     public static function quangcao()
     {
         $quangcao = LoaiHinhAnh::where('loai', 'quang-cao')
+            ->take(5)
             ->get()
             ->sortBy('id');
 
@@ -223,56 +242,125 @@ class TrangChuController extends Controller
         }
     }
 
-    public function categoryListPage($name_list, $id_list)
+    public function categoryListPage(Request $request, $name_list, $id_list)
     {
-        $pageName = $name_list;
-        $products = SanPham::where('id_cap_mot', $id_list)
-            ->where('tinh_trang', '1')
-            ->paginate(20);
-
-        if (count($products)) {
-            $products = $products;
-        } else {
-            $products = false;
+        $TieuDe = $name_list;
+    
+        $query = SanPham::where('id_cap_mot', $id_list)
+                        ->where('tinh_trang', '1');
+    
+        if ($request->has('kichthuoc')) {
+            $sizes = explode(',', $request->input('kichthuoc'));
+            $query->whereHas('sizes', function ($q) use ($sizes) {
+                $q->whereIn('kich_thuocs.id', $sizes)
+                  ->whereNull('kich_thuocs.deleted_at');
+            });
+        }
+    
+        if ($request->has('mausac')) {
+            $colors = explode(',', $request->input('mausac'));
+            $query->whereHas('colors', function ($q) use ($colors) {
+                $q->whereIn('mau_sacs.id', $colors)
+                  ->whereNull('mau_sacs.deleted_at');
+            });
         }
 
-        $cate = DanhMucCapMot::get()->sortBy('id');
-        $cate_two = DanhMucCapHai::get()->sortBy('id');
-        $brand = ThuongHieu::get()->sortBy('id');
+        if ($request->has('thuonghieu')) {
+            $brands = explode(',', $request->input('thuonghieu'));
+            $query->whereHas('brandPro', function ($q) use ($brands) {
+                $q->whereIn('thuong_hieus.id', $brands)
+                  ->whereNull('thuong_hieus.deleted_at');
+            });
+        }
+    
+        if ($request->has('khoanggia')) {
+            [$minPrice, $maxPrice] = explode('-', $request->input('khoanggia'));
+            $query->whereBetween('gia_ban', [(float) $minPrice, (float) $maxPrice]);
+        }
+    
+        $query->whereNull('deleted_at');
+    
+        // Xuất dữ liệu sản phẩm đã lọc
+        $products = $query->paginate(20);
+    
+        // Query lấy dữ liệu
+        $cate = DanhMucCapMot::orderBy('id')->get();
+        $cate_two = DanhMucCapHai::orderBy('id')->get();
+        $brand_pro = ThuongHieu::orderBy('id')->get();
+        $size_pro = KichThuoc::orderBy('id')->get();
+        $color_pro = MauSac::orderBy('id')->get();
         $cap_2 = 1;
-        return view('client.san-pham.index', compact('pageName', 'products', 'cate', 'brand', 'cap_2', 'cate_two'));
+    
+        // Return view with the data
+        return view('client.san-pham.index', compact('TieuDe', 'products', 'cate', 'brand_pro', 'cap_2', 'cate_two', 'size_pro', 'color_pro'));
     }
-
-    public function categoryCatPage($name_list, $id_list, $name_cat, $id_cat)
+    
+    public function categoryCatPage(Request $request, $name_list, $id_list, $name_cat, $id_cat)
     {
-        $pageName = $name_cat;
-        $products = SanPham::where('id_cap_mot', $id_list)
+        $TieuDe = $name_cat;
+
+        $query = SanPham::where('id_cap_mot', $id_list)
+                        ->where('tinh_trang', '1');
+
+        $query = SanPham::where('id_cap_mot', $id_list)
             ->where('id_cap_hai', $id_cat)
-            ->where('tinh_trang', '1')
-            ->paginate(20);
-
-        if (count($products)) {
-            $products = $products;
-        } else {
-            $products = false;
+            ->where('tinh_trang', '1');
+           
+    
+        if ($request->has('kichthuoc')) {
+            $sizes = explode(',', $request->input('kichthuoc'));
+            $query->whereHas('sizes', function ($q) use ($sizes) {
+                $q->whereIn('kich_thuocs.id', $sizes)
+                    ->whereNull('kich_thuocs.deleted_at');
+            });
         }
+    
+        if ($request->has('mausac')) {
+            $colors = explode(',', $request->input('mausac'));
+            $query->whereHas('colors', function ($q) use ($colors) {
+                $q->whereIn('mau_sacs.id', $colors)
+                    ->whereNull('mau_sacs.deleted_at');
+            });
+        }
+
+        if ($request->has('thuonghieu')) {
+            $brands = explode(',', $request->input('thuonghieu'));
+            $query->whereHas('brandPro', function ($q) use ($brands) {
+                $q->whereIn('thuong_hieus.id', $brands)
+                    ->whereNull('thuong_hieus.deleted_at');
+            });
+        }
+    
+        if ($request->has('khoanggia')) {
+            [$minPrice, $maxPrice] = explode('-', $request->input('khoanggia'));
+            $query->whereBetween('gia_ban', [(float) $minPrice, (float) $maxPrice]);
+        }
+    
+        $query->whereNull('deleted_at');
+    
+        $products = $query->paginate(20);
+        $brand_pro = ThuongHieu::orderBy('id')->get();
+        $size_pro = KichThuoc::orderBy('id')->get();
+        $color_pro = MauSac::orderBy('id')->get();
         $cap_2 = 2;
-
-        return view('client.san-pham.index', compact('pageName', 'products', 'cap_2'));
+    
+        return view('client.san-pham.index', compact('TieuDe', 'products', 'cap_2','brand_pro','size_pro', 'color_pro'));
     }
 
-    public function timkiemTheoSanPham(Request $data)
+    public function timkiemTheoSanPham(Request $request)
     {
-        $pageName = 'Tìm kiếm sản phẩm';
-        $search = SanPham::where('ten', 'LIKE', '%' . $data->key_search_index . '%')->get();
+        $TieuDe = 'Tìm kiếm sản phẩm';
+        $key = $request->input('key_search_index');
 
-        if (count($search)) {
-            return view('client.san-pham.tim-kiem', compact('search', 'pageName'));
-        } else {
-            $search = false;
-            return view('client.san-pham.tim-kiem', compact('search', 'pageName'));
+        $search = SanPham::where('ten', 'LIKE', '%' . $key . '%')->get();
+
+        if ($request->ajax()) {
+            return view('client.san-pham.goi-y', compact('search'))->render();
         }
+
+        return view('client.san-pham.tim-kiem', compact('search', 'TieuDe'));
     }
+
 
     public static function policy()
     {
@@ -287,5 +375,22 @@ class TrangChuController extends Controller
             return false;
         }
     }
+
+    public static function donhangao()
+    {
+        $donhangao = ChiTietDonHang::orderBy('id')->get();
+        return $donhangao;
+    }
+
+    public static function thongtinnguoidung()
+    {
+        $thongtinnguoidung = DonHang::where('tinh_trang_hinh_thuc', 'Đã thanh toán')
+            ->where('tinh_trang_don_hang', 'Đã giao')
+            ->orderBy('id')
+            ->get();
+        return $thongtinnguoidung;
+    }
+    
+    
 
 }

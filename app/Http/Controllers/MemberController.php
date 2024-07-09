@@ -17,16 +17,16 @@ class MemberController extends Controller
             ['vai_tro', '1'],
             ['id_phan_quyen', '1']
        ])->get();  
-       $pageName = 'Quản lý tài khoản admin';
-       return view('admin.member_admins.index_member', compact('member_admins','pageName'));
+       $TieuDe = 'Quản lý tài khoản admin';
+       return view('admin.member_admins.index_member', compact('member_admins','TieuDe'));
     }
 
     public function loadAddMember_admins()
     {
-        $pageName = 'Thêm tài khoản admin';
+        $TieuDe = 'Thêm tài khoản admin';
         $cate_mem = PhanQuyen::where('tinh_trang', '0')->get();
         $update = NULL;
-        return view('admin.member_admins.add_member', compact('update','pageName','cate_mem'));
+        return view('admin.member_admins.add_member', compact('update','TieuDe','cate_mem'));
     }
 
     public function handleAddMember_admins(Member_Request $data)
@@ -65,14 +65,14 @@ class MemberController extends Controller
 
     public function loadUpdateMember_admins($id)
     {
-        $pageName = 'Chỉnh sửa tài khoản admin';
+        $TieuDe = 'Chỉnh sửa tài khoản admin';
         $cate_mem = PhanQuyen::where('tinh_trang_vai_tro', '0')->get();
         $update = ThanhVien::find($id);
         
         if ($update == null) {
             return view('member_admins');
         } else {
-            return view('admin.member_admins.add_member', compact('pageName','update','cate_mem'));
+            return view('admin.member_admins.add_member', compact('TieuDe','update','cate_mem'));
         }
     }
 
@@ -167,8 +167,8 @@ class MemberController extends Controller
                 ['vai_tro', '1'],
                 ['id_phan_quyen', '1']
            ])->get();  
-           $pageName = 'Quản lý tài khoản admin';
-           return view('admin.member_admins.index_member', compact('member_admins','pageName'));
+           $TieuDe = 'Quản lý tài khoản admin';
+           return view('admin.member_admins.index_member', compact('member_admins','TieuDe'));
         } else {
             if($dlt['hinh_anh'] != NULL) {
                 $removeFile = public_path('upload/member_admins/'.$dlt['hinh_anh']);

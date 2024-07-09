@@ -15,6 +15,7 @@ use App\Http\Controllers\MauSacController;
 use App\Http\Controllers\SanPhamController;
 use App\Http\Controllers\DonHangController;
 use App\Http\Controllers\LoaiHinhAnhController;
+use App\Http\Controllers\CauHinhChungController;
 use App\Http\Controllers\BaiVietController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MemberClientController;
@@ -25,15 +26,17 @@ use App\Http\Controllers\Clients\TaiKhoanController;
 use App\Http\Controllers\Clients\GioHangController;
 use App\Http\Controllers\Clients\ChiTietSanPhamController;
 use App\Http\Controllers\Clients\ChiTietBaiVietController;
-// Auth::routes();
-
+use App\Http\Controllers\Clients\ChiTietThuongHieuController;
+use App\Http\Controllers\Clients\PaymentController;
 
 // Client
 Route::prefix('/')->group(function () {
     Route::get('/',[TrangChuController::class, 'index'])->name('TrangChu');
-    Route::get('danh-muc/{name_list}/{id_list}', [TrangChuController::class,'categoryListPage'])->name('categoriesList');
-    Route::get('danh-muc/{name_list}/{id_list}/{name_cat}/{id_cat}',[TrangChuController::class, 'categoryCatPage'])->name('categoriesCat');
-    Route::get('tim-kiem',[TrangChuController::class, 'timkiemTheoSanPham'])->name('timkiem');
+    Route::get('danh-muc/{name_list}/{id_list}/bo-loc', [TrangChuController::class, 'categoryListPage'])->name('categoriesList');
+    Route::get('danh-muc/{name_list}/{id_list}/{name_cat}/{id_cat}/bo-loc',[TrangChuController::class, 'categoryCatPage'])->name('categoriesCat');
+    Route::get('/timkiem-sanpham', [TrangChuController::class, 'timkiemTheoSanPham'])->name('timkiem');
+    Route::post('/timkiem-sanpham', [TrangChuController::class, 'timkiemTheoSanPham'])->name('timkiem.goiy');
+
 
     Route::controller(ChiTietSanPhamController::class)->group(function () {
         Route::get('san-pham/{id}', 'index')->name('productDetailPage');
@@ -45,9 +48,14 @@ Route::prefix('/')->group(function () {
         Route::get('tin-tuc/{id}', 'detail')->name('newsDetailPage');
     });
 
+    Route::controller(ChiTietThuongHieuController::class)->group(function () {
+        Route::get('thuong-hieu', 'index')->name('brandListPage');
+        Route::get('thuong-hieu/{name_list}/{id_brand}/bo-loc', [ChiTietThuongHieuController::class, 'detail'])->name('brandDetailPage');
+    });
+    // Thêm giỏ hàng và mua hàng
     Route::controller(GioHangController::class)->group(function () {
         Route::get('thong-bao', function () {
-            return view('client.cart.notification', ['pageName' => 'Thông báo']);
+            return view('client.cart.notification', ['TieuDe' => 'Thông báo']);
         })->name('notification');
         Route::get('add-to-cart/{id}', 'addToCart')->name('add.to.cart');
         Route::patch('update-cart', 'update')->name('update.cart');
@@ -59,6 +67,10 @@ Route::prefix('/')->group(function () {
             Route::get('thong-tin-don-hang/{id}', 'orderInfo')->name('orderInfo');
         });
     });
+    // Thanh toán Vnpay
+    Route::post('/vnpay_payment',[PaymentController::class, 'vnpay_payment']);
+    Route::get('/vnpay_return', [PaymentController::class, 'return'])->name('vnpay.return');
+
 
     Route::controller(TaiKhoanController::class)->group(function () {
         Route::get('dang-nhap', 'login')->name('clientLogin');
@@ -166,6 +178,7 @@ Route::prefix('/admin')->group(function () {
             Route::get('tim-kiem', [KichThuocController::class, 'timkiemKichThuoc'])->name('timkiemkichthuoc');
         });
 
+        // Thêm xóa sửa màu sắc
         Route::prefix('/mau-sac')->group(function () {
             Route::get('/', [MauSacController::class,'DanhSach'])->name('LayDsMauSac');
             Route::get('them', [MauSacController::class,'themMauSac'])->name('loadThemMauSac');
@@ -176,7 +189,7 @@ Route::prefix('/admin')->group(function () {
             Route::get('tim-kiem', [MauSacController::class, 'timkiemMauSac'])->name('timkiemmausac');
         });
 
-       
+        // Thêm xóa sửa sản phẩm
         Route::prefix('/san-pham')->group(function () {
             Route::get('/', [SanPhamController::class,'DanhSach'])->name('LayDsSanPham');
             Route::get('them',[SanPhamController::class, 'themSanPham'])->name('loadThemSanPham');
@@ -187,7 +200,7 @@ Route::prefix('/admin')->group(function () {
             Route::get('tim-kiem',[SanPhamController::class, 'timkiemSanPham'])->name('timkiemsanpham');
         });
 
-        
+        // thông tin và chi tiết đơn hàng
         Route::prefix('/don-hang')->group(function () {
             Route::get('/',[DonHangController::class,  'DanhSach'])->name('LayDsDonHang');
             Route::get('chi-tiet-don-hang/{id}',[DonHangController::class,  'loadDonHang'])->name('loaddonhang');
@@ -196,7 +209,7 @@ Route::prefix('/admin')->group(function () {
             Route::get('tim-kiem',[DonHangController::class,  'timkiemDonHang'])->name('timkiemdonhang');
         });
 
-        
+         // Thêm xóa sửa loại hình ảnh
         Route::prefix('/loai-hinh-anh')->group(function () {
             Route::get('/{loai}/{cate}',[LoaiHinhAnhController::class, 'DanhSach'])->name('LayDsLoaiHinhAnh');
             Route::get('them/{loai}/{cate}',[LoaiHinhAnhController::class, 'themLoaiHinhAnh'])->name('loadThemLoaiHinhAnh');
@@ -206,6 +219,7 @@ Route::prefix('/admin')->group(function () {
             Route::get('xoa/{id}/{loai}/{cate}',[LoaiHinhAnhController::class, 'xoaLoaiHinhAnh'])->name('xoaLoaiHinhAnh');
         });
 
+        // Thêm xóa sửa bài viết
         Route::controller(BaiVietController::class)->group(function () {
             Route::prefix('/baiviets')->group(function () {
                 Route::get('/{type}', 'index')->name('bai_viets');
@@ -217,6 +231,19 @@ Route::prefix('/admin')->group(function () {
                 Route::get('search/{type}', 'searchBaiviets')->name('searchBaiviets');
             });
         });
+
+        // Thêm cấu hình chung
+        Route::prefix('cau-hinh-chung')->group(function () {
+            Route::get('/', [CauHinhChungController::class, 'DanhSach'])->name('LayDsCauHinhChung');
+            Route::get('them', [CauHinhChungController::class, 'themCauHinhChung'])->name('loadThemCauHinhChung');
+            Route::post('them', [CauHinhChungController::class, 'xulyThemCauHinhChung'])->name('xulyThemCauHinhChung');
+            Route::get('cap-nhat/{id}', [CauHinhChungController::class, 'capnhatCauHinhChung'])->name('loadCapNhatCauHinhChung');
+            Route::post('cap-nhat/{id}', [CauHinhChungController::class, 'xulyCapNhatCauHinhChung'])->name('xulyCapNhatCauHinhChung');
+            Route::get('xoa/{id}', [CauHinhChungController::class, 'xoaCauHinhChung'])->name('xoaCauHinhChung');
+        });
+    
+
+
     
     });
 

@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Collection;
 class LoaiHinhAnhController extends Controller
 {
     public function DanhSach($loai,$cate) {
-        $pageName = 'Quản lý Loại Hình Ảnh';
+        $TieuDe = 'Quản lý Loại Hình Ảnh';
         if($cate == 'man') {
             $photo = LoaiHinhAnh::where('loai',$loai)->get();
             $loai_man = $loai;
-            return view('admin.hinh-anh.danh-sach', compact('photo','pageName','loai_man'));
+            return view('admin.hinh-anh.danh-sach', compact('photo','TieuDe','loai_man'));
         } else if($cate == 'static') {
             $loai_man = $loai;            
             $photo = LoaiHinhAnh::where('loai',$loai)->get()->toArray();
@@ -22,7 +22,7 @@ class LoaiHinhAnhController extends Controller
             } else {
                 $convert_photo = NULL;
             }
-            return view('admin.hinh-anh-tinh.them', compact('convert_photo','pageName','loai_man'));  
+            return view('admin.hinh-anh-tinh.them', compact('convert_photo','TieuDe','loai_man'));  
         } else if($cate == 'video') {
             $loai_man = $loai;            
             $photo = LoaiHinhAnh::where('loai',$loai)->get()->toArray();
@@ -31,19 +31,19 @@ class LoaiHinhAnhController extends Controller
             } else {
                 $convert_photo = NULL;
             }
-            return view('admin.video.them', compact('convert_photo','pageName','loai_man'));  
+            return view('admin.video.them', compact('convert_photo','TieuDe','loai_man'));  
         } else {
-            $pageName = 'Bảng điều kiển';
-            return  view('admin.index', compact('pageName'));  
+            $TieuDe = 'Bảng điều kiển';
+            return  view('admin.index', compact('TieuDe'));  
         }
     }
 
     public function themLoaiHinhAnh($loai,$cate) {
-        $pageName = 'Thêm Loại Hình Ảnh';
+        $TieuDe = 'Thêm Loại Hình Ảnh';
         $loai_man = $loai;
         $update = null;
         if($cate == 'man') {
-            return view('admin.hinh-anh.them', compact('pageName','update','loai_man'));
+            return view('admin.hinh-anh.them', compact('TieuDe','update','loai_man'));
         }
     }
 
@@ -84,14 +84,14 @@ class LoaiHinhAnhController extends Controller
 
     public function capnhatLoaiHinhAnh($id, $loai, $cate)
     {
-        $pageName = 'Cập nhật loại hình ảnh';
+        $TieuDe = 'Cập nhật loại hình ảnh';
         $update = LoaiHinhAnh::find($id);
         $loai_man = $loai;
 
         if ($update == null) {
             return view('LayDsLoaiHinhAnh');
         } else {
-            return view('admin.hinh-anh.them', compact('pageName','update','loai_man'));
+            return view('admin.hinh-anh.them', compact('TieuDe','update','loai_man'));
         }
     }
 

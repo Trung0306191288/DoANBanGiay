@@ -283,7 +283,7 @@
                                 </div>
                             </div>
                             <div class="flex_price">
-                                <div class="box_input">
+                                <div class="box_input edit">
                                     <label for="ma_san_pham">Mã sản phẩm</label>
                                     <input type="text" class="form-control" name="code_product" id="code_product"
                                         placeholder="Mã sản phẩm" value="{{ $update != null ? $update['ma_san_pham'] : '' }}">
@@ -291,12 +291,6 @@
                                             <span class="message_red">{{ $message }}</span>
                                         @enderror
                                 </div>
-                                {{-- <div class="box_input">
-                                    <label for="inventory">Số lượng tồn kho</label>
-                                    <input type="text" class="form-control" name="inventory_product"
-                                        id="inventory_product" placeholder="Số lượng tồn kho"
-                                        value="{{ $update != null ? $update['inventory'] : '' }}">
-                                </div> --}}
                                 <div class="box_input">
                                     <label for="gia_moi">Giá mới</label>
                                     <input type="text" class="form-control" name="price_sale_product"
@@ -309,18 +303,6 @@
                                         id="price_regular_product" placeholder="Giá bán"
                                         value="{{ $update != null ? $update['gia_ban'] : '' }}">
                                 </div>
-                                {{-- <div class="box_input">
-                                    <label for="gia_dau">Giá tối thiểu</label>
-                                    <input type="text" class="form-control" name="price_from_product"
-                                        id="price_from_product" placeholder="Giá tối thiểu"
-                                        value="{{ $update != null ? $update['gia_dau'] : '' }}">
-                                </div> --}}
-                                {{-- <div class="box_input">
-                                    <label for="gia_cuoi">Giá tối đa</label>
-                                    <input type="text" class="form-control" name="price_to_product"
-                                        id="price_to_product" placeholder="Giá tối đa"
-                                        value="{{ $update != null ? $update['gia_cuoi'] : '' }}">
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -351,7 +333,7 @@
                 </div>
                 <div class="bottom_form">
                     <div class="card">
-                        <div class="card-header">Giá theo kích thước - đổi hình theo màu sắc</div>
+                        <div class="card-header">Giá theo thuộc tính kích thước - màu sắc</div>
                         <div class="card-body">
                             <div class="box_table_advanted">
                                 <table class="table table-striped align-middle">
@@ -360,7 +342,6 @@
                                             <th scope="col">STT</th>
                                             <th scope="col">Kích thước</th>
                                             <th scope="col">Màu sắc</th>
-                                            <th scope="col" style="width: 200px;">Hình Ảnh</th>
                                             <th scope="col">Giá bán</th>
                                             <th scope="col">Giá mới</th>
                                             <th scope="col">Kho hàng</th>
@@ -374,24 +355,6 @@
                                                             value="{{ $v4['id'] }}"></td>
                                                     <td>{{ $v4['ten'] }}</td>
                                                     <td>{{ $v4['ten_mau'] }}</td>
-                                                    <td>
-                                                        @if ($v4['hinh_anh'] != null)
-                                                            <div class="box_photo_adv">
-                                                                <img src="{{ asset('upload/sanpham/advanted/' . $v4['hinh_anh']) }}"
-                                                                    width="75" height="75" alt="">
-                                                            </div>
-                                                        @else
-                                                            <div class="box_photo_adv">
-                                                                <img src="{{ asset('adminbuild/images/noimage.png') }}"
-                                                                    width="75" height="75" alt="">
-                                                            </div>
-                                                        @endif
-                                                        <label for="photo_adv[]" class="photo-label">Chọn hình
-                                                            ảnh....</label>
-                                                        <input type="file" class="form-control btn-choose-file"
-                                                            name="photo_adv[]" id="photo_adv[]"
-                                                            value="{{ $v4['hinh_anh'] != null ? $v4['hinh_anh'] : '' }}">
-                                                    </td>
                                                     <td>
                                                         <input type="number" class="form-control"
                                                             name="price_regular_adv[]" id="price_regular_adv"

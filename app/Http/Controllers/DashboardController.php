@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function DanhSach()
     {
-        $pageName = 'Bảng điều khiển';
+        $TieuDe = 'Bảng điều khiển';
         $product = SanPham::get()->sortBy('id');
         $count_pro = count($product);
         $order = DonHang::get()->sortBy('id');
@@ -88,6 +88,6 @@ class DashboardController extends Controller
         $data_m_total = [$sum1,$sum2,$sum3,$sum4,$sum5,$sum6,$sum7,$sum8,$sum9,$sum10,$sum11,$sum12];
         $data_month_chart = json_encode($data_m_total);  
 
-        return view('admin.dashboard.index', compact('pageName','count_pro','count_order','total_order','data_month_chart'));
+        return view('admin.dashboard.index', compact('TieuDe','count_pro','count_order','total_order','data_month_chart'));
     }
 }

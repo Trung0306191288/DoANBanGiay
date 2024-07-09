@@ -8,7 +8,6 @@ use App\Http\Controllers\Clients\TrangChuController;
     <div class="wrap-content">
         <ul class="menu-main">
             <li><a class="transition" href="{{route('TrangChu')}}"  title="Trang chủ">Trang chủ</a></li>
-            <li><a class="transition" href="" title="">Giới thiệu</a></li>
             @if(TrangChuController::loadLevel1Cate() == true)
                 @foreach (TrangChuController::loadLevel1Cate() as $category)
                     <li>
@@ -35,7 +34,7 @@ use App\Http\Controllers\Clients\TrangChuController;
                     </li>
                 @endforeach
             @endif
-            <li><a class="transition" href="" title="">Thương hiệu</a></li>
+            <li><a class="transition" href="{{ route('brandListPage') }}" title="">Thương hiệu</a></li>
             <li><a class="transition" href="{{ route('newsListPage') }}" title="">Tin tức</a></li>
         </ul>
     </div>

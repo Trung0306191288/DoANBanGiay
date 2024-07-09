@@ -21,7 +21,7 @@ class ChiTietSanPhamController extends Controller
      */
     public function index($id)
     {
-        $pageName = 'Chi tiết sản phẩm';
+        $TieuDe = 'Chi tiết sản phẩm';
         $clrProduct = ChiTietMauSac::where('id_san_pham', $id)->get('id_mau_sac');
         $sizeProduct = ChiTietKichThuoc::where('id_san_pham', $id)->get('id_kich_thuoc');
         $sizeName = null;
@@ -42,8 +42,12 @@ class ChiTietSanPhamController extends Controller
         $productDetail = SanPham::where('id', $id)
             ->where('tinh_trang', '1')
             ->first();
-        $productBrand = ThuongHieu::where('id', $productDetail['id'])
-            ->first();
+        if ($productDetail) {
+            $productBrand = ThuongHieu::where('id', $productDetail['id_thuong_hieu'] ?? null)->first();
+        } else {
+            $productDetail = false;
+            $productBrand = null;
+        }
         $productsRelated = SanPham::whereNotIn('id', [$id, $id])
             ->where('id_cap_mot', $productDetail['id_cap_mot'])
             ->where('id_cap_hai', $productDetail['id_cap_hai'])
@@ -56,7 +60,7 @@ class ChiTietSanPhamController extends Controller
             $productDetail = false;
         }
 
-        return view('client.san-pham.chi-tiet', compact('pageName', 'productDetail', 'clrName', 'sizeName', 'productPhotoChild', 'productBrand', 'productsRelated'));
+        return view('client.san-pham.chi-tiet', compact('TieuDe', 'productDetail', 'clrName', 'sizeName', 'productPhotoChild', 'productBrand', 'productsRelated'));
     }
 
     public function loadPrice(Request $data)

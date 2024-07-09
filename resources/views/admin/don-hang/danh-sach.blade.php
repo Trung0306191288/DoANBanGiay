@@ -1,20 +1,14 @@
 <?php
 use App\Http\Controllers\DonHangController;
+use App\Http\Controllers\Clients\TrangChuController;
+$settings = TrangChuController::setting();
 ?>
+
 @extends('admin.index')
 @section('body')
     <div class="box_btn_search">
         <div class="flex_filter">
-            <form  method="GET">
-                <label for="min_price">Giá thấp nhất:</label>
-                <input type="number" name="min_price" id="min_price" value="{{ request('min_price') }}">
-            
-                <label for="max_price">Giá cao nhất:</label>
-                <input type="number" name="max_price" id="max_price" value="{{ request('max_price') }}">
-            
-                <button type="submit">Lọc</button>
-            </form>
-            <form class="flex_form_search edit" action="{{ route('timkiemdonhang') }}" method="GET" enctype="multipart/form-data">
+            <form class="flex_form_search add" action="{{ route('timkiemdonhang') }}" method="GET" enctype="multipart/form-data">
                 @csrf
                 <div class="box_select">
                     <label for="select_status_order">Trạng thái đơn hàng</label>
@@ -41,44 +35,21 @@ use App\Http\Controllers\DonHangController;
                         <p class="begin">0</p>
                         <div class="container1">
                             <div class="slider-track"></div>
-                            <input type="range" min="0" max="15000000" value="" name="price_search" id="slider-1"
-                                oninput="slideOne()">
-                            <input type="hidden" id="giadau" name="giadau" value="">
-                            <input type="range" min="0" max="15000000"
-                                value="" id="slider-2" oninput="slideTwo()">
-                            <input type="hidden" id="giacuoi" name="giacuoi" name="price_search" value="">
+                            <input type="range" min="0" max="{{$settings[0]->khoang_gia_admin}}" value="0" name="giadau" id="slider-1" oninput="slideOne()">
+                            <input type="hidden" id="giadau" name="giadau" value="{{ old('giadau', 0) }}">
+                            <input type="range" min="0" max="{{$settings[0]->khoang_gia_admin}}" value="{{$settings[0]->khoang_gia_admin}}" id="slider-2" oninput="slideTwo()">
+                            <input type="hidden" id="giacuoi" name="giacuoi" value="{{ old('giacuoi', $settings[0]->khoang_gia_admin) }}">
                         </div>
-                        <p class="end">15000000</p>
+                        <p class="end">{{$settings[0]->khoang_gia_admin}}</p>
                     </div>
                     <div class="values">
-                        <span id="range1">
-                        </span>
+                        <span id="range1">{{ old('giadau', 0) }}</span>
                         <span> &dash; </span>
-                        <span id="range2">
-                        </span>
+                        <span id="range2">{{ old('giacuoi', $settings[0]->khoang_gia_admin) }}</span>
                     </div>
                 </div>
-                {{-- <div class="box_range">
-                    <label for="select_status_order">Giá trị đơn hàng</label>
-                    <div class="btn_change_range">
-                        <input type="range" class="form-range range_test" min="1" max="5" name="price_search">
-                        <span class="range_number range_number_1">1</span>
-                        <span class="range_number range_number_2">2</span>
-                        <span class="range_number range_number_3">3</span>
-                        <span class="range_number range_number_4">4</span>
-                        <span class="range_number range_number_5">5</span>
-                        <span class="hidden_range active_hidden"></span>
-                    </div>
-                </div>   --}}
                 <input type="submit" class="btn btn-primary btn-sm" value="Tìm kiếm">
             </form>
-            {{-- <div class="note_filter">
-                <p><span>Bật 1:</span> nhỏ hơn 1tr</p>
-                <p><span>Bật 2:</span> nhỏ hơn 10tr</p>
-                <p><span>Bật 3:</span> nhỏ hơn 50tr</p>
-                <p><span>Bật 4:</span> nhỏ hơn 100tr</p>
-                <p><span>Bật 5:</span> nhỏ hơn 200tr</p>
-            </div> --}}
         </div>
         <div class="alert_ajax"><span>Không có đơn hàng bạn đang cần tìm</span><span class="btn_reload_alert"><ion-icon name="close-outline"></ion-icon></span></div>
     </div>

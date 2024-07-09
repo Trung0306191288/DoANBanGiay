@@ -41,7 +41,7 @@
             </ul>
         </li>   
         <li>
-            <a href="{{ route('LayDsDonHang') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Đơn hàng</span></a>
+            <a href="{{ route('LayDsDonHang') }}"><ion-icon name="bag-handle-outline"></ion-icon><span>Quản lý Đơn hàng</span></a>
         </li> 
         <li>
             <p data-vitri="2">
@@ -52,14 +52,14 @@
             <ul class="ul_child ul_child_2">
                 @if(Auth::guard('user')->user()->vai_tro == 0)
                     <li>
-                        <a href="{{ route('member_admins') }}">Tài khoản Quản trị</a>
+                        <a href="{{ route('member_admins') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Tài khoản Quản trị</a>
                     </li>
                 @endif
                 <li>
-                    <a href="{{ route('cate_members') }}">Danh mục Tài Khoản</a>
+                    <a href="{{ route('cate_members') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Danh mục Tài Khoản</a>
                 </li>
                 <li>
-                    <a href="{{ route('member_client') }}">Tài khoản Thành viên</a>
+                    <a href="{{ route('member_client') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Tài khoản Thành viên</a>
                 </li>
             </ul>
         </li>   
@@ -71,25 +71,25 @@
             </p>
             <ul class="ul_child ul_child_3">
                 <li>
-                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'logo','cate' => 'static']) }}">Logo</a>
+                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'logo','cate' => 'static']) }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Logo</a>
                 </li>
                 <li>
-                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'banner','cate' => 'static']) }}">Banner</a>
+                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'banner','cate' => 'static']) }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Banner</a>
                 </li>
                 <li>
-                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'slider','cate' => 'man']) }}">Slider</a>
+                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'slider','cate' => 'man']) }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Slider</a>
                 </li>  
                 <li>
-                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'social','cate' => 'man']) }}">Mạng xã hội</a>
+                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'social','cate' => 'man']) }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Mạng xã hội</a>
                 </li> 
                 <li>
-                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'quang-cao','cate' => 'man']) }}">Quảng Cáo</a>
+                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'quang-cao','cate' => 'man']) }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Quảng Cáo</a>
                 </li>
                 <li>
-                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'khong-gian-quan','cate' => 'man']) }}">Không gian quán</a>
+                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'khong-gian-quan','cate' => 'man']) }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Không gian quán</a>
                 </li> 
                 <li>
-                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'video-slide','cate' => 'video']) }}">Video</a>
+                    <a href="{{ route('LayDsLoaiHinhAnh',['loai' => 'video-slide','cate' => 'video']) }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Video</a>
                 </li>
             </ul>
         </li>      
@@ -101,26 +101,20 @@
             </p>
             <ul class="ul_child ul_child_4">
                 <li>
-                    <a href="{{ route('bai_viets',['type' => 'tin-tuc']) }}">Tin tức</a>
+                    <a href="{{ route('bai_viets',['type' => 'tin-tuc']) }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Tin tức</a>
                 </li>
                 <li>
-                    <a href="{{ route('bai_viets',['type' => 'tieu-chi']) }}">Tiêu chí</a>
+                    <a href="{{ route('bai_viets',['type' => 'tieu-chi']) }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Tiêu chí</a>
                 </li>
                 <li>
-                    <a href="{{ route('bai_viets',['type' => 'danh-gia']) }}">Feedback</a>
-                </li> 
-                <li>
-                    <a href="{{ route('bai_viets',['type' => 'chinh-sach']) }}">Chính sách</a>
+                    <a href="{{ route('bai_viets',['type' => 'chinh-sach']) }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Chính sách</a>
                 </li>
                 <li>
-                    <a href="{{ route('bai_viets',['type' => 'payments']) }}">Hình thức thanh toán</a>
+                    <a href="{{ route('bai_viets',['type' => 'payments']) }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Hình thức thanh toán</a>
                 </li>
             </ul>
         </li>
-        
-        {{-- <li>
-            <a href="{{ route('statistical') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý thống kê</span></a>
-        </li> --}}
+        <li><a href="{{ route('LayDsCauHinhChung') }}"><ion-icon name="settings-outline"></ion-icon><span>Cấu hình chung</span></a></li>
         <li><a href="{{ route('dangxuat') }}"><ion-icon name="return-up-back-outline"></ion-icon><span>Đăng xuất</span></a></li>
     </ul>   
 </div> 

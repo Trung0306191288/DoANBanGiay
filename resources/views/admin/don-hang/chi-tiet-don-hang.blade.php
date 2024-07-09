@@ -125,29 +125,38 @@ use App\Http\Controllers\DonHangController;
                                                 <th class="text-center">{{ $k + 1 }}</th>
                                                 <th class="text-center">
                                                     <img class="img_main"
-                                                        onerror="{{ asset('adminbuild/images/noimage.png') }}"
+                                                        onerror="this.src='{{ asset('adminbuild/images/noimage.png') }}'"
                                                         src="{{ asset('upload/sanpham/' . $orderDetail->hinh_anh) }}"
                                                         width="100" height="100" alt="{{ $orderDetail->ten_san_pham }}">
                                                 </th>
                                                 <th>{{ $orderDetail->ten_san_pham }}</th>
-                                                <th>{{ $orderInfo->hinh_thuc_thanh_toan  }}
-                                                </th>
+                                                <th>{{ $orderInfo->hinh_thuc_thanh_toan }}</th>
                                                 <th class="text-center">{{ $orderDetail->ten_kich_thuoc }}</th>
                                                 <th class="text-center">{{ $orderDetail->ten_mau_sac }}</th>
                                                 <th class="text-center">{{ $orderDetail->so_luong }}</th>
                                                 <th class="txt_green text-center">
-                                                    <p class="m-0" style="color:#ec2d3f;">@convert($orderDetail->gia_moi)</p>
-                                                    <p class="m-0" style="color:#ccc;text-decoration: line-through;">
-                                                        @convert($orderDetail->gia_ban)
-                                                    </p>
+                                                    @if($orderDetail->gia_moi)
+                                                        <p class="m-0" style="color:#ec2d3f;">@convert($orderDetail->gia_moi)</p>
+                                                        <p class="m-0" style="color:#ccc;text-decoration: line-through;">
+                                                            @convert($orderDetail->gia_ban)
+                                                        </p>
+                                                    @else
+                                                        <p class="m-0" style="color:#ec2d3f;">@convert($orderDetail->gia_ban)</p>
+                                                    @endif
                                                 </th>
                                                 <th class="text-center">
-                                                    <p class="m-0" style="color:#ec2d3f;">
-                                                        @convert($orderDetail->gia_moi * $orderDetail->so_luong)
-                                                    </p>
-                                                    <p class="m-0" style="color:#ccc;text-decoration: line-through;">
-                                                        @convert($orderDetail->gia_ban * $orderDetail->so_luong)
-                                                    </p>
+                                                    @if($orderDetail->gia_moi)
+                                                        <p class="m-0" style="color:#ec2d3f;">
+                                                            @convert($orderDetail->gia_moi * $orderDetail->so_luong)
+                                                        </p>
+                                                        <p class="m-0" style="color:#ccc;text-decoration: line-through;">
+                                                            @convert($orderDetail->gia_ban * $orderDetail->so_luong)
+                                                        </p>
+                                                    @else
+                                                        <p class="m-0" style="color:#ec2d3f;">
+                                                            @convert($orderDetail->gia_ban * $orderDetail->so_luong)
+                                                        </p>
+                                                    @endif
                                                 </th>
                                             </tr>
                                         @endforeach

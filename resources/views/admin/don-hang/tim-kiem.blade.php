@@ -5,7 +5,7 @@ use App\Http\Controllers\OrderController;
 @section('body')
     <div class="box_btn_search">
         <div class="flex_filter">
-            <form class="flex_form_search" action="{{ route('timkiemdonhang') }}" method="GET" enctype="multipart/form-data">
+            <form class="flex_form_search add" action="{{ route('timkiemdonhang') }}" method="GET" enctype="multipart/form-data">
                 @csrf
                 <div class="box_select">
                     <label for="select_status_order">Trạng thái đơn hàng</label>
@@ -27,27 +27,26 @@ use App\Http\Controllers\OrderController;
                         <option value="Chưa thanh toán">Chưa thanh toán</option>
                     </select>
                 </div>
-                <div class="box_range">
-                    <label for="select_status_order">Giá trị đơn hàng</label>
-                    <div class="btn_change_range">
-                        <input type="range" class="form-range range_test" min="1" max="5" name="price_search">
-                        <span class="range_number range_number_1">1</span>
-                        <span class="range_number range_number_2">2</span>
-                        <span class="range_number range_number_3">3</span>
-                        <span class="range_number range_number_4">4</span>
-                        <span class="range_number range_number_5">5</span>
-                        <span class="hidden_range active_hidden"></span>
+                <div class="wrapper">
+                    <div class="flex2">
+                        <p class="begin">0</p>
+                        <div class="container1">
+                            <div class="slider-track"></div>
+                            <input type="range" min="0" max="100000000" value="0" name="giadau" id="slider-1" oninput="slideOne()">
+                            <input type="hidden" id="giadau" name="giadau" value="{{ old('giadau', 0) }}">
+                            <input type="range" min="0" max="100000000" value="100000000" id="slider-2" oninput="slideTwo()">
+                            <input type="hidden" id="giacuoi" name="giacuoi" value="{{ old('giacuoi', 100000000) }}">
+                        </div>
+                        <p class="end">100000000</p>
+                    </div>
+                    <div class="values">
+                        <span id="range1">{{ old('giadau', 0) }}</span>
+                        <span> &dash; </span>
+                        <span id="range2">{{ old('giacuoi', 100000000) }}</span>
                     </div>
                 </div>  
                 <input type="submit" class="btn btn-primary btn-sm" value="Tìm kiếm">
             </form>
-            <div class="note_filter">
-                <p><span>Bật 1:</span> nhỏ hơn 1tr</p>
-                <p><span>Bật 2:</span> nhỏ hơn 10tr</p>
-                <p><span>Bật 3:</span> nhỏ hơn 50tr</p>
-                <p><span>Bật 4:</span> nhỏ hơn 100tr</p>
-                <p><span>Bật 5:</span> nhỏ hơn 200tr</p>
-            </div>
         </div>
         <div class="alert_ajax act"><span>{{ $name_search }}</span><span class="btn_reload_alert"><ion-icon name="close-outline"></ion-icon></span></div>
     </div>
@@ -76,7 +75,7 @@ use App\Http\Controllers\OrderController;
                         <td>
                             <a href="{{ route('loaddonhang', ['id' => $v['id']]) }}">{{ $v->ma_don_hang }}</a>
                         </td>
-                        <td>{{ $v->ten }}</td>
+                        <td>{{ $v->ho_ten }}</td>
                         <td style="color:#ec2d3f;font-weight:bold;">@convert($v->tong_gia)</td>
                         <td> {{ $v->hinh_thuc_thanh_toan  }}</td>
                         <td class="text-center" style="width: 175px;">{{ $v->tinh_trang_don_hang }}</td>

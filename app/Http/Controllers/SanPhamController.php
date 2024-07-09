@@ -19,16 +19,16 @@ class SanPhamController extends Controller
 {
     public function DanhSach()
     {
-        $pageName = 'Quản lý Sản Phẩm';
+        $TieuDe = 'Quản lý Sản Phẩm';
         $products = SanPham::get()->sortBy('id');
         $categorys = DanhMucCapMot::get()->sortBy('id');
         $brands = ThuongHieu::get()->sortBy('id');
-        return view('admin.san-pham.danh-sach', compact('products', 'pageName', 'categorys', 'brands'));
+        return view('admin.san-pham.danh-sach', compact('products', 'TieuDe', 'categorys', 'brands'));
     }
 
     public function themSanPham()
     {
-        $pageName = 'Thêm sản phẩm';
+        $TieuDe = 'Thêm sản phẩm';
         $categorys = DanhMucCapMot::get()->sortBy('id');
         $brands = ThuongHieu::get()->sortBy('id');
         $colors = MauSac::get()->sortBy('id');
@@ -37,7 +37,7 @@ class SanPhamController extends Controller
         $color_product = NULL;
         $size_product = NULL;
         $list_advanted = NULL;
-        return view('admin.san-pham.them', compact('pageName', 'categorys', 'brands', 'update', 'colors', 'sizes', 'color_product', 'size_product', 'list_advanted'));
+        return view('admin.san-pham.them', compact('TieuDe', 'categorys', 'brands', 'update', 'colors', 'sizes', 'color_product', 'size_product', 'list_advanted'));
     }
 
     public function xulyThemSanPham(SanPhamRequest $data)
@@ -63,9 +63,6 @@ class SanPhamController extends Controller
         $add->ma_san_pham = $data->code_product;
         $add->gia_ban = $data->price_regular_product;
         $add->gia_moi = $data->price_sale_product;
-        // $add->gia_dau = $data->price_from_product;
-        // $add->gia_cuoi = $data->price_to_product;
-        // $add->inventory = $data->inventory_product;
         if ($data->status_product != 0) {
             $add->tinh_trang = $data->status_product;
         } else {
@@ -139,7 +136,7 @@ class SanPhamController extends Controller
 
     public function capnhatSanPham($id)
     {
-        $pageName = 'Cập nhật sản phẩm';
+        $TieuDe = 'Cập nhật sản phẩm';
         $categorys = DanhMucCapMot::get()->sortBy('id');
         $categorys_two = DanhMucCapHai::get()->sortBy('id_cap_mot');
         $brands = ThuongHieu::get()->sortBy('id');
@@ -161,7 +158,7 @@ class SanPhamController extends Controller
         if ($update == null) {
             return view('LayDsSanPham');
         } else {
-            return view('admin.san-pham.them', compact('pageName', 'update', 'categorys_2', 'categorys_two', 'categorys', 'brands', 'colors', 'sizes', 'color_product', 'size_product', 'photo_gallery', 'list_advanted'));
+            return view('admin.san-pham.them', compact('TieuDe', 'update', 'categorys_2', 'categorys_two', 'categorys', 'brands', 'colors', 'sizes', 'color_product', 'size_product', 'photo_gallery', 'list_advanted'));
         }
     }
 
@@ -226,6 +223,7 @@ class SanPhamController extends Controller
                 $add_SP->id_san_pham = $id;
                 $add_SP->id_kich_thuoc = $arr_size[$i];
                 $add_SP->save();
+        
                 $arr_color_adv = $data->arr_color;
                 $count_color_adv = count($data->arr_color ?? []);
                 for ($j = 0; $j < $count_color_adv; $j++) {
@@ -239,14 +237,14 @@ class SanPhamController extends Controller
                         $add_advanted->id_kich_thuoc = $arr_size[$i];
                         $add_advanted->id_mau_sac = $arr_color_adv[$j];
                         $add_advanted->gia_ban = 0;
-                        $add_advanted->gia_ban = 0;
                         $add_advanted->hinh_anh = '';
-                        $add_advanted->kho_hang = '';
+                        $add_advanted->kho_hang = 0;
                         $add_advanted->save();
                     }
                 }
             }
         }
+        
 
         if ($data->id_adv != NULL) {
             $count_id_adv = count($data->id_adv);
@@ -274,9 +272,6 @@ class SanPhamController extends Controller
         $add->ma_san_pham = $data->code_product;
         $add->gia_ban = $data->price_regular_product;
         $add->gia_moi = $data->price_sale_product;
-        // $add->gia_dau = $data->price_from_product;
-        // $add->gia_cuoi = $data->price_to_product;
-        // $add->inventory = $data->inventory_product;
         if ($data->status_product != 0) {
             $add->tinh_trang = $data->status_product;
         } else {
@@ -334,8 +329,8 @@ class SanPhamController extends Controller
 
     public function timkiemSanPham(Request $data)
     {
-        $pageName = 'Tìm kiếm Sản Phẩm';
+        $TieuDe = 'Tìm kiếm Sản Phẩm';
         $search = SanPham::where('ten', 'LIKE', '%' . $data->name_search . '%')->get();
-        return view('admin.san-pham.tim-kiem', compact('search', 'pageName'));
+        return view('admin.san-pham.tim-kiem', compact('search', 'TieuDe'));
     }
 }

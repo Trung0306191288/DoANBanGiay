@@ -10,16 +10,16 @@ class MauSacController extends Controller
 {
     public function DanhSach()
     {
-        $pageName = 'Quản lý màu sắc';
+        $TieuDe = 'Quản lý màu sắc';
         $colors = MauSac::get()->sortBy('id');
-        return view('admin.mau-sac.danh-sach', compact('colors','pageName'));
+        return view('admin.mau-sac.danh-sach', compact('colors','TieuDe'));
     }
 
     public function themMauSac()
     {
-        $pageName = 'Thêm màu sắc';
+        $TieuDe = 'Thêm màu sắc';
         $update = NULL;
-        return view('admin.mau-sac.them', compact('update','pageName'));
+        return view('admin.mau-sac.them', compact('update','TieuDe'));
     }
 
     public function xulyThemMauSac(MauSacRequest $data)
@@ -33,12 +33,12 @@ class MauSacController extends Controller
 
     public function capnhatMauSac($id)
     {
-        $pageName = 'Cập nhật màu sắc';
+        $TieuDe = 'Cập nhật màu sắc';
         $update = MauSac::find($id);
         if ($update == null) {
             return view('LayDsMauSac');
         } else {
-            return view('admin.mau-sac.them', compact('update','pageName'));
+            return view('admin.mau-sac.them', compact('update','TieuDe'));
         }
     }
 
@@ -47,7 +47,6 @@ class MauSacController extends Controller
         $add = MauSac::find($id);
         $add->ten = $data->ten_mau_sac;
         $add->code_mau = $data->ten_ma;
-        // $add->status = $data->name_size;
         $add->save();
         return redirect()->route('LayDsMauSac')->with('noti','Cập nhật màu sắc thành công !');
     }
@@ -64,8 +63,8 @@ class MauSacController extends Controller
 
     public function timkiemMauSac(Request $data)
     {
-        $pageName = 'Tìm kiếm màu sắc';
+        $TieuDe = 'Tìm kiếm màu sắc';
         $search = MauSac::where('ten', 'LIKE', '%'.$data->name_search.'%')->get();
-        return view('admin.mau-sac.tim-kiem', compact('search','pageName'));
+        return view('admin.mau-sac.tim-kiem', compact('search','TieuDe'));
     }
 }

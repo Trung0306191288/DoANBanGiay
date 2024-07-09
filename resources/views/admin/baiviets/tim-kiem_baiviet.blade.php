@@ -3,7 +3,6 @@
 <div class="box_btn_search">
     <div class="flex_btn_search">
         <div class="btn_add"><a href="{{ route('LoadAddBaiviets',['type' => $type_page]) }}">Thêm mới</a></div>
-        <div class="btn_delete_all">Xóa tất cả</div>
         <form action="{{ route('searchBaiviets',['type' => $type_page]) }}" method="GET" enctype="multipart/form-data">
             @csrf
             <div class="input_search">
