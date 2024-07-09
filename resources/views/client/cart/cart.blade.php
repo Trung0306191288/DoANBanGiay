@@ -12,7 +12,13 @@
                     <div class="cart--left">
                         <div class="cart__list mb-4">
                             @foreach (session('cart') as $id => $details)
-                                @php $total += $details['price_new'] * $details['quantity'] @endphp
+                            @php
+                                if ($details['price_new']) {
+                                    $total += $details['price_new'] * $details['quantity'];
+                                } else {
+                                    $total += $details['price_old'] * $details['quantity'];
+                                }
+                            @endphp
                                 <div class="cart__item" data-id="{{ $id }}">
                                     <div class="cart__item-inner">
                                         <div class="cart__item--left">
@@ -38,8 +44,13 @@
                                                     </div>
                                                     <div class="cart__item-price">
                                                         <div class="cart__item-price-title">Giá:</div>
-                                                        <div class="cart__item-price-new">@convert($details['price_new'])</div>
-                                                        <div class="cart__item-price-old">@convert($details['price_old'])</div>
+                                                        @if($details['price_new'])
+                                                            <div class="cart__item-price-new">@convert($details['price_new'])</div>
+                                                            <div class="cart__item-price-old">@convert($details['price_old'])</div>
+                                                        @else
+                                                            <div class="cart__item-price-new">@convert($details['price_old'])</div>
+                                                        @endif
+                                                       
                                                     </div>
                                                 </div>
                                             </div>
@@ -77,13 +88,11 @@
                         </div>
                     </div>
                     <div class="cart--right">
-                        <form class="cart__info" action="{{ route('payment', $code) }}" method="POST">
+                        <form class="cart__info" action="{{ route('payment', $code) }}" method="POST" id="paymentForm">
                             @csrf
                             <div class="cart__info-item">
                                 <label for="payment_method" class="cart__info-item-label">Hình thức thanh toán</label>
-                                <select name="payment_method" id="payment_method" class="cart__info-selection"
-                                    oninvalid="this.setCustomValidity('Vui lòng chọn hình thức thanh toán')"
-                                    oninput="setCustomValidity('')" title="Vui lòng chọn hình thức thanh toán" required>
+                                <select name="payment_method" id="payment_method" class="cart__info-selection" required>
                                     <option value="">Chọn hình thức thanh toán</option>
                                     @foreach ($payments as $payment)
                                         <option value="{{ $payment->id }}.{{ $payment->ten }}">{{ $payment->ten }}</option>
@@ -93,38 +102,40 @@
                             <div class="cart__info-item-list">
                                 <div class="cart__info-item">
                                     <label for="name" class="cart__info-item-label">Tên người nhận</label>
-                                    <input type="text" name="name" id="name"
-                                        value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->ho_ten : '' }}"
-                                        class="cart__info-item-input" required>
+                                    <input type="text" name="name" id="name" value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->ho_ten : '' }}" class="cart__info-item-input" required>
                                 </div>
                                 <div class="cart__info-item">
                                     <label for="phone" class="cart__info-item-label">Số điện thoại</label>
-                                    <input type="number" name="phone" id="phone"
-                                        value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->dien_thoai : '' }}"
-                                        class="cart__info-item-input hidden-spin" required>
+                                    <input type="number" name="phone" id="phone" value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->dien_thoai : '' }}" class="cart__info-item-input hidden-spin" required>
                                 </div>
                             </div>
                             <div class="cart__info-item">
                                 <label for="email" class="cart__info-item-label">Email</label>
-                                <input type="email" name="email" id="email"
-                                    value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->email : '' }}"
-                                    class="cart__info-item-input" required>
+                                <input type="email" name="email" id="email" value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->email : '' }}" class="cart__info-item-input" required>
                             </div>
                             <div class="cart__info-item">
                                 <label for="address" class="cart__info-item-label">Địa chỉ</label>
-                                <input type="text" name="address" id="address"
-                                    value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->dia_chi : '' }}"
-                                    class="cart__info-item-input" required>
+                                <input type="text" name="address" id="address" value="{{ Auth::guard('client')->check() ? Auth::guard('client')->user()->dia_chi : '' }}" class="cart__info-item-input" required>
                             </div>
                             <div class="cart__info-item">
                                 <label for="note" class="cart__info-item-label">Ghi chú</label>
                                 <textarea name="note" id="note" rows="5" class="cart__info-item-textarea"></textarea>
                             </div>
                             <div class="cart__info-item">
-                                <button type="submit" name="payment" class="cart__info-item-button">Thanh toán
-                                    ngay</button>
+                                <input type="hidden" name="total" value="{{ $total }}">
+                                <input type="hidden" name="code" value="{{ $code }}">
+                                <button type="submit" name="payment" class="cart__info-item-button mb-4">Thanh toán ngay</button>
+                                <button type="submit" name="redirect" class="cart__info-item-button" onclick="submitVnPayForm()">Thanh toán VnPay</button>
                             </div>
                         </form>
+                        <script>
+                            function submitVnPayForm() {
+                                const form = document.getElementById('paymentForm');
+                                form.action = "{{ url('/vnpay_payment') }}";
+                                form.method = "POST";
+                                form.submit();
+                            }
+                        </script>
                     </div>
                 @else
                     <a href="{{ route('TrangChu') }}" class="empty-cart text-decoration-none d-block">

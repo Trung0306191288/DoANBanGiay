@@ -33,8 +33,10 @@ use App\Http\Controllers\Clients\TrangChuController;
                         <input type="text" class="search__input" name="key_search_index" placeholder="Nhập từ khóa của bạn...">
                         <input type="submit" class="btn_search_index">
                     </div>
+                    <div class="sugges-search"></div>
                 </form>
             </div>
+            
             <div class="header__block--right d-flex justify-content-between align-items-center">
                 <div class="header__info">
                     <a class="header__info-inner" href="tel:0339311897" title="Gọi ngay">
@@ -75,6 +77,13 @@ use App\Http\Controllers\Clients\TrangChuController;
                             @endif
                         </div>
                     </div>
+                </div>
+                <div class="lang-web">
+                    <div class="lang d-flex align-items-start justify-content-end">
+                        <img class="hvr-float" src="{{ asset('adminbuild/images/VI.png') }}" onclick="doGoogleLanguageTranslator('vi|vi'); return false;" />
+                        <img class="hvr-float" src="{{ asset('adminbuild/images/EN.png') }}" onclick="doGoogleLanguageTranslator('vi|en'); return false;" />
+                    </div>
+                    <div id="google_language_translator"></div> 
                 </div>
             </div>
         </div>

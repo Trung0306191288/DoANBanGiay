@@ -1092,7 +1092,7 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   inset: auto 0 0 auto;
 }
 
-.swal2-confirm {background: #C33764!important;padding: 5px 20px !important;}
+.swal2-confirm {background: #000!important;padding: 5px 20px !important;}
 .swal2-deny {background: #bababa !important;color: #000 !important;padding: 5px 20px !important;}
 .swal2-title {font-size: 22px !important;padding-top: 40px !important;}
-.swal2-popup.swal2-modal {border-top: 5px solid #C33764!important;padding-bottom: 40px !important;}
+.swal2-popup.swal2-modal {border-top: 5px solid #000!important;padding-bottom: 40px !important;}

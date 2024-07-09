@@ -10,20 +10,20 @@ use Illuminate\Http\Request;
 class CategoryMemberController extends Controller
 {
     public function index() {
-        $pageName = 'Quản lý Danh Mục Tài khoản';
+        $TieuDe = 'Quản lý Danh Mục Tài khoản';
         $cate_member = PhanQuyen::where(
             [
                 ['tinh_trang_vai_tro','!=',1],
                 ['tinh_trang_vai_tro','!=',2],
             ]
         )->get();
-        return view('admin.member_admins.category_member.index', compact('cate_member','pageName'));
+        return view('admin.member_admins.category_member.index', compact('cate_member','TieuDe'));
     }
 
     public function loadAddCate_Member() {
-        $pageName = 'Thêm Danh mục tài khoản';
+        $TieuDe = 'Thêm Danh mục tài khoản';
         $update = NULL;
-        return view('admin.member_admins.category_member.add', compact('pageName','update'));
+        return view('admin.member_admins.category_member.add', compact('TieuDe','update'));
     }
 
     public function handleAddCate_Member(Request $data) {
@@ -45,12 +45,12 @@ class CategoryMemberController extends Controller
     }
 
     public function loadUpdateCate_Member($id) {
-        $pageName = 'Chỉnh sửa Danh mục tài khoản';
+        $TieuDe = 'Chỉnh sửa Danh mục tài khoản';
         $update = PhanQuyen::find($id);
         if ($update == null) {
             return view('member_admins.category_member');
         } else {
-            return view('admin.member_admins.category_member.add', compact('pageName','update'));
+            return view('admin.member_admins.category_member.add', compact('TieuDe','update'));
         }
     }
 

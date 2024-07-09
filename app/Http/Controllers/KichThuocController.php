@@ -13,16 +13,16 @@ class KichThuocController extends Controller
      */
     public function DanhSach()
     {
-        $pageName = 'Quản lý Kích thước';
+        $TieuDe = 'Quản lý Kích thước';
         $sizes = KichThuoc::get()->sortBy('id');
-        return view('admin.kich-thuoc.danh-sach', compact('sizes','pageName'));
+        return view('admin.kich-thuoc.danh-sach', compact('sizes','TieuDe'));
     }
 
     public function themKichThuoc()
     {
-        $pageName = 'Thêm kích thước';
+        $TieuDe = 'Thêm kích thước';
         $update = NULL;
-        return view('admin.kich-thuoc.them', compact('update','pageName'));
+        return view('admin.kich-thuoc.them', compact('update','TieuDe'));
     }
 
     public function xulyThemKichThuoc(KichThuocRequest $data)
@@ -34,12 +34,12 @@ class KichThuocController extends Controller
     }
 
     public function capnhatKichThuoc($id) {
-        $pageName = 'Cập nhật kích thước';
+        $TieuDe = 'Cập nhật kích thước';
         $update = KichThuoc::find($id);
         if ($update == null) {
             return view('LayDsKichThuoc');
         } else {
-            return view('admin.kich-thuoc.them', compact('update','pageName'));
+            return view('admin.kich-thuoc.them', compact('update','TieuDe'));
         }
     }
 
@@ -64,8 +64,8 @@ class KichThuocController extends Controller
 
     public function timkiemKichThuoc(Request $data)
     {
-        $pageName = 'Tìm kiếm kích thước';
+        $TieuDe = 'Tìm kiếm kích thước';
         $search = KichThuoc::where('ten', 'LIKE', '%'.$data->name_search.'%')->get();
-        return view('admin.kich-thuoc.tim-kiem', compact('search','pageName'));
+        return view('admin.kich-thuoc.tim-kiem', compact('search','TieuDe'));
     }
 }

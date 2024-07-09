@@ -190,7 +190,7 @@ a {text-decoration: none !important;color: #000;}
 .flex_form_product .right_form {margin-left: auto;margin-right: 1%;}
 .flex_form.flex_form_product {flex-direction: row-reverse;}
 .flex_form.flex_form_product .right_form {margin-right: 0;}
-.arlert_tong {position: absolute;box-shadow: 0 0 0px transparent;padding: 12px 30px;background: green;top: 8px;left: 50%;transform: translateX(-50%);border-radius: 5px;opacity: 0;animation: hienthi 5s linear;}
+.arlert_tong {position: absolute;box-shadow: 0 0 0px transparent;padding: 12px 30px;background: #14d414;top: 8px;left: 50%;transform: translateX(-50%);border-radius: 5px;opacity: 0;animation: hienthi 5s linear;color: #fff;display: flex;justify-content: center;align-items: center;gap: 5px;font-size: 20px;text-transform: capitalize;}
 @keyframes hienthi {
     0% {opacity: 1;box-shadow: 0 0 0px transparent;}
     10% {opacity: 1;box-shdow: 0 0 0px transparent}
@@ -1049,12 +1049,12 @@ select.control-search {border:0px;outline:0px;}
     font-size: 15px;
     color: #000;
   }
-.wrapper{max-width: 520px;width: 100%;}
+.wrapper{max-width: 500px;width: 100%;}
 .kung_range{margin-top: 10px;}
 .kung_range .p{margin-bottom: 10px;font-size: 14px;color:#222222;font-family:'NunitoSans_bold' ;}
 .flex2{display: flex;}
-.flex2 .begin{padding-right: 10px;}
-.flex2 .end{padding-left: 10px;}
+.flex2 .begin{padding-right: 10px;margin: 0;}
+.flex2 .end{padding-left: 10px;margin: 0;}
 .footer-ul li a:before {
     content: '\25CF';
     color: #000;
@@ -1129,3 +1129,28 @@ span.pros__price_new { font-weight: bold; color: #000; margin-right: 5px; }
 span.pros__price_old { font-size: 13px; color: #000; } 
 .pros__price_old i { font-style: normal; margin-right: 5px; text-decoration: line-through; opacity: 0.8; }
 .pros__title:hover{color: red;transition: all 0.3s;} 
+
+.flex_form_search.add {
+    width: 100%;
+}
+
+.box_input span.edit {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #000;
+    text-transform: capitalize;
+    font-size: 14px;
+    padding: 0;
+}
+
+.box_input a {
+    color: #a5afcd;
+}
+
+.box_input a:hover {
+    color: #838eac;
+}
+.arlert_tong ion-icon {
+    font-size: 35px;
+}

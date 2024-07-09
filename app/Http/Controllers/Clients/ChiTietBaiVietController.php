@@ -13,21 +13,21 @@ class ChiTietBaiVietController extends Controller
      */
     public function index()
     {
-        $pageName = 'Tin tức';
+        $TieuDe = 'Tin tức';
         $newsList = Baiviet::where('loai', 'tin-tuc')
             ->where('tinh_trang', '1')
             ->paginate(20);
 
-        return view('client.tin-tuc.index', compact('pageName', 'newsList'));
+        return view('client.tin-tuc.index', compact('TieuDe', 'newsList'));
     }
 
     public function detail(Request $request)
     {
-        $pageName = 'Tin tức';
+        $TieuDe = 'Tin tức';
         $newsDetail = Baiviet::where('loai', 'tin-tuc')
             ->where('id', $request->id)
             ->first();
 
-        return view('client.tin-tuc.detail', compact('pageName', 'newsDetail'));
+        return view('client.tin-tuc.detail', compact('TieuDe', 'newsDetail'));
     }
 }

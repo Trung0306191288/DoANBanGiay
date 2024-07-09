@@ -11,17 +11,17 @@ class ThuongHieuController extends Controller
     public function DanhSach()
     {
         $brands = ThuongHieu::get()->sortBy('id');
-        $pageName = 'Quản lý thương hiệu';
+        $TieuDe = 'Quản lý thương hiệu';
 
-        return view('admin.thuong-hieu.danh-sach', compact('brands', 'pageName'));
+        return view('admin.thuong-hieu.danh-sach', compact('brands', 'TieuDe'));
     }
 
     public function themThuongHieu()
     {
-        $pageName = 'Thêm thương hiệu';
+        $TieuDe = 'Thêm thương hiệu';
         $update = NULL;
 
-        return view('admin.thuong-hieu.them', compact('pageName', 'update'));
+        return view('admin.thuong-hieu.them', compact('TieuDe', 'update'));
     }
 
     public function xulyThemThuongHieu(ThuongHieuRequest $data)
@@ -47,9 +47,9 @@ class ThuongHieuController extends Controller
     public function capnhatThuongHieu($id)
     {
         $update = ThuongHieu::find($id);
-        $pageName = 'Chỉnh sửa thương hiệu';
+        $TieuDe = 'Chỉnh sửa thương hiệu';
 
-        return view('admin.thuong-hieu.them', compact('update', 'pageName'));
+        return view('admin.thuong-hieu.them', compact('update', 'TieuDe'));
     }
 
     public function xulyCapNhatThuongHieu(ThuongHieuRequest $data, $id)
@@ -90,8 +90,8 @@ class ThuongHieuController extends Controller
 
     public function timkiemThuongHieu(Request $data)
     {
-        $pageName = 'Tìm kiếm thương hiệu';
+        $TieuDe = 'Tìm kiếm thương hiệu';
         $search = ThuongHieu::where('ten', 'LIKE', '%'.$data->name_search.'%')->get();
-        return view('admin.thuong-hieu.tim-kiem', compact('search','pageName'));
+        return view('admin.thuong-hieu.tim-kiem', compact('search','TieuDe'));
     }
 }

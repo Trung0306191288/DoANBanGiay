@@ -86,7 +86,7 @@
                                                 <p class="product-detail__label">Giá bán</p>
                                                 <div class="product-detail__price-item">
                                                     <span class="product-detail__price-new">
-                                                        @convert($productDetail['gia_moi'])
+                                                        @convert($productDetail['gia_ban'])
                                                     </span>
                                                 </div>
                                             @else
@@ -173,7 +173,7 @@
         @if (count($productsRelated))
             <div class="product-detail-bottom">
                 <div class="title-main">
-                    <span>Sản phẩm cùng loại</span>
+                    <span>Sản phẩm liên quan</span>
                     <div class="animate-border"></div>
                 </div>
                 <div class="w-clear">

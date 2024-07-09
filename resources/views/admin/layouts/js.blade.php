@@ -152,44 +152,39 @@
 </script>
 
 <script>
-    window.onload = function() {
-        slideOne();
-        slideTwo();
-    };
-let sliderOne = document.getElementById("slider-1");
-let sliderTwo = document.getElementById("slider-2");
-let displayValOne = document.getElementById("range1");
-let displayValTwo = document.getElementById("range2");
-let giadau = document.getElementById("giadau");
-let giacuoi = document.getElementById("giacuoi");
-let minGap = 0;
-let sliderTrack = document.querySelector(".slider-track");
-let sliderMaxValue = document.getElementById("slider-1").max;
+    var sliderOne = document.getElementById('slider-1');
+    var sliderTwo = document.getElementById('slider-2');
+    var displayValOne = document.getElementById('range1');
+    var displayValTwo = document.getElementById('range2');
+    var minGap = 0;
+    var sliderTrack = document.querySelector('.slider-track');
+    var sliderMaxValue = sliderOne.max;
 
-function slideOne() {
-    if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
-        sliderOne.value = parseInt(sliderTwo.value) - minGap;
+    function slideOne() {
+        if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
+            sliderOne.value = parseInt(sliderTwo.value) - minGap;
+        }
+        displayValOne.textContent = sliderOne.value;
+        document.getElementById('giadau').value = sliderOne.value;
+        fillColor();
     }
-    displayValOne.textContent = parseInt(sliderOne.value).toLocaleString();
-    displayValOne.setAttribute('value',sliderOne.value);
-    giadau.setAttribute('value',sliderOne.value);
-    
-    fillColor();
-}
 
-function slideTwo() {
-    if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
-        sliderTwo.value = parseInt(sliderOne.value) + minGap;
+    function slideTwo() {
+        if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
+            sliderTwo.value = parseInt(sliderOne.value) + minGap;
+        }
+        displayValTwo.textContent = sliderTwo.value;
+        document.getElementById('giacuoi').value = sliderTwo.value;
+        fillColor();
     }
-    displayValTwo.textContent = parseInt(sliderTwo.value).toLocaleString();
-    giacuoi.setAttribute('value',sliderTwo.value);
-    fillColor();
-}
 
-function fillColor() {
-    percent1 = (sliderOne.value / sliderMaxValue) * 100;
-    percent2 = (sliderTwo.value / sliderMaxValue) * 100;
-    sliderTrack.style.background =
-        `linear-gradient(to right, #000 ${percent1}% , #a0d25f ${percent1}% , #a0d25f ${percent2}%, #000 ${percent2}%)`;
-}
+    function fillColor() {
+        var percent1 = (sliderOne.value / sliderMaxValue) * 100;
+        var percent2 = (sliderTwo.value / sliderMaxValue) * 100;
+        sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`;
+    }
+
+    // Initialize the sliders and fill colors
+    slideOne();
+    slideTwo();
 </script>

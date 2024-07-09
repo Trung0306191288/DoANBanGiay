@@ -2,7 +2,7 @@
 @section('content')
     <div class="wrap-main">
         <div class="title-main">
-            <span><?= $pageName ?></span>
+            <span><?= $TieuDe ?></span>
             <div class="animate-border"></div>
         </div>
         <div class="product-page">

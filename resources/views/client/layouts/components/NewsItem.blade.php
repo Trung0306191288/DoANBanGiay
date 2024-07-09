@@ -1,16 +1,13 @@
-<div class="news__item">
-    <a class="news__item-inner" href="{{ route('newsDetailPage',$item->id) }}">
-        <div class="news__photo">
-            <figure class="news__photo-inner hvr-scale-img">
-                <img src="{{ asset('upload/blogs/' . $item->photo) }}" alt="{{ $item->ten }}">
-                <figcaption class="figcaption-hidden">{{ $item->ten }}
-            </figure>
+<div class="news-page">
+    <div class="box-news">
+        <div class="pic-news add">
+            <a class="img-news scale-img hover_xam" href="{{ route('newsDetailPage',$item->id) }}" title="{{ $item['ten'] }}" >
+                <img src="{{ asset('upload/baiviets/' . $item['hinh_anh']) }}" alt="{{ $item['ten'] }}">
+            </a>
         </div>
-        <div class="news__info">
-            <div class="news__info-inner">
-                <h3 class="news__name text-spplit transition">{{ $item->ten }}</h3>
-            </div>
-            <p class="news__desc text-split">{{ $item->mo_ta }}</p>
+        <div class="info-news">
+            <h3 class="mb-0 name-news"><a title="{{ $item['ten'] }}" href="{{ route('newsDetailPage',$item->id) }}">{{ $item['ten'] }}</a></h3>
+            <div class="mb-0 mota-news text-split">{{$item['mo_ta']}}</div>
         </div>
-    </a>
+    </div>
 </div>

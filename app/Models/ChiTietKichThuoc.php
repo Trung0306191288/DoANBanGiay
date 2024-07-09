@@ -11,4 +11,5 @@ class ChiTietKichThuoc extends Model
     use softDeletes;
     use HasFactory;
     protected $table = 'chi_tiet_kich_thuocs';
+
 }

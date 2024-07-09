@@ -19,9 +19,9 @@ class DonHangController extends Controller
 {
     public function DanhSach()
     {
-        $pageName = 'Quản lý đơn hàng';
+        $TieuDe = 'Quản lý đơn hàng';
         $orders = DonHang::get()->sortBy('id');
-        return view('admin.don-hang.danh-sach', compact('orders', 'pageName'));
+        return view('admin.don-hang.danh-sach', compact('orders', 'TieuDe'));
     }
 
     public function loadDonHang($id)
@@ -29,9 +29,9 @@ class DonHangController extends Controller
         $orderInfo = DonHang::find($id);
         $orderDetails = ChiTietDonHang::where('id_don_hang', $id)
             ->get();
-        $pageName = 'Xem đơn hàng ' . $orderInfo->ma_don_hang;
+        $TieuDe = 'Xem đơn hàng ' . $orderInfo->ma_don_hang;
 
-        return view('admin.don-hang.chi-tiet-don-hang', compact('orderInfo', 'orderDetails', 'pageName'));
+        return view('admin.don-hang.chi-tiet-don-hang', compact('orderInfo', 'orderDetails', 'TieuDe'));
     }
 
     public function capnhatDonHang(Request $data, $id)
@@ -124,20 +124,8 @@ class DonHangController extends Controller
 
     public static function timkiemDonHang(Request $data)
     {
-        $pageName = 'Tìm kiếm đơn hàng';
-        $price_info = '';
-        if ($data->price_search == 1) {
-            $price_info = 'nhỏ hơn 1 triệu.';
-        } else if ($data->price_search == 2) {
-            $price_info = 'nhỏ hơn 10 triệu.';
-        } else if ($data->price_search == 3) {
-            $price_info = 'nhỏ hơn 50 triệu.';
-        } else if ($data->price_search == 4) {
-            $price_info = 'nhỏ hơn 100 triệu.';
-        } else if ($data->price_search == 5) {
-            $price_info = 'nhỏ hơn 200 triệu.';
-        }
-
+        $TieuDe = 'Tìm kiếm đơn hàng';
+    
         if ($data->select_status_order == NULL) {
             $status_info = 'Không';
         } else {
@@ -149,85 +137,33 @@ class DonHangController extends Controller
         } else {
             $status_info_pay = $data->select_status_payments;
         }
-        // $search = DonHang::where('tinh_trang_don_hang', $data->select_status_order)->get();
-        if ($data['price_search']) {
-            $search = DonHang::where([
-                ['tinh_trang_don_hang', $data->select_status_order],
-                ['tinh_trang_hinh_thuc', $data->select_status_payments],
-                ['tong_gia', '>=', '1000000'],
-                ['tong_gia', '<=', '10000000']
-            ])->get();
-        }
-        // $arayrange = explode("-", $range);
-        // $where .= " and  (regular_price between ".$arayrange[0]." and ".$arayrange[1].") and type='san-pham'";
+        $giadau = $data->input('giadau', 0); // Mặc định là 0 nếu không có giá trị
+        $giacuoi = $data->input('giacuoi', PHP_INT_MAX); // Mặc định là giá trị lớn nhất của PHP
 
-        $name_search = 'Trạng thái đơn hàng: ' . $status_info . ', Trạng thài thanh toán: ' . $status_info_pay . ', Giá trị: ' . $price_info;
-       
-        if ($data->select_status_order != NULL && $data->select_status_payments == NULL && $data->price_search == 3) {
+        if ($data->select_status_order != NULL && $data->select_status_payments == NULL) {
             $search = DonHang::where('tinh_trang_don_hang', $data->select_status_order)->get();
-        } else if ($data->select_status_order == NULL && $data->select_status_payments != NULL && $data->price_search == 3) {
-            $search = DonHang::where('tinh_trang_hinh_thuc', $data->select_status_payments)->get();
-        } else if ($data->select_status_order == NULL && $data->select_status_payments == NULL && $data->price_search == 3) {
-            $search = DonHang::where([
-                ['tong_gia', '>=', '1000000'],
-                ['tong_gia', '<=', '50000000']
-            ])->get();
-        } else if ($data->select_status_order != NULL && $data->select_status_payments != NULL && $data->price_search == 3) {
-            $search = DonHang::where([
-                ['tinh_trang_don_hang', $data->select_status_order],
-                ['tinh_trang_hinh_thuc', $data->select_status_payments],
-                ['tong_gia', '>=', '1000000'],
-                ['tong_gia', '<=', '50000000']
-            ])->get();
-        } else if ($data->select_status_order == NULL && $data->select_status_payments != NULL && $data->price_search == 3) {
-            $search = DonHang::where([
-                ['tinh_trang_hinh_thuc', $data->select_status_payments],
-                ['tong_gia', '>=', '1000000'],
-                ['tong_gia', '<=', '50000000']
-            ])->get();
-        } else if ($data->select_status_order != NULL && $data->select_status_payments == NULL && $data->price_search == 3) {
-            $search = DonHang::where([
-                ['tinh_trang_don_hang', $data->select_status_order],
-                ['tong_gia', '>=', '1000000'],
-                ['tong_gia', '<=', '50000000']
-            ])->get();
-        } else if ($data->select_status_order != NULL && $data->select_status_payments != NULL && $data->price_search != NULL && $data->price_search != 3) {
-            if ($data['price_search'] == 1) {
-                $search = DonHang::where([
-                    ['tinh_trang_don_hang', $data->select_status_order],
-                    ['tinh_trang_hinh_thuc', $data->select_status_payments],
-                    ['tong_gia', '<=', '1000000']
-                ])->get();
-            } else if ($data['price_search'] == 2) {
-                $search = DonHang::where([
-                    ['tinh_trang_don_hang', $data->select_status_order],
-                    ['tinh_trang_hinh_thuc', $data->select_status_payments],
-                    ['tong_gia', '>=', '1000000'],
-                    ['tong_gia', '<=', '10000000']
-                ])->get();
-            } else if ($data['price_search'] == 3) {
-                $search = DonHang::where([
-                    ['tinh_trang_don_hang', $data->select_status_order],
-                    ['tinh_trang_hinh_thuc', $data->select_status_payments],
-                    ['tong_gia', '>=', '1000000'],
-                    ['tong_gia', '<=', '50000000']
-                ])->get();
-            } else if ($data['price_search'] == 4) {
-                $search = DonHang::where([
-                    ['tinh_trang_don_hang', $data->select_status_order],
-                    ['tinh_trang_hinh_thuc', $data->select_status_payments],
-                    ['tong_gia', '>=', '1000000'],
-                    ['tong_gia', '<=', '100000000']
-                ])->get();
-            } else if ($data['price_search'] == 5) {
-                $search = DonHang::where([
-                    ['tinh_trang_don_hang', $data->select_status_order],
-                    ['tinh_trang_hinh_thuc', $data->select_status_payments],
-                    ['tong_gia', '>=', '1000000'],
-                    ['tong_gia', '<=', '200000000']
-                ])->get();
-            }
+
+        } else if ($data->select_status_order == NULL && $data->select_status_payments != NULL ) { 
+            $search = DonHang::where('tinh_trang_hinh_thuc', $data->select_status_order)->get();
+
+        }  else if ($data->select_status_order == NULL && $data->select_status_payments == NULL && isset($data->giadau) && isset($data->giacuoi)) {
+            $giadau = $data->input('giadau', 0);
+            $giacuoi = $data->input('giacuoi', PHP_INT_MAX);
+
+            $search = DonHang::whereBetween('tong_gia', [$giadau, $giacuoi])
+                ->get();
+        }  else if ($data->select_status_order != NULL && $data->select_status_payments != NULL && isset($data->giadau) && isset($data->giacuoi)) { 
+            $giadau = $data->input('giadau', 0);
+            $giacuoi = $data->input('giacuoi', PHP_INT_MAX);
+
+            $search = DonHang::whereBetween('tong_gia', [$giadau, $giacuoi])
+                ->where('tinh_trang_don_hang', $data->select_status_order)
+                ->where('tinh_trang_hinh_thuc', $data->select_status_payments)
+                ->get();
         }
-        return view('admin.don-hang.tim-kiem', compact('search', 'pageName', 'name_search'));
+        
+        $name_search = 'Trạng thái đơn hàng: ' . $status_info . ', Trạng thái thanh toán: ' . $status_info_pay . ', Giá đầu: ' . $giadau . ', Giá cuối: ' . $giacuoi;
+       
+        return view('admin.don-hang.tim-kiem', compact('search', 'TieuDe', 'name_search'));
     }
 }

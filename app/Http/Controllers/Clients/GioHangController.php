@@ -18,12 +18,12 @@ class GioHangController extends Controller
 {
     public function cart()
     {
-        $pageName = "Giỏ hàng";
+        $TieuDe = "Giỏ hàng";
         $code = Str::random(8);
         $payments = Baiviet::where('loai', 'payments')
             ->where('tinh_trang', '1')
             ->get();
-        return view('client.cart.cart', compact('pageName', 'code', 'payments'));
+        return view('client.cart.cart', compact('TieuDe', 'code', 'payments'));
     }
 
     public function addToCart(Request $request)
@@ -82,11 +82,13 @@ class GioHangController extends Controller
 
     public function payment(Request $request)
     {
+        $cart = session('cart', []); // Ensure $cart is an array even if session('cart') is null
         $orderInfo = new DonHang;
         $total = 0;
 
-        foreach (session('cart') as $id => $details) {
-            $total += $details['price_new'] * $details['quantity'];
+        foreach ($cart as $id => $details) {
+            $price = $details['price_new'] ?? $details['price_old'];
+            $total += $price * $details['quantity'];
         }
 
         // $orderInfo->id_thanh_vien = Auth::guard('client')->user()->id;
@@ -102,10 +104,10 @@ class GioHangController extends Controller
         $orderInfo->tinh_trang_hinh_thuc = 'Chưa thanh toán';
         $orderInfo->save();
 
-        foreach (session('cart') as $id => $details) {
+        foreach ($cart as $id => $details) {
             $orderDetail = new ChiTietDonHang();
             // $product = Product::find($details['id_product']);
-            // $product->inventory -= $details['quantity'];
+            // $product->inventory -= $details['quantity']);
             // $product->save();
 
             $orderDetail->id_don_hang = $orderInfo->id;
@@ -113,8 +115,10 @@ class GioHangController extends Controller
             $orderDetail->dia_chi = '';
             $orderDetail->ghi_chu = '';
             $orderDetail->tong_gia = 0;
+
             $orderDetail->gia_ban = $details['price_old'];
-            $orderDetail->gia_moi = $details['price_new'];
+            $orderDetail->gia_moi = $details['price_new'] ?? 0;
+
             $orderDetail->hinh_anh = $details['photo'];
             $orderDetail->ten_san_pham = $details['name'];
             $orderDetail->ten_kich_thuoc = $details['sizeName'];
@@ -124,22 +128,28 @@ class GioHangController extends Controller
         }
 
         session()->forget('cart');
-   
+
         return redirect()->route('orderInfo', $orderInfo->id);
     }
 
+
+
+
     public function orderInfo($id)
     {
-        $pageName = "Thông tin đơn hàng của bạn";
+        $TieuDe = "Thông tin đơn hàng của bạn";
         $orderInfo = DonHang::where('id', $id)
             ->first();
         $orderDetail = ChiTietDonHang::where('id_don_hang', $id)
             ->get();
+        $paymentMethod = $orderInfo->hinh_thuc_thanh_toan ?? 'Thanh toán Vnpay';
+
+        // Retrieve the payment method details
         $payment = Baiviet::where('loai', 'payments')
-            ->where('id', $orderInfo->hinh_thuc_thanh_toan)
-            ->first();
+                    ->where('id', $paymentMethod)
+                    ->first();
 
 
-        return view('client.cart.index', compact('pageName', 'orderInfo', 'orderDetail', 'payment'));
+        return view('client.cart.index', compact('TieuDe', 'orderInfo', 'orderDetail', 'payment'));
     }
 }

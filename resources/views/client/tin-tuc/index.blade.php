@@ -2,13 +2,13 @@
 @section('content')
     <div class="wrap-main">
         <div class="title-main">
-            <span><?= $pageName ?></span>
+            <span><?= $TieuDe ?></span>
             <div class="animate-border"></div>
         </div>
         <section class="news">
             <div class="wrap-content">
                 @if ($newsList != false)
-                    <div class="news__list flex-list">
+                    <div class="w-clear">
                         @foreach ($newsList as $item)
                             @include('client.layouts.components.NewsItem')
                         @endforeach

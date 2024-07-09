@@ -69,11 +69,11 @@ class TaiKhoanController extends Controller
 
     public function clientInfo()
     {
-        $pageName = 'Thông tin cá nhân';
+        $TieuDe = 'Thông tin cá nhân';
         $id = Auth::guard('client')->id();
         $clientInfo = ThanhVien::where('id', $id)->first();
         $nowDate = date('Y-m-d');
-        return view('client.account.info', compact('pageName', 'clientInfo', 'nowDate'));
+        return view('client.account.info', compact('TieuDe', 'clientInfo', 'nowDate'));
     }
 
     public function handleUpdate(Request $request)

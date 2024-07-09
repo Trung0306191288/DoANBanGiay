@@ -96,17 +96,17 @@ use App\Http\Controllers\Clients\TrangChuController;
                         <div class="col-brand">
                             @foreach (TrangChuController::brand() as $v)
                             <div class="items-brand">
-								<div class="box-brand">
-									<div class="pic-brand">
-										<a class="img-brand scale-img" title="{{ $v['ten'] }}" href="">
+                                <div class="box-brand hrv-rotateY">
+                                    <div class="pic-brand">
+                                        <a class="img-brand" title="{{ $v['ten'] }}" href="{{ route('brandDetailPage',['name_list'=>$v->ten,'id_brand'=>$v->id]) }}">
                                             <img src="{{ asset('upload/thuonghieu/' . $v['hinh_anh']) }}" alt="{{ $v['ten'] }}">
                                         </a>
-									</div>
-									<div class="info-brand">
-										<h3 class="mb-0 name-brand"><a title="{{ $v['ten'] }}" href="">{{ $v['ten'] }}</a></h3>
-										<ion-icon name="chevron-forward-outline"></ion-icon>
-									</div>
-								</div>
+                                    </div>
+                                    <div class="info-brand">
+                                        <h3 class="mb-0 name-brand"><a title="{{ $v['ten'] }}" href="{{ route('brandDetailPage',['name_list'=>$v->ten,'id_brand'=>$v->id]) }}">{{ $v['ten'] }}</a></h3>
+                                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                                    </div>
+                                </div>
 							</div>	
                             @endforeach
                         </div>
@@ -156,6 +156,10 @@ use App\Http\Controllers\Clients\TrangChuController;
                                         </div> 
                                     </div>   
                                 @endforeach
+                            </div>
+                        @else
+                            <div class="alert alert-warning w-100" role="alert">
+                                <strong>Không tìm thấy kết quả</strong>
                             </div>
                         @endif
                     </div>

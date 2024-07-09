@@ -18,7 +18,7 @@
                         <span class="my-info-box-icon info-box-icon bg-danger"><ion-icon name="bag-handle-outline"></ion-icon></span>
                         <div class="info-box-content text-dark">
                             <span class="info-box-text text-capitalize">Tổng đơn hàng</span>
-                            <span class="number-product-admin">{{ $count_pro }}</span>
+                            <span class="number-product-admin">{{ $count_order }}</span>
                             <span class="info-box-number">Xem ngay</span>
                         </div>
                     </a>
@@ -63,7 +63,7 @@
                 labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
                 datasets: [
                     {
-                        label: 'Doanh thu theo tháng của shop giày cũ',
+                        label: 'Doanh thu theo tháng của shop giày hiệu sài gòn',
                         data: {{ $data_month_chart }},
                         backgroundColor: 'rgba(0, 128, 128, 0.3)',
                         borderColor: 'rgba(0, 128, 128, 0.7)',
