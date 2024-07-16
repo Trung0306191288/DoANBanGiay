@@ -343,13 +343,28 @@ $(document).ready(function() {
         };
     }
 
+    function handleSelectAll(selector, className) {
+        $(selector).change(function() {
+            var isChecked = this.checked;
+            $(className).each(function() {
+                this.checked = isChecked;
+            });
+            filterProduct();
+        });
+    }
+
     if ($(".noidung").length) {
         $(".noidung input").click(filterProduct);
         $("[type=range]").change(filterProduct);
     }
 
+    handleSelectAll('#select_all_brands', '.brand_filter');
+    handleSelectAll('#select_all_sizes', '.size_filter');
+    handleSelectAll('#select_all_colors', '.color_filter');
+
     initializeSlider();
 });
+
 </script>
 
 <?php /*

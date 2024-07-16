@@ -140,7 +140,7 @@ class PaymentController extends Controller
             
             session()->forget('cart');
             // return redirect()->route('orderInfo', $request->vnp_TxnRef); 
-            return redirect()->route('cart'); 
+            return redirect()->route('TrangChu'); 
 
         }
         dd('Lỗi thanh toán phí dịch vụ');

@@ -143,8 +143,6 @@ class GioHangController extends Controller
         $orderDetail = ChiTietDonHang::where('id_don_hang', $id)
             ->get();
         $paymentMethod = $orderInfo->hinh_thuc_thanh_toan ?? 'Thanh toán Vnpay';
-
-        // Retrieve the payment method details
         $payment = Baiviet::where('loai', 'payments')
                     ->where('id', $paymentMethod)
                     ->first();

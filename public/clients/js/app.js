@@ -275,7 +275,7 @@ function AddCart() {
                     }
                 });
             } else {
-                AlertBoxHandMade('Bạn vui lòng chọn màu sắc và kích thước cho sản phẩm!');
+                AlertBoxHandMade('Vui lòng chọn màu sắc và kích thước cho sản phẩm!');
             }
         });
     }

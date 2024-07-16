@@ -103,7 +103,7 @@
                 <div class="right_form">
                     <div class="box_list_img">
                         <div class="card">
-                            <div class="card-header">Hình ảnh sản phẩm</div>
+                            <div class="card-header">Hình ảnh</div>
                             <div class="card-body">
                                 <div class="box_img">         
                                     @if($update != NULL)

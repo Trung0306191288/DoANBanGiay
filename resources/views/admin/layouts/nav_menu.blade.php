@@ -55,9 +55,9 @@
                         <a href="{{ route('member_admins') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Tài khoản Quản trị</a>
                     </li>
                 @endif
-                <li>
+                {{-- <li>
                     <a href="{{ route('cate_members') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Danh mục Tài Khoản</a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ route('member_client') }}"><ion-icon name="caret-forward-circle-outline"></ion-icon>Tài khoản Thành viên</a>
                 </li>

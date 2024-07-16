@@ -243,57 +243,57 @@ class TrangChuController extends Controller
     }
 
     public function categoryListPage(Request $request, $name_list, $id_list)
-    {
-        $TieuDe = $name_list;
-    
-        $query = SanPham::where('id_cap_mot', $id_list)
-                        ->where('tinh_trang', '1');
-    
-        if ($request->has('kichthuoc')) {
-            $sizes = explode(',', $request->input('kichthuoc'));
-            $query->whereHas('sizes', function ($q) use ($sizes) {
-                $q->whereIn('kich_thuocs.id', $sizes)
-                  ->whereNull('kich_thuocs.deleted_at');
-            });
-        }
-    
-        if ($request->has('mausac')) {
-            $colors = explode(',', $request->input('mausac'));
-            $query->whereHas('colors', function ($q) use ($colors) {
-                $q->whereIn('mau_sacs.id', $colors)
-                  ->whereNull('mau_sacs.deleted_at');
-            });
-        }
+{
+    $TieuDe = $name_list;
 
-        if ($request->has('thuonghieu')) {
-            $brands = explode(',', $request->input('thuonghieu'));
-            $query->whereHas('brandPro', function ($q) use ($brands) {
-                $q->whereIn('thuong_hieus.id', $brands)
-                  ->whereNull('thuong_hieus.deleted_at');
-            });
-        }
-    
-        if ($request->has('khoanggia')) {
-            [$minPrice, $maxPrice] = explode('-', $request->input('khoanggia'));
-            $query->whereBetween('gia_ban', [(float) $minPrice, (float) $maxPrice]);
-        }
-    
-        $query->whereNull('deleted_at');
-    
-        // Xuất dữ liệu sản phẩm đã lọc
-        $products = $query->paginate(20);
-    
-        // Query lấy dữ liệu
-        $cate = DanhMucCapMot::orderBy('id')->get();
-        $cate_two = DanhMucCapHai::orderBy('id')->get();
-        $brand_pro = ThuongHieu::orderBy('id')->get();
-        $size_pro = KichThuoc::orderBy('id')->get();
-        $color_pro = MauSac::orderBy('id')->get();
-        $cap_2 = 1;
-    
-        // Return view with the data
-        return view('client.san-pham.index', compact('TieuDe', 'products', 'cate', 'brand_pro', 'cap_2', 'cate_two', 'size_pro', 'color_pro'));
+    $query = SanPham::where('id_cap_mot', $id_list)
+                    ->where('tinh_trang', '1');
+
+    if ($request->has('kichthuoc') && !empty($request->input('kichthuoc'))) {
+        $sizes = explode(',', $request->input('kichthuoc'));
+        $query->whereHas('sizes', function ($q) use ($sizes) {
+            $q->whereIn('kich_thuocs.id', $sizes)
+              ->whereNull('kich_thuocs.deleted_at');
+        });
     }
+
+    if ($request->has('mausac') && !empty($request->input('mausac'))) {
+        $colors = explode(',', $request->input('mausac'));
+        $query->whereHas('colors', function ($q) use ($colors) {
+            $q->whereIn('mau_sacs.id', $colors)
+              ->whereNull('mau_sacs.deleted_at');
+        });
+    }
+
+    if ($request->has('thuonghieu') && !empty($request->input('thuonghieu'))) {
+        $brands = explode(',', $request->input('thuonghieu'));
+        $query->whereHas('brandPro', function ($q) use ($brands) {
+            $q->whereIn('thuong_hieus.id', $brands)
+              ->whereNull('thuong_hieus.deleted_at');
+        });
+    }
+
+    if ($request->has('khoanggia')) {
+        [$minPrice, $maxPrice] = explode('-', $request->input('khoanggia'));
+        $query->whereBetween('gia_ban', [(float) $minPrice, (float) $maxPrice]);
+    }
+
+    $query->whereNull('deleted_at');
+
+    // Xuất dữ liệu sản phẩm đã lọc
+    $products = $query->paginate(20);
+
+    // Query lấy dữ liệu
+    $cate = DanhMucCapMot::orderBy('id')->get();
+    $cate_two = DanhMucCapHai::orderBy('id')->get();
+    $brand_pro = ThuongHieu::orderBy('id')->get();
+    $size_pro = KichThuoc::orderBy('id')->get();
+    $color_pro = MauSac::orderBy('id')->get();
+    $cap_2 = 1;
+
+    return view('client.san-pham.index', compact('TieuDe', 'products', 'cate', 'brand_pro', 'cap_2', 'cate_two', 'size_pro', 'color_pro'));
+}
+
     
     public function categoryCatPage(Request $request, $name_list, $id_list, $name_cat, $id_cat)
     {
