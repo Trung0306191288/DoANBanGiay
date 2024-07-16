@@ -28,10 +28,15 @@ $settings = TrangChuController::setting();
                                         <p>Kích thước</p>
                                         <div class="noidung noidung_size filter-options-content" data-type="kichthuoc">
                                             <div class="flex">
+                                                <li>
+                                                    <label>
+                                                        <input type="checkbox" id="select_all_sizes"> Chọn tất cả
+                                                    </label>
+                                                </li>
                                                 @foreach ($size_pro as $v)
                                                 <li>
                                                     <label>
-                                                        <input type="checkbox" class="kich_thuoc" value="{{ $v->id }}" {{ in_array($v->id, $size1) ? "checked" : "" }}>
+                                                        <input type="checkbox" class="size_filter" value="{{ $v->id }}" {{ in_array($v->id, $size1) ? "checked" : "" }}>
                                                         {{ $v->{'ten'} }}
                                                     </label>
                                                 </li>
@@ -43,10 +48,15 @@ $settings = TrangChuController::setting();
                                         <p>Màu sắc</p>
                                         <div class="noidung noidung_color filter-options-content" data-type="mausac">
                                             <div class="flex">
+                                                <li>
+                                                    <label>
+                                                        <input type="checkbox" id="select_all_colors"> Chọn tất cả
+                                                    </label>
+                                                </li>
                                                 @foreach ($color_pro as $v)
                                                 <li>
                                                     <label>
-                                                        <input type="checkbox" class="mau_sac" value="{{ $v->id }}" {{ in_array($v->id, $color1) ? "checked" : "" }}>
+                                                        <input type="checkbox" class="color_filter" value="{{ $v->id }}" {{ in_array($v->id, $color1) ? "checked" : "" }}>
                                                         {{ $v->{'ten'} }}
                                                     </label>
                                                 </li>

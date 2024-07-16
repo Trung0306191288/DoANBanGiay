@@ -42,6 +42,7 @@ Route::prefix('/')->group(function () {
         Route::get('san-pham/{id}', 'index')->name('productDetailPage');
         Route::get('load_price', 'loadPrice')->name('ajaxLoadPrice');
     });
+    
 
     Route::controller(ChiTietBaiVietController::class)->group(function () {
         Route::get('tin-tuc', 'index')->name('newsListPage');

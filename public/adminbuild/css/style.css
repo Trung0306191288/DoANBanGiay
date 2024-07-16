@@ -1154,3 +1154,12 @@ span.pros__price_old { font-size: 13px; color: #000; }
 .arlert_tong ion-icon {
     font-size: 35px;
 }
+
+.tabs-pro-detail ul li a {
+    color: #000;
+}
+
+.tabs-pro-detail ul li a.active,.tabs-pro-detail ul li a:hover {
+    /* font-weight: bold; */
+    color: #f00 !important;
+}

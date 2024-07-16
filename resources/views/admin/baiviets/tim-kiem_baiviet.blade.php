@@ -41,7 +41,7 @@
                             @endif  
                         </a>
                     </td>
-                    <td>{{ $v['name'] }}</td>
+                    <td>{{ $v['ten'] }}</td>
                     <td class="text-center" style="width: 200px;">
                         <select class="form-select" aria-label="Default select example" name="status_baiviet_ajax_1" id="status_baiviet_ajax_1" data-id="{{ $v['id'] }}"> 
                             @if($v['trang_thai'] == 1)

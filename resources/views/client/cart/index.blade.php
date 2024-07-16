@@ -16,7 +16,7 @@
                                 <div class="order-info__item">
                                     <p class="order-info__title">Mã đơn hàng:</p>
                                     <p class="order-info__content">
-                                        <span>{{ $orderInfo->ma_don_hang ?? 'N/A' }} {{ $orderInfo1->ho_ten ?? 'N/A' }}</span>
+                                        <span>{{ $orderInfo->ma_don_hang ?? 'N/A' }}</span>
                                     </p>
                                 </div>
                                 <div class="order-info__item">
@@ -125,7 +125,7 @@
                         <div class="box_total_order">
                             <div class="item_Ship">
                                 <span style="font-weight:bold;">Tổng tiền của bạn:</span>
-                                {{-- <span style="color:#ec2d3f;font-weight:bold;">@convert($orderInfo->tong_gia)</span> --}}
+                                <span style="color:#ec2d3f;font-weight:bold;">@convert($orderInfo->tong_gia)</span>
                             </div>
                         </div>
                     </div>
