@@ -218,27 +218,27 @@ Number.prototype.format = function(currency, n, x) {
 // }
 
 
-// function getSizeId() {
-//     if (isExist($('.product-detail__storage'))) {
-//         $('.size__item').on('click', function() {
-//             $('.size__item.active').removeClass('active');
-//             $(this).addClass('active');
+function getSizeId() {
+    if (isExist($('.product-detail__storage'))) {
+        $('.size__item').on('click', function() {
+            $('.size__item.active').removeClass('active');
+            $(this).addClass('active');
 
-//             findProductPrice();
-//         });
-//     }
-// }
+            findProductPrice();
+        });
+    }
+}
 
-// function getColorId() {
-//     if (isExist($('.product-detail__color'))) {
-//         $('.color__item').on('click', function() {
-//             $('.color__item.active').removeClass('active');
-//             $(this).addClass('active');
+function getColorId() {
+    if (isExist($('.product-detail__color'))) {
+        $('.color__item').on('click', function() {
+            $('.color__item.active').removeClass('active');
+            $(this).addClass('active');
 
-//             findProductPrice();
-//         });
-//     }
-// }
+            findProductPrice();
+        });
+    }
+}
 
 function AddCart() {
     if (isExist($('.add-cart'))) {
@@ -498,7 +498,6 @@ const isValidPhone = phone => /(([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09
 $(function() {
     MenuScroll();
     SlideShow();
-    News();
     News();
     // Tieuchi();
     eyesOnOff();

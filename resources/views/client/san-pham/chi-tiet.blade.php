@@ -173,33 +173,6 @@
                             $('.cart__item-quantity input').attr('data-max', productPrice.kho_hang);
                         }
                     }
-                
-                    function getSizeId() {
-                        if (isExist($('.product-detail__storage'))) {
-                            $('.size__item').on('click', function() {
-                                $('.size__item.active').removeClass('active');
-                                $(this).addClass('active');
-                
-                                findProductPrice();
-                            });
-                        }
-                    }
-                
-                    function getColorId() {
-                        if (isExist($('.product-detail__color'))) {
-                            $('.color__item').on('click', function() {
-                                $('.color__item.active').removeClass('active');
-                                $(this).addClass('active');
-                
-                                findProductPrice();
-                            });
-                        }
-                    }
-                
-                    $(document).ready(function() {
-                        getSizeId();
-                        getColorId();
-                    });
                 </script>
                 
             
