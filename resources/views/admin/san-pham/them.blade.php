@@ -198,7 +198,7 @@
                             <div class="box_input add">
                                 <label for="title">Nội dung</label>
                                 <textarea type="text" class="form-control form_textarea" name="content_product" id="content_product"
-                                    placeholder="Nội dung">{{ $update != null ? $update['noi_Dung'] : '' }}</textarea>
+                                    placeholder="Nội dung">{{ $update != null ? $update['noi_dung'] : '' }}</textarea>
                             </div>
                         </div>
                     </div>

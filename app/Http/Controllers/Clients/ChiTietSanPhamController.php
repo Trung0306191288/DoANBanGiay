@@ -24,24 +24,24 @@ class ChiTietSanPhamController extends Controller
         $TieuDe = 'Chi tiết sản phẩm';
         $clrProduct = ChiTietMauSac::where('id_san_pham', $id)->get('id_mau_sac');
         $sizeProduct = ChiTietKichThuoc::where('id_san_pham', $id)->get('id_kich_thuoc');
-        $sizeName = null;
-        $clrName = null;
-        for ($i = 0; $i < count($clrProduct); $i++) {
-            $clrName[$i] = MauSac::where('id', $clrProduct[$i]['id_mau_sac'])
-                ->select('id', 'ten','code_mau')
-                ->get();
+        $sizeName = [];
+        $clrName = [];
+        $priceData = [];
+    
+        foreach ($clrProduct as $clr) {
+            $clrName[] = MauSac::where('id', $clr['id_mau_sac'])
+                ->select('id', 'ten', 'code_mau')
+                ->first();
         }
-        for ($i = 0; $i < count($sizeProduct); $i++) {
-            $sizeName[$i] = KichThuoc::where('id', $sizeProduct[$i]['id_kich_thuoc'])
+    
+        foreach ($sizeProduct as $size) {
+            $sizeName[] = KichThuoc::where('id', $size['id_kich_thuoc'])
                 ->select('id', 'ten')
-                ->get();
+                ->first();
         }
-
-        $productPhotoChild = Gallerys::where('id_san_pham', $id)
-            ->get();
-        $productDetail = SanPham::where('id', $id)
-            ->where('tinh_trang', '1')
-            ->first();
+    
+        $productPhotoChild = Gallerys::where('id_san_pham', $id)->get();
+        $productDetail = SanPham::where('id', $id)->where('tinh_trang', '1')->first();
         if ($productDetail) {
             $productBrand = ThuongHieu::where('id', $productDetail['id_thuong_hieu'] ?? null)->first();
         } else {
@@ -53,28 +53,25 @@ class ChiTietSanPhamController extends Controller
             ->where('id_cap_hai', $productDetail['id_cap_hai'])
             ->take(10)
             ->get();
-
+    
         if (!empty($productDetail)) {
             $productDetail = $productDetail;
         } else {
             $productDetail = false;
         }
-
-        return view('client.san-pham.chi-tiet', compact('TieuDe', 'productDetail', 'clrName', 'sizeName', 'productPhotoChild', 'productBrand', 'productsRelated'));
+    
+        // Get all price data
+        $priceEntries = GiaTheoKichThuoc::where('id_san_pham', $id)->get();
+        foreach ($priceEntries as $entry) {
+            $priceData[$entry['id_kich_thuoc']][$entry['id_mau_sac']] = [
+                'gia_moi' => $entry['gia_moi'],
+                'gia_ban' => $entry['gia_ban'],
+                'kho_hang' => $entry['kho_hang']
+            ];
+        }
+    
+        return view('client.san-pham.chi-tiet', compact('TieuDe', 'productDetail', 'clrName', 'sizeName', 'productPhotoChild', 'productBrand', 'productsRelated', 'priceData'));
     }
+    
 
-    public function loadPrice(Request $data)
-    {
-        $productPrice = GiaTheoKichThuoc::where('id_san_pham', $data['idPrd'])
-            ->where('id_kich_thuoc', $data['idSize'])
-            ->where('id_mau_sac', $data['idColor'])
-            ->select('gia_moi', 'gia_ban', 'kho_hang')
-            ->get();
-
-        return response()->json(array([
-            'priceNew' => $productPrice[0]['gia_moi'],
-            'priceOld' => $productPrice[0]['gia_ban'],
-            'inventory' => $productPrice[0]['kho_hang'],
-        ]), 200);
-    }
 }
