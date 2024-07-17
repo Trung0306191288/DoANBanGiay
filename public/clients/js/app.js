@@ -185,60 +185,60 @@ Number.prototype.format = function(currency, n, x) {
     return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&.') + currency;
 };
 
-function findProductPrice() {
-    if (isExist($('.size__item.active')) && isExist($('.color__item.active'))) {
-        var idSize = $('.size__item.active').data('id'),
-            idColor = $('.color__item.active').data('id'),
-            idPrd = $('.product-detail').data('id'),
-            url = $('.product-detail').data('url');
+// function findProductPrice() {
+//     if (isExist($('.size__item.active')) && isExist($('.color__item.active'))) {
+//         var idSize = $('.size__item.active').data('id'),
+//             idColor = $('.color__item.active').data('id'),
+//             idPrd = $('.product-detail').data('id'),
+//             url = $('.product-detail').data('url');
 
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: 'GET',
-            url: url,
-            dataType: 'json',
-            data: {
-                idPrd: idPrd,
-                idSize: idSize,
-                idColor: idColor
-            },
-            success: function(result) {
-                var priceNew = result[0].priceNew.format('đ'),
-                    priceOld = result[0].priceOld.format('đ'),
-                    inventory = result[0].inventory;
+//         $.ajax({
+//             headers: {
+//                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//             },
+//             type: 'GET',
+//             url: url,
+//             dataType: 'json',
+//             data: {
+//                 idPrd: idPrd,
+//                 idSize: idSize,
+//                 idColor: idColor
+//             },
+//             success: function(result) {
+//                 var priceNew = result[0].priceNew.format('đ'),
+//                     priceOld = result[0].priceOld.format('đ'),
+//                     inventory = result[0].inventory;
 
-                $(".product-detail__price-new").html(priceNew);
-                $(".product-detail__price-old").html(priceOld);
-                $('.cart__item-quantity input').attr('data-max', inventory);
-            }
-        })
-    }
-}
+//                 $(".product-detail__price-new").html(priceNew);
+//                 $(".product-detail__price-old").html(priceOld);
+//                 $('.cart__item-quantity input').attr('data-max', inventory);
+//             }
+//         })
+//     }
+// }
 
 
-function getSizeId() {
-    if (isExist($('.product-detail__storage'))) {
-        $('.size__item').on('click', function() {
-            $('.size__item.active').removeClass('active');
-            $(this).addClass('active');
+// function getSizeId() {
+//     if (isExist($('.product-detail__storage'))) {
+//         $('.size__item').on('click', function() {
+//             $('.size__item.active').removeClass('active');
+//             $(this).addClass('active');
 
-            findProductPrice();
-        });
-    }
-}
+//             findProductPrice();
+//         });
+//     }
+// }
 
-function getColorId() {
-    if (isExist($('.product-detail__color'))) {
-        $('.color__item').on('click', function() {
-            $('.color__item.active').removeClass('active');
-            $(this).addClass('active');
+// function getColorId() {
+//     if (isExist($('.product-detail__color'))) {
+//         $('.color__item').on('click', function() {
+//             $('.color__item.active').removeClass('active');
+//             $(this).addClass('active');
 
-            findProductPrice();
-        });
-    }
-}
+//             findProductPrice();
+//         });
+//     }
+// }
 
 function AddCart() {
     if (isExist($('.add-cart'))) {

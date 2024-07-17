@@ -101,7 +101,7 @@ Route::prefix('/admin')->group(function () {
 
         Route::get('loadcapmot', [FunctionsController::class, 'LoadCapMot'])->name('loadcapmot');
         Route::get('ajax_loadproduct', [FunctionsController::class, 'ajax_loadProduct'])->name('ajax_loadproduct');
-        Route::get('ajax_deletegallery', [FunctionsController::class, 'ajax_deleteGallery'])->name('ajax _deletegallery');
+        Route::get('ajax_deletegallery', [FunctionsController::class, 'xoaHinhAnhCon'])->name('ajax_deletegallery');
         
 
         Route::controller(MemberController::class)->group(function () {

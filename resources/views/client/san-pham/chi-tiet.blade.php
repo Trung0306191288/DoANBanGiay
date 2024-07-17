@@ -3,7 +3,7 @@
     <div class="wrap-main">
         <div class="product-detail">
             <div class="wrap-content">
-                <div class="product-detail" data-id="{{ $productDetail['id'] }}" data-url="{{ route('ajaxLoadPrice') }}">
+                <div class="product-detail" data-id="{{ $productDetail['id'] }}">
                     <div class="product-detail--left">
                         <div class="product-detail--left-top">
                             <div class="product-detail--left-top-left">
@@ -12,17 +12,15 @@
                                         <div class="swiper-wrapper">
                                             <div class="product-detail__photo-parent-item swiper-slide">
                                                 <figure class="product-detail_photo-inner">
-                                                    <img src="{{ asset('upload/sanpham/' . $productDetail['hinh_anh']) }}"
-                                                        alt="{{ $productDetail['ten'] }}">
-                                                    <figcaption class="figcaption-hidden">{{ $productDetail['ten'] }}
+                                                    <img src="{{ asset('upload/sanpham/' . $productDetail['hinh_anh']) }}" alt="{{ $productDetail['ten'] }}">
+                                                    <figcaption class="figcaption-hidden">{{ $productDetail['ten'] }}</figcaption>
                                                 </figure>
                                             </div>
                                             @foreach ($productPhotoChild as $photoChild)
                                                 <div class="product-detail__photo-parent-item swiper-slide">
                                                     <figure class="product-detail_photo-inner">
-                                                        <img src="{{ asset('upload/sanpham/gallery/' . $photoChild['hinh_anh']) }}"
-                                                            alt="{{ $productDetail['ten'] }}">
-                                                        <figcaption class="figcaption-hidden">{{ $productDetail['ten'] }}
+                                                        <img src="{{ asset('upload/sanpham/gallery/' . $photoChild['hinh_anh']) }}" alt="{{ $productDetail['ten'] }}">
+                                                        <figcaption class="figcaption-hidden">{{ $productDetail['ten'] }}</figcaption>
                                                     </figure>
                                                 </div>
                                             @endforeach
@@ -36,17 +34,15 @@
                                         <div class="swiper-wrapper">
                                             <div class="product-detail__photo-child-item swiper-slide">
                                                 <figure class="product-detail_photo-inner">
-                                                    <img src="{{ asset('upload/sanpham/' . $productDetail['hinh_anh']) }}"
-                                                        alt="{{ $productDetail['ten'] }}">
-                                                    <figcaption class="figcaption-hidden">{{ $productDetail['ten'] }}
+                                                    <img src="{{ asset('upload/sanpham/' . $productDetail['hinh_anh']) }}" alt="{{ $productDetail['ten'] }}">
+                                                    <figcaption class="figcaption-hidden">{{ $productDetail['ten'] }}</figcaption>
                                                 </figure>
                                             </div>
                                             @foreach ($productPhotoChild as $photoChild)
                                                 <div class="product-detail__photo-child-item swiper-slide">
                                                     <figure class="product-detail_photo-inner">
-                                                        <img src="{{ asset('upload/sanpham/gallery/' . $photoChild['hinh_anh']) }}"
-                                                            alt="{{ $productDetail['hinh_anh'] }}">
-                                                        <figcaption class="figcaption-hidden">{{ $productDetail['hinh_anh'] }}
+                                                        <img src="{{ asset('upload/sanpham/gallery/' . $photoChild['hinh_anh']) }}" alt="{{ $productDetail['hinh_anh'] }}">
+                                                        <figcaption class="figcaption-hidden">{{ $productDetail['hinh_anh'] }}</figcaption>
                                                     </figure>
                                                 </div>
                                             @endforeach
@@ -68,46 +64,37 @@
                                             <p class="product-detail__label">Mã sản phẩm: </p>
                                             <div class="product-detail__attr-name">{{ $productDetail['ma_san_pham'] }}</div>
                                         </div>
-                                        <div class="product-detail__content">
+                                        <div class="product-detail__content mb-0">
                                             {!! $productDetail['mo_ta'] !!}
                                         </div>
                                         <div class="product-detail__price mb-3">
-                                            @if($productDetail['gia_moi'])
-                                                <p class="product-detail__label">Giá bán</p>
-                                                <div class="product-detail__price-item">
-                                                    <span class="product-detail__price-new">
+                                            <p class="product-detail__label">Giá bán</p>
+                                            <div class="product-detail__price-item">
+                                                <span class="product-detail__price-new">
+                                                    @if($productDetail['gia_moi'])
                                                         @convert($productDetail['gia_moi'])
-                                                    </span>
+                                                    @elseif($productDetail['gia_ban'])
+                                                        @convert($productDetail['gia_ban'])
+                                                    @else
+                                                        Liên hệ
+                                                    @endif
+                                                </span>
+                                                @if($productDetail['gia_moi'])
                                                     <span class="product-detail__price-old">
                                                         @convert($productDetail['gia_ban'])
                                                     </span>
-                                                </div>
-                                            @elseif($productDetail['gia_ban'])
-                                                <p class="product-detail__label">Giá bán</p>
-                                                <div class="product-detail__price-item">
-                                                    <span class="product-detail__price-new">
-                                                        @convert($productDetail['gia_ban'])
-                                                    </span>
-                                                </div>
-                                            @else
-                                                <p class="product-detail__label">Giá bán</p>
-                                                <div class="product-detail__price-item">
-                                                    <span class="product-detail__price-new">
-                                                        Liên hệ
-                                                    </span>
-                                                </div>
-                                            @endif
+                                                @endif
+                                            </div>
                                         </div>
+                                        
                                         @empty(!$sizeName)
                                             <div class="product-detail__storage mb-3">
                                                 <div class="product-detail__label">Kích thước</div>
                                                 <div class="storage__list">
-                                                    @foreach ($sizeName as $sizes)
-                                                        @foreach ($sizes as $size)
-                                                            <div class="size__item" data-id="{{ $size->id }}">
-                                                                <div class="size__name">{{ $size->ten }}</div>
-                                                            </div>
-                                                        @endforeach
+                                                    @foreach ($sizeName as $size)
+                                                        <div class="size__item" data-id="{{ $size->id }}">
+                                                            <div class="size__name">{{ $size->ten }}</div>
+                                                        </div>
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -116,34 +103,26 @@
                                             <div class="product-detail__color mb-3">
                                                 <div class="product-detail__label">Màu sắc</div>
                                                 <div class="color__list">
-                                                    @foreach ($clrName as $clrs)
-                                                        @foreach ($clrs as $k => $clr)
-                                                            <div class="color__item" data-id="{{ $clr->id }}">
-                                                                <div class="color__name" style="background: {{ $clr->code_mau }};  width: 35px;height: 35px;border-radius:5px;"></div>
-                                                            </div>
-                                                        @endforeach
+                                                    @foreach ($clrName as $clr)
+                                                        <div class="color__item" data-id="{{ $clr->id }}">
+                                                            <div class="color__name" style="background: {{ $clr->code_mau }}; width: 35px;height: 35px;border-radius:5px;"></div>
+                                                        </div>
                                                     @endforeach
                                                 </div>
                                             </div>
                                         @endempty
                                         <div class="cart__item-quantity" data-url="{{ route('update.cart') }}">
-                                            <span
-                                                class="cart__item-quantity-minus --minus cart__item-quantity-button detail">
+                                            <span class="cart__item-quantity-minus --minus cart__item-quantity-button detail">
                                                 <ion-icon name="remove-outline"></ion-icon>
                                             </span>
                                             <input type="number" value="1" class="hidden-spin" data-min="1" readonly />
-                                            <span
-                                                class="cart__item-quantity-plus --plus cart__item-quantity-button detail">
+                                            <span class="cart__item-quantity-plus --plus cart__item-quantity-button detail">
                                                 <ion-icon name="add-outline"></ion-icon>
                                             </span>
                                         </div>
                                         <div class="product-detail__button">
-                                            <div class="product-detail__button-item add-cart"
-                                                data-id="{{ $productDetail['id'] }}"
-                                                data-url="{{ route('add.to.cart', $productDetail['id']) }}">Thêm vào giỏ hàng</div>
-                                            <div class="product-detail__button-item add-cart buy-now"
-                                                data-id="{{ $productDetail['id'] }}"
-                                                data-url="{{ route('add.to.cart', $productDetail['id']) }}">Mua ngay</div>
+                                            <div class="product-detail__button-item add-cart" data-id="{{ $productDetail['id'] }}" data-url="{{ route('add.to.cart', $productDetail['id']) }}">Thêm vào giỏ hàng</div>
+                                            <div class="product-detail__button-item add-cart buy-now" data-id="{{ $productDetail['id'] }}" data-url="{{ route('add.to.cart', $productDetail['id']) }}">Mua ngay</div>
                                         </div>
                                     </form>
                                 </div>
@@ -164,10 +143,66 @@
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
+            
+                <script>
+                    var priceData = @json($priceData);
+                
+                    function findProductPrice() {
+                        var idSize = $('.size__item.active').data('id'),
+                            idColor = $('.color__item.active').data('id');
+                
+                        if (idSize && idColor && priceData[idSize] && priceData[idSize][idColor]) {
+                            var productPrice = priceData[idSize][idColor],
+                                priceNew = productPrice.gia_moi ? productPrice.gia_moi.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '',
+                                priceOld = productPrice.gia_ban ? productPrice.gia_ban.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : '';
+                
+                            if (priceNew && priceOld) {
+                                $(".product-detail__price-new").html(priceNew);
+                                $(".product-detail__price-old").html(priceOld);
+                            } else if (priceOld) {
+                                $(".product-detail__price-new").html(priceOld);
+                                $(".product-detail__price-old").html('');
+                            } else {
+                                $(".product-detail__price-new").html('Liên hệ');
+                                $(".product-detail__price-old").html('');
+                            }
+                
+                            $('.cart__item-quantity input').attr('data-max', productPrice.kho_hang);
+                        }
+                    }
+                
+                    function getSizeId() {
+                        if (isExist($('.product-detail__storage'))) {
+                            $('.size__item').on('click', function() {
+                                $('.size__item.active').removeClass('active');
+                                $(this).addClass('active');
+                
+                                findProductPrice();
+                            });
+                        }
+                    }
+                
+                    function getColorId() {
+                        if (isExist($('.product-detail__color'))) {
+                            $('.color__item').on('click', function() {
+                                $('.color__item.active').removeClass('active');
+                                $(this).addClass('active');
+                
+                                findProductPrice();
+                            });
+                        }
+                    }
+                
+                    $(document).ready(function() {
+                        getSizeId();
+                        getColorId();
+                    });
+                </script>
+                
+            
             </div>
         </div>
         @if (count($productsRelated))
